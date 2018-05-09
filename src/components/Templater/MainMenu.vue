@@ -1,41 +1,43 @@
 <template>
   <nav id="main-menu" class="navbar" role="navigation" aria-label="main navigation">
-    <div class="navbar-start">
-      <a class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-          {{ $t('anonymous') }}
+    <div class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            {{ $t('anonymous') }}
+          </a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item"
+              @click="showUserModal()">
+              {{ $t('login') }}
+            </a>
+            <a class="navbar-item"
+              @click="changeNameUser()">
+              {{ $t('changeName') }}
+            </a>
+            <hr class="navbar-divider">
+            <a class="navbar-item"
+              @click="logoutUser()">
+              {{ $t('logout') }}
+            </a>
+          </div>
         </a>
-        <div class="navbar-dropdown">
-          <a class="navbar-item"
-            @click="showUserModal()">
-            {{ $t('login') }}
+        <a class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            {{ $t('language') }}
           </a>
-          <a class="navbar-item"
-            @click="changeNameUser()">
-            {{ $t('changeName') }}
-          </a>
-          <hr class="navbar-divider">
-          <a class="navbar-item"
-            @click="logoutUser()">
-            {{ $t('logout') }}
-          </a>
-        </div>
-      </a>
-      <a class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-          {{ $t('language') }}
+          <div class="navbar-dropdown">
+            <a class="navbar-item"
+              @click="switchToLanguage('nl')">
+              Nederlands
+            </a>
+            <a class="navbar-item"
+              @click="switchToLanguage('en')">
+              English
+            </a>
+          </div>
         </a>
-        <div class="navbar-dropdown">
-          <a class="navbar-item"
-            @click="switchToLanguage('nl')">
-            Nederlands
-          </a>
-          <a class="navbar-item"
-            @click="switchToLanguage('en')">
-            English
-          </a>
-        </div>
-      </a>
+      </div>
     </div>
   </nav>
 </template>

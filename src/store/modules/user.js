@@ -3,6 +3,10 @@ const state = {
   showUserModal: false,
 };
 
+const getters = {
+  showUserModal: state => state.showUserModal,
+};
+
 const mutations = {
   showUserModal(state) {
     state.showUserModal = true;
@@ -14,5 +18,6 @@ const mutations = {
 
 export default {
   state,
+  getters,
   mutations,
 };

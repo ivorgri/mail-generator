@@ -12,6 +12,9 @@ const messages = {
     'login': 'Login @:user',
     'changeName': 'Change name',
     'logout': 'Log out',
+    'cancel': 'Cancel',
+    'save': 'Save',
+    'userModalTitle': 'Create account',
   },
   nl: {
     'anonymous': 'Anoniem',
@@ -20,6 +23,9 @@ const messages = {
     'login': 'Inloggen',
     'changeName': 'Verander naam',
     'logout': 'Uitloggen',
+    'cancel': 'Annuleer',
+    'save': 'Opslaan',
+    'userModalTitle': 'Account aanmaken',
   },
   /* eslint-enable */
 };

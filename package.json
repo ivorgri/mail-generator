@@ -9,7 +9,9 @@
   },
   "dependencies": {
     "bulma": "^0.7.1",
+    "e": "0.0.4",
     "vue": "^2.5.16",
+    "vue-form-generator": "^2.2.2",
     "vue-i18n": "^7.6.0",
     "vuex": "^3.0.1"
   },
