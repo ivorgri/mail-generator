@@ -1,12 +1,11 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <templater/>
   </div>
 </template>
 
 <script>
-import Templater from './components/Templater.vue';
+import Templater from '@/components/Templater.vue';
 
 export default {
   name: 'MailGenerator',
@@ -18,4 +17,5 @@ export default {
 
 <style lang="scss">
   @import '/styles/settings.scss';
+  @import '../node_modules/bulma/bulma.sass';
 </style>
