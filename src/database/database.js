@@ -1,35 +1,35 @@
-import 'babel-polyfill';
-// import * as RxDB from '';
-import 'rxjs';
-import RxDB from 'rxdb';
-import UserSchema from './userSchema';
+import PouchDB from 'pouchdb';
 
-RxDB.plugin(require('pouchdb-adapter-idb'));
+export default async function (store) {
+  /* Users */
+  const usersDB = new PouchDB('users');
 
-const collections = [{
-  name: 'users',
-  schema: UserSchema,
-}];
-
-window.dbs = window.dbs || [];
-async function clearPrev() {
-  await Promise.all(window.dbs.map(db => db.destroy()));
-}
-
-export default async function () {
-  // console.log('DatabaseService: creating database..');
-  await clearPrev();
-  const db = await RxDB.create({
-    name: 'mailgenerator',
-    adapter: 'idb',
+  usersDB.changes({
+    since: 'now',
+    live: true,
+  }).on('change', () => {
+    store.dispatch('updateUsers');
+  }).on('error', (error) => {
+    console.log(error);
   });
-  window.dbs.push(db);
-  // console.log('DatabaseService: created database');
-  window.db = db;
 
-  // Create collections
-  // console.log('DatabaseService: create collections');
-  await Promise.all(collections.map(colData => db.collection(colData)));
+  store.commit('setUsersDB', usersDB);
+  await store.dispatch('updateUsers');
 
-  return db;
+  /* Collections */
+  const collectionsDB = new PouchDB('collectionsDB');
+
+  collectionsDB.changes({
+    since: 'now',
+    live: true,
+  }).on('change', () => {
+    store.dispatch('updateCollections');
+  }).on('error', (error) => {
+    console.log(error);
+  });
+
+  store.commit('setCollectionsDB', collectionsDB);
+  await store.dispatch('updateCollections');
+
+  return true;
 }

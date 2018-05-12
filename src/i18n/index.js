@@ -6,46 +6,70 @@ Vue.use(VueI18n);
 const messages = {
   /* eslint-disable quote-props */
   en: {
-    /* UserModal */
+    /* UserView */
     'anonymous': 'anonymous',
     'user': 'user',
     'language': 'language',
-    'createUser': 'create @:user',
     'editUser': 'edit @:user',
     'logout': 'log out',
     'cancel': 'cancel',
     'save': 'save',
-    'userModalTitle': 'create @:user',
-    'selectUserModalTitle': 'select @:user',
-    'name': 'name',
-    'yourName': 'your name',
+    'select': 'select',
+    'saveAndLogin': '@:user @:save and @:select',
+    'createUser': 'create @:user',
+    'updateUser': 'update @:user',
     'selectUser': 'select @:user',
+    'name': 'name',
+    'description': 'description',
+    'yourName': 'your name',
     /* Validators */
     'fieldIsRequired': 'this field is required',
     'textTooSmall': 'too short, should be {1} and is {0}',
+    'noneSelectedText': '@:select @:language',
     /* Collections */
+    'collection': 'collection',
     'collections': 'collections',
+    'noCollections': 'no @:collections',
+    'addCollection': 'add @:collection',
+    'openCollections': 'open @:collections',
+    'createCollection': 'create @:collection',
+    'updateCollection': 'update @:collection',
+    'collectionName': 'name of @:collection',
+    'collectionDescription': 'description of @:collection',
+    'saveAndOpenCollection': 'save and open @:collection',
   },
   nl: {
-    /* UserModal */
+    /* UserView */
     'anonymous': 'anoniem',
     'user': 'gebruiker',
     'language': 'taal',
-    'createUser': 'maak @:user aan',
     'editUser': 'pas @:user aan',
     'logout': 'uitloggen',
     'cancel': 'annuleer',
     'save': 'opslaan',
-    'userModalTitle': '@:user aanmaken',
-    'selectUserModalTitle': 'selecteer @:user',
-    'name': 'naam',
-    'yourName': 'jouw naam',
+    'select': 'selecteer',
+    'saveAndLogin': '@:user @:save en selecteren',
+    'createUser': '@:user aanmaken',
+    'updateUser': 'pas @:user aan',
     'selectUser': 'selecteer @:user',
+    'name': 'naam',
+    'description': 'beschrijving',
+    'yourName': 'jouw naam',
     /* Validators */
     'fieldIsRequired': 'dit veld is verplicht',
     'textTooSmall': 'te kort, zou {1} moeten zijn en is {0}',
+    'noneSelectedText': '@:select @:language',
     /* Collections */
+    'collection': 'collectie',
     'collections': 'collecties',
+    'noCollections': 'geen @:collections',
+    'addCollection': 'voeg @:collection toe',
+    'openCollections': 'open @:collections',
+    'createCollection': 'maak @:collection aan',
+    'updateCollection': 'pas @:collection aan',
+    'collectionName': 'naam van @:collection',
+    'collectionDescription': 'beschrijving van @:collection',
+    'saveAndOpenCollection': 'bewaar en open @:collection',
   },
   /* eslint-enable */
 };
@@ -53,6 +77,7 @@ const messages = {
 export default new VueI18n({
   locale: 'nl',
   messages,
+  fallbackLocale: 'en',
   silentTranslationWarn: true,
 });
 

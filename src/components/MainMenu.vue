@@ -18,50 +18,66 @@
     <div class="navbar-menu"
       :class="{ 'is-active': openBurger }">
       <div class="navbar-start">
-        <router-link to="/" class="navbar-item">{{ $t('collections') | capitalize }}</router-link>
-        <router-link to="/user" class="navbar-item">{{ $t('anonymous') | capitalize }}</router-link>
-        <!-- <a class="navbar-item has-dropdown is-hoverable">
-          <a v-if="!selectedUser" class="navbar-link">
-            {{ $t('anonymous') | capitalize }}
-          </a>
-          <a v-else class="navbar-link">
-            {{ selectedUser.name }}
+        <!-- Collections -->
+        <!-- <router-link to="/collections" class="navbar-item">
+          {{ $t('collections') | capitalize }}
+        </router-link> -->
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            <span class="icon">
+              <i class="fas fa-folder" aria-hidden="true"></i>
+            </span>
+            <span>{{ $t('collections') | capitalize }}</span>
           </a>
           <div class="navbar-dropdown">
-            <a v-if="!selectedUser" class="navbar-item"
-              @click="showUserModal('add')">
-              {{ $t('createUser') | capitalize }}
-            </a>
-            <a class="navbar-item"
-              @click="showUserModal('edit')">
-              {{ $t('editUser') | capitalize }}
-            </a>
-            <a v-if="selectedUser" class="navbar-item"
-              @click="showUserModal('select')">
-              {{ $t('selectUser') | capitalize }}
-            </a>
+            <router-link to="/collections"
+              class="navbar-item">
+              {{ $t('openCollections') | capitalize }}
+            </router-link>
             <hr class="navbar-divider">
-            <a class="navbar-item"
+            <router-link :to="{ name: 'createcollection' }"
+              class="navbar-item">
+              {{ $t('addCollection') | capitalize }}
+            </router-link>
+          </div>
+        </div>
+      </div>
+      <div class="navbar-end">
+        <!-- User -->
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a v-if="!selectedUser" class="navbar-link">
+            <span class="icon">
+              <i class="fas fa-user" aria-hidden="true"></i>
+            </span>
+            <span>{{ $t('anonymous') | capitalize }}</span>
+          </a>
+          <a v-if="selectedUser" class="navbar-link">
+            <span class="icon">
+              <i class="fas fa-user" aria-hidden="true"></i>
+            </span>
+            <span>{{ selectedUser.name }}</span>
+          </a>
+          <div class="navbar-dropdown is-right">
+            <router-link :to="{ name: 'createuser' }"
+              class="navbar-item">
+              {{ $t('createUser') | capitalize }}
+            </router-link>
+            <router-link v-if="selectedUser" :to="{ name: 'edituser', params:
+              { user: this.selectedUser}}"
+              class="navbar-item">
+              {{ $t('editUser') | capitalize }}
+            </router-link>
+            <router-link v-if="usersExist" :to="{ name: 'selectuser'}"
+              class="navbar-item">
+              {{ $t('selectUser') | capitalize }}
+            </router-link>
+            <hr v-if="selectedUser" class="navbar-divider">
+            <a v-if="selectedUser" class="navbar-item"
               @click="clearSelectedUser">
               {{ $t('logout') | capitalize }}
             </a>
           </div>
-        </a>
-        <a class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link">
-            {{ $t('language') | capitalize }}
-          </a>
-          <div class="navbar-dropdown">
-            <a class="navbar-item"
-              @click="switchToLanguage('nl')">
-              Nederlands
-            </a>
-            <a class="navbar-item"
-              @click="switchToLanguage('en')">
-              English
-            </a>
-          </div>
-        </a>-->
+        </div>
       </div>
     </div>
   </nav>
@@ -69,18 +85,34 @@
 
 <script>
 import { mapGetters, mapMutations } from 'vuex';
+import { isEmpty } from 'lodash';
 
 export default {
   name: 'MainMenu',
   data() {
     return {
       openBurger: false,
+      user: {
+        name: 'test',
+        locale: 'nl',
+      },
     };
   },
   computed: {
     ...mapGetters([
       'selectedUser',
+      'users',
     ]),
+    usersExist() {
+      return !isEmpty(this.users);
+    },
+  },
+  watch: {
+    selectedUser(newValue) {
+      if (newValue !== undefined) {
+        this.switchToLanguage(newValue.locale);
+      }
+    },
   },
   methods: {
     ...mapMutations([
@@ -96,7 +128,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+@import '../styles/settings.scss';
+
 #main-menu {
-  grid-area: mainmenu;
+  grid-area: navbar;
+  border-bottom: $border-color $border-size $border-style;
 }
 </style>
