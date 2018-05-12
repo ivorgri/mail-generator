@@ -23,6 +23,8 @@ const messages = {
     /* Validators */
     'fieldIsRequired': 'this field is required',
     'textTooSmall': 'too short, should be {1} and is {0}',
+    /* Collections */
+    'collections': 'collections',
   },
   nl: {
     /* UserModal */
@@ -42,6 +44,8 @@ const messages = {
     /* Validators */
     'fieldIsRequired': 'dit veld is verplicht',
     'textTooSmall': 'te kort, zou {1} moeten zijn en is {0}',
+    /* Collections */
+    'collections': 'collecties',
   },
   /* eslint-enable */
 };

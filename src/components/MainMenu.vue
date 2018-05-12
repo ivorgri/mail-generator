@@ -1,5 +1,5 @@
 <template>
-  <nav id="main-menu" class="navbar" role="navigation" aria-label="main navigation">
+  <nav id="main-menu" class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
     <div class="navbar-brand is-hidden-desktop">
       <a class="navbar-item" href="#">
         Menu
@@ -18,8 +18,9 @@
     <div class="navbar-menu"
       :class="{ 'is-active': openBurger }">
       <div class="navbar-start">
-        <a class="navbar-item has-dropdown is-hoverable">
-          <router-link to="/user">{{ $t('anonymous') | capitalize }}</router-link> |
+        <router-link to="/" class="navbar-item">{{ $t('collections') | capitalize }}</router-link>
+        <router-link to="/user" class="navbar-item">{{ $t('anonymous') | capitalize }}</router-link>
+        <!-- <a class="navbar-item has-dropdown is-hoverable">
           <a v-if="!selectedUser" class="navbar-link">
             {{ $t('anonymous') | capitalize }}
           </a>
@@ -60,7 +61,7 @@
               English
             </a>
           </div>
-        </a>
+        </a>-->
       </div>
     </div>
   </nav>
