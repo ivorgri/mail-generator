@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign, no-shadow */
+
 import { isEmpty } from 'lodash';
 
 const state = {
@@ -9,20 +11,22 @@ const state = {
 const getters = {
   collectionsDB: state => state.collectionsDB,
   collections: state => state.collections,
-  collectionSet: (state) => {
+  collectionSet: (state, getters) => {
     if (isEmpty(state.collections)) {
       return [];
     }
     const collectionIds = Object.keys(state.collections);
-    return collectionIds.map(collectionId => state.collections[collectionId]);
+    const collectionSet = [];
+    collectionIds.forEach((collectionId) => {
+      if (state.collections[collectionId].authorId === getters.selectedUserId) {
+        collectionSet.push(state.collections[collectionId]);
+      }
+    });
+    return collectionSet;
   },
   selectedCollectionId: state => state.selectedCollectionId,
-  selectedCollection: (state) => {
-    if (state.selectedCollectionId === '') {
-      return false;
-    }
-    return state.collections[state.selectedCollectionId];
-  },
+  selectedCollection: state => (state.selectedCollectionId === '' ? false :
+    state.collections[state.selectedCollectionId]),
 };
 
 const mutations = {
@@ -41,18 +45,10 @@ const mutations = {
 };
 
 const actions = {
-  async updateCollections({ getters, commit }) {
-    let docs;
-    try {
-      docs = await getters.collectionsDB.allDocs({ include_docs: true });
-    } catch (error) {
-      console.log(error);
-    }
+  async updateCollections({ commit }, collectionDocs) {
     const collections = {};
-    docs.rows.forEach((row) => {
-      const { doc } = row;
-      // eslint-disable-next-line
-      collections[doc._id] = doc;
+    collectionDocs.forEach((doc) => {
+      collections[doc.id] = doc;
     });
     commit('setCollections', collections);
   },

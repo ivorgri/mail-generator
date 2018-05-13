@@ -12,9 +12,9 @@
         </li>
         <li v-else
           v-for="collection in collectionSet"
-          :key="collection._id"
-          @click="selectCollection(collection._id)">
-          <a :class="{ 'is-active' : (collection._id === selectedCollectionId) }">
+          :key="collection.id"
+          @click="selectCollection(collection.id)">
+          <a :class="{ 'is-active' : (collection.id === selectedCollectionId) }">
             {{ collection.name }}
             <span class="icon is-small">
               <i class="fas fa-angle-right" aria-hidden="true"></i>

@@ -20,6 +20,10 @@ const UserSchema = {
       type: 'string',
       format: 'date-time',
     },
+    selectedCollectionId: {
+      type: 'string',
+      default: '',
+    },
   },
   required: ['locale', 'name'],
 };

@@ -19,7 +19,7 @@ import * as Database from '@/database/database';
 
 // import Templater from '@/components/Templater.vue';
 import MainMenu from '@/components/MainMenu.vue';
-import { mapGetters, mapMutations, mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 
 export default {
@@ -35,11 +35,12 @@ export default {
   },
   async mounted() {
     this.databaseCreated = await Database.default(this.$store);
-    this.subs.push(
-      db.users.find().$.subscribe(results => {
-        this.updateUsers(results);
-      })
-    );
+    this.subs.push(this.db.users.find().$.subscribe((results) => {
+      this.updateUsers(results);
+    }));
+    this.subs.push(this.db.templatecollections.find().$.subscribe((results) => {
+      this.updateCollections(results);
+    }));
   },
   computed: {
     ...mapGetters([
@@ -49,6 +50,7 @@ export default {
   methods: {
     ...mapActions([
       'updateUsers',
+      'updateCollections',
     ]),
   },
 };

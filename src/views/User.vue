@@ -105,7 +105,7 @@ export default {
           locale: 'nl',
         };
       }
-      return cloneDeep(this.user);
+      return this.user;
     },
   },
   methods: {
@@ -116,6 +116,7 @@ export default {
       this.entriesAreValid = isValid;
     },
     cancel() {
+      this.user.resync();
       this.$router.push('collections');
     },
     async createAndSelectUser() {
@@ -131,13 +132,8 @@ export default {
       this.$router.push('collections');
     },
     async updateUser() {
-      const user = cloneDeep(this.model);
-      console.log('User');
-      console.log(user);
       try {
-        // const doc = await this.db.users.upsert(user);
-        // await user.save();
-        // console.log(doc);
+        await this.user.save();
       } catch (error) {
         console.log(error);
       }

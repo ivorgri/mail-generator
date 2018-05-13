@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign, no-shadow */
+
 const state = {
   users: {},
   selectedUserId: '',
@@ -6,7 +8,7 @@ const state = {
 const getters = {
   users: state => state.users,
   selectedUserId: state => state.selectedUserId,
-  selectedUser: state => state.selectedUserId === '' ? false : state.users[state.selectedUserId],
+  selectedUser: state => (state.selectedUserId === '' ? false : state.users[state.selectedUserId]),
 };
 
 const mutations = {
@@ -22,7 +24,7 @@ const mutations = {
 };
 
 const actions = {
-  async updateUsers({ getters, commit }, userDocs) {
+  async updateUsers({ commit }, userDocs) {
     const users = {};
     userDocs.forEach((doc) => {
       users[doc.id] = doc;

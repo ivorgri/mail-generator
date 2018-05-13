@@ -91,6 +91,7 @@ export default {
     ...mapGetters([
       'db',
       'selectedUserId',
+      'selectedUser',
     ]),
     model() {
       if (isEmpty(this.collection)) {
@@ -99,7 +100,7 @@ export default {
           description: '',
         };
       }
-      return cloneDeep(this.collection);
+      return this.collection;
     },
   },
   methods: {
@@ -123,12 +124,12 @@ export default {
         console.log(error);
       }
       this.selectCollection(collection.id);
+      console.log('2DO: Set selectedCollectionId of user, have vuex store use that');
       this.$router.push('collections');
     },
     async updateCollection() {
-      const collection = cloneDeep(this.model);
       try {
-        await this.collectionsDB.put(collection);
+        await this.collection.save();
       } catch (error) {
         console.log(error);
       }

@@ -21,61 +21,30 @@ const collections = [{
 }];
 
 export default async function (store) {
-  console.log('DatabaseService: creating database..');
-  if (window.db !== undefined) {
-    window.db.destroy();
-  }
+  console.log('DatabaseService: Destroying old database..');
+  await RxDB.removeDatabase('mailgenerator', 'idb');
+  console.log('DatabaseService: Creating database..');
   const db = await RxDB.create({
     name: 'mailgenerator',
     adapter: 'idb',
     password: 'basicPassword',
   });
   window.db = db;
-  console.log('DatabaseService: created database');
+  console.log('DatabaseService: Created database.');
 
   store.commit('setDB', db);
 
   // Create collections
-  console.log('DatabaseService: create collections');
+  console.log('DatabaseService: Creating collections...');
   await Promise.all(collections.map(colData => db.collection(colData)));
 
   // Set initial state
-  console.log('DatabaseService: setting initial state');
+  console.log('DatabaseService: Setting initial state.');
   const stateCollection = store.getters.db.state;
-  const doc = await stateCollection.upsert({
+  await stateCollection.upsert({
     state: 'current',
     selectedUserId: '',
   });
-  /* Users */
 
-  /* const usersDB = new PouchDB('users');
-
-  usersDB.changes({
-    since: 'now',
-    live: true,
-  }).on('change', () => {
-    store.dispatch('updateUsers');
-  }).on('error', (error) => {
-    console.log(error);
-  });
-
-  store.commit('setUsersDB', usersDB);
-  await store.dispatch('updateUsers');
-
-  /* Collections */
-  /* const collectionsDB = new PouchDB('collectionsDB');
-
-  collectionsDB.changes({
-    since: 'now',
-    live: true,
-  }).on('change', () => {
-    store.dispatch('updateCollections');
-  }).on('error', (error) => {
-    console.log(error);
-  });
-
-  store.commit('setCollectionsDB', collectionsDB);
-  await store.dispatch('updateCollections');
-  */
   return true;
 }

@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign, no-shadow */
+
 const state = {
   db: null,
 };

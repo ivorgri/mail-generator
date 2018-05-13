@@ -39,6 +39,11 @@
               class="navbar-item">
               {{ $t('addCollection') | capitalize }}
             </router-link>
+            <router-link v-if="selectedCollection" :to="{ name: 'editcollection', params:
+              { collection: this.selectedCollection }}"
+              class="navbar-item">
+              {{ $t('editCollection') | capitalize }}
+            </router-link>
           </div>
         </div>
       </div>
@@ -102,6 +107,7 @@ export default {
     ...mapGetters([
       'selectedUser',
       'users',
+      'selectedCollection',
     ]),
     usersExist() {
       return !isEmpty(this.users);

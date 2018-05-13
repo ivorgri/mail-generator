@@ -91,6 +91,7 @@ export default {
     },
     saveSelectedUser() {
       this.selectUser(this.model.selectedUser);
+      console.log('2DO: Set selectedCollectionId of user, have vuex store use that');
       this.$router.push('collections');
     },
   },

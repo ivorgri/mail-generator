@@ -18,6 +18,11 @@ export default new Router({
     props: true,
     component: Collection,
   }, {
+    path: '/editcollection',
+    name: 'editcollection',
+    props: true,
+    component: Collection,
+  }, {
     path: '/createuser',
     name: 'createuser',
     props: true,
