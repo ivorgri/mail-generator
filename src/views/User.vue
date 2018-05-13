@@ -96,7 +96,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'usersDB',
+      'db',
     ]),
     model() {
       if (isEmpty(this.user)) {
@@ -120,21 +120,24 @@ export default {
     },
     async createAndSelectUser() {
       const user = cloneDeep(this.model);
-      // eslint-disable-next-line
-      user._id = `${new Date().toJSON()}${this.model.name}`;
+      user.id = `${new Date().toJSON()}${this.model.name}`;
+      user.createTime = new Date().toJSON();
       try {
-        await this.usersDB.put(user);
+        await this.db.users.upsert(user);
       } catch (error) {
         console.log(error);
       }
-      // eslint-disable-next-line
-      this.selectUser(user._id);
+      this.selectUser(user.id);
       this.$router.push('collections');
     },
     async updateUser() {
       const user = cloneDeep(this.model);
+      console.log('User');
+      console.log(user);
       try {
-        await this.usersDB.put(user);
+        // const doc = await this.db.users.upsert(user);
+        // await user.save();
+        // console.log(doc);
       } catch (error) {
         console.log(error);
       }

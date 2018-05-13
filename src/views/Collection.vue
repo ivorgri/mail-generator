@@ -89,7 +89,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'collectionsDB',
+      'db',
+      'selectedUserId',
     ]),
     model() {
       if (isEmpty(this.collection)) {
@@ -113,15 +114,15 @@ export default {
     },
     async createAndSelectCollection() {
       const collection = cloneDeep(this.model);
-      // eslint-disable-next-line
-      collection._id = `${new Date().toJSON()}${this.model.name}`;
+      collection.id = `${new Date().toJSON()}${this.model.name}`;
+      collection.createTime = new Date().toJSON();
+      collection.authorId = this.selectedUserId;
       try {
-        await this.collectionsDB.put(collection);
+        await this.db.templatecollections.upsert(collection);
       } catch (error) {
         console.log(error);
       }
-      // eslint-disable-next-line
-      this.selectCollection(collection._id);
+      this.selectCollection(collection.id);
       this.$router.push('collections');
     },
     async updateCollection() {
