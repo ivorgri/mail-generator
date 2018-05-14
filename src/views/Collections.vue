@@ -3,18 +3,18 @@
     <aside
       id="collections-menu"
       class="menu">
-      <p class="menu-label">
+      <p class="menu-label no-select">
         {{ $t('collections') | capitalize }}
       </p>
       <ul class="menu-list">
-        <li v-if="collectionSet.length === 0">
+        <li v-if="collectionSet.length === 0" class="no-select">
           {{ $t('noCollections') | capitalize }}
         </li>
         <li v-else
           v-for="collection in collectionSet"
           :key="collection.id"
           @click="selectCollection(collection.id)">
-          <a :class="{ 'is-active' : (collection.id === selectedCollectionId) }">
+          <a class="no-select" :class="{ 'is-active' : (collection.id === selectedCollectionId) }">
             {{ collection.name }}
             <span class="icon is-small">
               <i class="fas fa-angle-right" aria-hidden="true"></i>

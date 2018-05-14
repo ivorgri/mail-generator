@@ -22,7 +22,7 @@
         <div class="navbar-item has-dropdown"
           :class="{ 'is-active': openDropdown.collection }"
           @click="toggleDropdown('collection')">
-          <a class="navbar-link">
+          <a class="navbar-link no-select">
             <span class="icon">
               <i class="fas fa-folder" aria-hidden="true"></i>
             </span>
@@ -51,13 +51,13 @@
         <div class="navbar-item has-dropdown"
           :class="{ 'is-active': openDropdown.user }"
           @click="toggleDropdown('user')">
-          <a v-if="!selectedUser" class="navbar-link">
+          <a v-if="!selectedUser" class="navbar-link no-select">
             <span class="icon">
               <i class="fas fa-user" aria-hidden="true"></i>
             </span>
             <span>{{ $t('anonymous') | capitalize }}</span>
           </a>
-          <a v-if="selectedUser" class="navbar-link">
+          <a v-if="selectedUser" class="navbar-link no-select">
             <span class="icon">
               <i class="fas fa-user" aria-hidden="true"></i>
             </span>
