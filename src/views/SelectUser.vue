@@ -85,13 +85,14 @@ export default {
   methods: {
     ...mapMutations([
       'selectUser',
+      'selectCollection',
     ]),
     cancel() {
       this.$router.push('collections');
     },
     saveSelectedUser() {
       this.selectUser(this.model.selectedUser);
-      console.log('2DO: Set selectedCollectionId of user, have vuex store use that');
+      this.selectCollection(this.users[this.model.selectedUser].selectedCollectionId);
       this.$router.push('collections');
     },
   },

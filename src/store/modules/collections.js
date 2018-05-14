@@ -9,7 +9,6 @@ const state = {
 };
 
 const getters = {
-  collectionsDB: state => state.collectionsDB,
   collections: state => state.collections,
   collectionSet: (state, getters) => {
     if (isEmpty(state.collections)) {
@@ -30,9 +29,6 @@ const getters = {
 };
 
 const mutations = {
-  setCollectionsDB(state, collectionsDB) {
-    state.collectionsDB = collectionsDB;
-  },
   setCollections(state, collections) {
     state.collections = collections;
   },
@@ -51,6 +47,20 @@ const actions = {
       collections[doc.id] = doc;
     });
     commit('setCollections', collections);
+  },
+  async selectCollection({ getters, commit }, selectedCollectionId) {
+    commit('selectCollection', selectedCollectionId);
+    if (getters.selectedUser !== false) {
+      getters.selectedUser.selectedCollectionId = selectedCollectionId;
+      try {
+        await getters.selectedUser.save();
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  },
+  async test() {
+    console.log('test');
   },
 };
 

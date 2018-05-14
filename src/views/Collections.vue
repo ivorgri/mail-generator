@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'Collections',
@@ -38,7 +38,7 @@ export default {
     ]),
   },
   methods: {
-    ...mapMutations([
+    ...mapActions([
       'selectCollection',
     ]),
   },

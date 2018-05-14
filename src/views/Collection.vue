@@ -42,7 +42,7 @@
 <script>
 import VueFormGenerator from 'vue-form-generator';
 import 'vue-form-generator/dist/vfg.css';
-import { mapGetters, mapMutations } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import { capitalize, isEmpty, cloneDeep } from 'lodash';
 
 export default {
@@ -104,7 +104,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations([
+    ...mapActions([
       'selectCollection',
     ]),
     onValidated(isValid) {
@@ -124,7 +124,6 @@ export default {
         console.log(error);
       }
       this.selectCollection(collection.id);
-      console.log('2DO: Set selectedCollectionId of user, have vuex store use that');
       this.$router.push('collections');
     },
     async updateCollection() {
