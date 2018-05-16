@@ -14,15 +14,17 @@
           v-for="collection in collectionSet"
           :key="collection.id"
           @click="selectCollection(collection.id)">
-          <a class="no-select" :class="{ 'is-active' : (collection.id === selectedCollectionId) }">
+          <router-link to="/templates" class="no-select"
+            :class="{ 'is-active' : (collection.id === selectedCollectionId) }">
             {{ collection.name }}
             <span class="icon is-small">
               <i class="fas fa-angle-right" aria-hidden="true"></i>
             </span>
-          </a>
+          </router-link>
         </li>
       </ul>
     </aside>
+    <router-view id="collections-settings" :collection="collection"/>
   </section>
 </template>
 
@@ -31,6 +33,7 @@ import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'Collections',
+  props: ['collection'],
   computed: {
     ...mapGetters([
       'collectionSet',
@@ -59,12 +62,17 @@ export default {
     padding: 1em 0.5em;
     border-right: $border-color $border-size $border-style;
 
+    .menu-list li a {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
     .icon {
-      display: none;
+      visibility: hidden;
     }
     .is-active:hover .icon,
     a:hover .icon {
-      display: inline;
+      visibility: visible;
     }
   }
 </style>

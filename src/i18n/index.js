@@ -6,21 +6,23 @@ Vue.use(VueI18n);
 const messages = {
   /* eslint-disable quote-props */
   en: {
-    /* UserView */
-    'anonymous': 'anonymous',
-    'user': 'user',
+    /* General */
     'language': 'language',
-    'editUser': 'edit @:user',
     'logout': 'log out',
     'cancel': 'cancel',
     'save': 'save',
     'select': 'select',
+    'name': 'name',
+    'description': 'description',
+    'color': 'color',
+    /* UserView */
+    'anonymous': 'anonymous',
+    'user': 'user',
+    'editUser': 'edit @:user',
     'saveAndLogin': '@:user @:save and @:select',
     'createUser': 'create @:user',
     'updateUser': 'update @:user',
     'selectUser': 'select @:user',
-    'name': 'name',
-    'description': 'description',
     'yourName': 'your name',
     /* Validators */
     'fieldIsRequired': 'this field is required',
@@ -38,23 +40,38 @@ const messages = {
     'collectionName': 'name of @:collection',
     'collectionDescription': 'description of @:collection',
     'saveAndOpenCollection': 'save and open @:collection',
+    /* Templates */
+    'template': 'template',
+    'templates': 'templates',
+    'noTemplates': 'no @:templates',
+    'addTemplate': 'add @:template',
+    'openTemplates': 'open @:templates',
+    'createTemplate': 'create @:template',
+    'updateTemplate': 'update @:template',
+    'editTemplate': 'edit @:template',
+    'templateName': 'name of @:template',
+    'templateDescription': 'description of @:template',
+    'saveAndOpenTemplate': 'save and open @:template',
+    'templateColor': '@:template @:color',
   },
   nl: {
-    /* UserView */
-    'anonymous': 'anoniem',
-    'user': 'gebruiker',
+    /* General */
     'language': 'taal',
-    'editUser': 'pas @:user aan',
     'logout': 'uitloggen',
     'cancel': 'annuleer',
     'save': 'opslaan',
     'select': 'selecteer',
+    'name': 'naam',
+    'description': 'beschrijving',
+    'color': 'kleur',
+    /* UserView */
+    'anonymous': 'anoniem',
+    'user': 'gebruiker',
+    'editUser': 'pas @:user aan',
     'saveAndLogin': '@:user @:save en selecteren',
     'createUser': '@:user aanmaken',
     'updateUser': 'pas @:user aan',
     'selectUser': 'selecteer @:user',
-    'name': 'naam',
-    'description': 'beschrijving',
     'yourName': 'jouw naam',
     /* Validators */
     'fieldIsRequired': 'dit veld is verplicht',
@@ -72,6 +89,19 @@ const messages = {
     'collectionName': 'naam van @:collection',
     'collectionDescription': 'beschrijving van @:collection',
     'saveAndOpenCollection': 'bewaar en open @:collection',
+    /* Templates */
+    'template': 'sjabloon',
+    'templates': 'sjablonen',
+    'noTemplates': 'geen @:templates',
+    'addTemplate': 'voeg @:template toe',
+    'openTemplates': 'open @:templates',
+    'createTemplate': 'maak @:template',
+    'updateTemplate': 'pas @:template aan',
+    'editTemplate': 'pas @:template aan',
+    'templateName': 'naam van @:template',
+    'templateDescription': 'beschrijving van @:template',
+    'saveAndOpenTemplate': 'bewaar en open @:template',
+    'templateColor': '@:template @:color',
   },
   /* eslint-enable */
 };

@@ -41,6 +41,9 @@ export default {
     this.subs.push(this.db.templatecollections.find().$.subscribe((results) => {
       this.updateCollections(results);
     }));
+    this.subs.push(this.db.templates.find().$.subscribe((results) => {
+      this.updateTemplates(results);
+    }));
   },
   computed: {
     ...mapGetters([
@@ -51,6 +54,7 @@ export default {
     ...mapActions([
       'updateUsers',
       'updateCollections',
+      'updateTemplates',
     ]),
   },
 };

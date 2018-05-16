@@ -1,6 +1,6 @@
-const CollectionSchema = {
-  title: 'collection schema',
-  description: 'stores the collection data',
+const TemplateSchema = {
+  title: 'template schema',
+  description: 'stores the template data',
   version: 0,
   type: 'object',
   properties: {
@@ -15,7 +15,7 @@ const CollectionSchema = {
     description: {
       type: 'string',
     },
-    authorId: {
+    collectionId: {
       type: 'string',
       index: true,
     },
@@ -23,11 +23,11 @@ const CollectionSchema = {
       type: 'string',
       format: 'date-time',
     },
-    selectedTemplateId: {
+    color: {
       type: 'string',
     },
   },
   required: ['name'],
 };
 
-export default CollectionSchema;
+export default TemplateSchema;

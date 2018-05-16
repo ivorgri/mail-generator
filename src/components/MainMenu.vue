@@ -34,14 +34,41 @@
               {{ $t('openCollections') | capitalize }}
             </router-link>
             <hr class="navbar-divider">
-            <router-link :to="{ name: 'createcollection' }"
+            <router-link :to="{ name: 'createCollection' }"
               class="navbar-item">
               {{ $t('addCollection') | capitalize }}
             </router-link>
-            <router-link v-if="selectedCollection" :to="{ name: 'editcollection', params:
+            <router-link v-if="selectedCollection" :to="{ name: 'editCollection', params:
               { collection: this.selectedCollection }}"
               class="navbar-item">
               {{ $t('editCollection') | capitalize }}
+            </router-link>
+          </div>
+        </div>
+        <!-- Templates -->
+        <div v-if="collectionSet.length > 0" class="navbar-item has-dropdown"
+          :class="{ 'is-active': openDropdown.template }"
+          @click="toggleDropdown('template')">
+          <a class="navbar-link no-select">
+            <span class="icon">
+              <i class="fas fa-folder" aria-hidden="true"></i>
+            </span>
+            <span>{{ $t('templates') | capitalize }}</span>
+          </a>
+          <div class="navbar-dropdown">
+            <router-link to="/templates"
+              class="navbar-item">
+              {{ $t('openTemplates') | capitalize }}
+            </router-link>
+            <hr class="navbar-divider">
+            <router-link :to="{ name: 'createTemplate' }"
+              class="navbar-item">
+              {{ $t('addTemplate') | capitalize }}
+            </router-link>
+            <router-link v-if="selectedTemplate" :to="{ name: 'editTemplate', params:
+              { template: this.selectedTemplate }}"
+              class="navbar-item">
+              {{ $t('editTemplate') | capitalize }}
             </router-link>
           </div>
         </div>
@@ -64,22 +91,22 @@
             <span>{{ selectedUser.name }}</span>
           </a>
           <div class="navbar-dropdown is-right">
-            <router-link :to="{ name: 'createuser' }"
+            <router-link :to="{ name: 'createUser' }"
               class="navbar-item">
               {{ $t('createUser') | capitalize }}
             </router-link>
-            <router-link v-if="selectedUser" :to="{ name: 'edituser', params:
+            <router-link v-if="selectedUser" :to="{ name: 'editUser', params:
               { user: this.selectedUser}}"
               class="navbar-item">
               {{ $t('editUser') | capitalize }}
             </router-link>
-            <router-link v-if="usersExist" :to="{ name: 'selectuser'}"
+            <router-link v-if="usersExist" :to="{ name: 'selectUser'}"
               class="navbar-item">
               {{ $t('selectUser') | capitalize }}
             </router-link>
             <hr v-if="selectedUser" class="navbar-divider">
             <a v-if="selectedUser" class="navbar-item"
-              @click="clearSelectedUser">
+              @click="logout">
               {{ $t('logout') | capitalize }}
             </a>
           </div>
@@ -104,15 +131,6 @@ export default {
         element: false,
         burger: false,
       },
-      openBurger: false,
-      userDropdown: false,
-      collectionDropdown: false,
-      templateDropdown: false,
-      elementDropdown: false,
-      user: {
-        name: 'test',
-        locale: 'nl',
-      },
     };
   },
   computed: {
@@ -120,6 +138,8 @@ export default {
       'selectedUser',
       'users',
       'selectedCollection',
+      'collectionSet',
+      'selectedTemplate',
     ]),
     usersExist() {
       return !isEmpty(this.users);
@@ -137,11 +157,14 @@ export default {
   },
   methods: {
     ...mapMutations([
-      'showUserModal',
       'clearSelectedUser',
     ]),
     switchToLanguage(locale) {
       this.$i18n.locale = locale;
+    },
+    logout() {
+      this.clearSelectedUser();
+      this.$router.push({ name: 'collections' });
     },
     toggleDropdown(target) {
       const keys = Object.keys(this.openDropdown);
@@ -154,26 +177,6 @@ export default {
         }
       });
       this.openDropdown = toggleDropdown;
-      /* switch (target) {
-        case 'user':
-          this.userDropdown = !this.userDropdown;
-          this.collectionDropdown = false;
-          this.templateDropdown = false;
-          this.elementDropdown = false;
-          break;
-        case 'collection':
-          this.userDropdown = false;
-          this.collectionDropdown = !this.collectionDropdown;
-          this.templateDropdown = false;
-          this.elementDropdown = false;
-          break;
-        default:
-          this.userDropdown = false;
-          this.collectionDropdown = false;
-          this.templateDropdown = false;
-          this.elementDropdown = false;
-          break;
-      } */
     },
   },
 };

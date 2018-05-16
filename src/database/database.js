@@ -6,6 +6,7 @@ import * as RxDB from 'rxdb';
 import StateSchema from './StateSchema';
 import UserSchema from './UserSchema';
 import CollectionSchema from './CollectionSchema';
+import TemplateSchema from './TemplateSchema';
 
 RxDB.plugin(require('pouchdb-adapter-idb'));
 
@@ -18,6 +19,9 @@ const collections = [{
 }, {
   name: 'templatecollections',
   schema: CollectionSchema,
+}, {
+  name: 'templates',
+  schema: TemplateSchema,
 }];
 
 export default async function (store) {
@@ -44,6 +48,8 @@ export default async function (store) {
   await stateCollection.upsert({
     state: 'current',
     selectedUserId: '',
+    selectedCollectionId: '',
+    selectedTemplateId: '',
   });
 
   return true;

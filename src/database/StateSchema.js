@@ -13,6 +13,14 @@ const StateSchema = {
       type: 'string',
       default: '',
     },
+    selectedCollectionId: {
+      type: 'string',
+      default: '',
+    },
+    selectedTemplateId: {
+      type: 'string',
+      default: '',
+    },
   },
 };
 

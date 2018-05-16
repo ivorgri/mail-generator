@@ -3,7 +3,6 @@
 import { isEmpty } from 'lodash';
 
 const state = {
-  collectionsDB: null,
   collections: {},
   selectedCollectionId: '',
 };
@@ -58,9 +57,6 @@ const actions = {
         console.log(error);
       }
     }
-  },
-  async test() {
-    console.log('test');
   },
 };
 

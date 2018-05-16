@@ -1,27 +1,21 @@
 <template>
-  <section id="selectuser" class="section">
-    <div class="container">
-      <div class="columns">
-        <div class="column is-one-third">
-          <h5 class="title is-5">{{ $t('selectUser') | capitalize }}</h5>
-          <form>
-            <vue-form-generator
-              :schema="schema"
-              :model="model"
-              :options="formOptions"
-              :tag="tag">
-            </vue-form-generator>
-          </form>
-          <div class="buttons">
-            <button class="button"
-              @click="cancel">{{ $t('cancel') | capitalize }}</button>
-            <button class="button is-success"
-              @click="saveSelectedUser">{{ $t('selectUser') | capitalize }}</button>
-          </div>
-        </div>
-      </div>
+  <div>
+    <h5 class="title is-5">{{ $t('selectUser') | capitalize }}</h5>
+    <form>
+      <vue-form-generator
+        :schema="schema"
+        :model="model"
+        :options="formOptions"
+        :tag="tag">
+      </vue-form-generator>
+    </form>
+    <div class="buttons">
+      <button class="button"
+        @click="cancel">{{ $t('cancel') | capitalize }}</button>
+      <button class="button is-success"
+        @click="saveSelectedUser">{{ $t('selectUser') | capitalize }}</button>
     </div>
-  </section>
+  </div>
 </template>
 
 <script>
