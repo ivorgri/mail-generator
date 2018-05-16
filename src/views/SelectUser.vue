@@ -20,7 +20,6 @@
 
 <script>
 import VueFormGenerator from 'vue-form-generator';
-import 'vue-form-generator/dist/vfg.css';
 import { mapGetters, mapMutations } from 'vuex';
 import { capitalize, forEach } from 'lodash';
 

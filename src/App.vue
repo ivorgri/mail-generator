@@ -19,6 +19,7 @@ import * as Database from '@/database/database';
 
 // import Templater from '@/components/Templater.vue';
 import MainMenu from '@/components/MainMenu.vue';
+// import 'vue-form-generator/dist/vfg.css';
 import { mapGetters, mapActions } from 'vuex';
 
 
@@ -44,6 +45,9 @@ export default {
     this.subs.push(this.db.templates.find().$.subscribe((results) => {
       this.updateTemplates(results);
     }));
+    this.subs.push(this.db.elements.find().$.subscribe((results) => {
+      this.updateElements(results);
+    }));
   },
   computed: {
     ...mapGetters([
@@ -55,6 +59,7 @@ export default {
       'updateUsers',
       'updateCollections',
       'updateTemplates',
+      'updateElements',
     ]),
   },
 };
@@ -65,11 +70,13 @@ export default {
   @import '../node_modules/bulma/bulma.sass';
 
   #app {
-    display: grid;
+    /* display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: 3em auto;
+    grid-template-rows: 3em 1fr;
     grid-template-areas: "navbar"
-    "view";
+    "view"; */
+    display: flex;
+    flex-direction: column;
   }
 
   #init-database {
@@ -93,8 +100,36 @@ export default {
   }
 
   .section {
-    grid-area: view;
-    overflow: auto;
+    height: -webkit-calc(100% - 20px);
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    padding: 0;
+
+    aside {
+      height: 100%;
+      padding: 1em 0.5em;
+      border-right: $border-color $border-size $border-style;
+
+      .menu-list li a {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
+      .icon {
+        visibility: hidden;
+      }
+      .is-active:hover .icon,
+      a:hover .icon {
+        visibility: visible;
+      }
+    }
+
+    .settings {
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 1em 0.5em;
+    }
   }
 
   .no-select {

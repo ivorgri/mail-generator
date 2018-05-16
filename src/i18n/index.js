@@ -53,6 +53,25 @@ const messages = {
     'templateDescription': 'description of @:template',
     'saveAndOpenTemplate': 'save and open @:template',
     'templateColor': '@:template @:color',
+    /* Elements */
+    'element': 'element',
+    'elements': 'elements',
+    'openElements': 'open @:elements',
+    'addElements': 'add @:elements',
+    'chooseElement': 'choose one or more @:element',
+    /* Core Elements */
+    'emailHeader': 'e-mail header',
+    'heroImage': 'hero image',
+    'oneColumnTextButton': '1 column text + button',
+    'backgroundImageText': 'background image with text',
+    'twoEvenColumns': '2 even columns',
+    'threeEvenColumns': '3 even columns',
+    'thumbnailLeftTextRight': 'thumbnail left, text right',
+    'thumbnailRightTextLeft': 'thumbnail right, text left',
+    'clearSpacer': 'clear spacer',
+    'oneColumnText': '1 column text',
+    'emailFooter': 'e-mail footer',
+    'emailBleedBackground': 'e-mail full bleed background section',
   },
   nl: {
     /* General */
@@ -102,6 +121,25 @@ const messages = {
     'templateDescription': 'beschrijving van @:template',
     'saveAndOpenTemplate': 'bewaar en open @:template',
     'templateColor': '@:template @:color',
+    /* Elements */
+    'element': 'element',
+    'elements': 'elementen',
+    'openElements': 'open @:elements',
+    'addElements': 'voeg @:elements toe',
+    'chooseElement': 'kies een of meer @:elements',
+    /* Core Elements */
+    'emailHeader': 'e-mail header',
+    'heroImage': 'hero afbeelding',
+    'oneColumnTextButton': '1 kolom tekst + knop',
+    'backgroundImageText': 'achtergrond afbeelding met tekst',
+    'twoEvenColumns': '2 gelijke kolommen',
+    'threeEvenColumns': '3 gelijke kolommen',
+    'thumbnailLeftTextRight': 'thumbnail links, tekst rechts',
+    'thumbnailRightTextLeft': 'thumbnail rechts, tekst links',
+    'clearSpacer': 'lege tussenruimte',
+    'oneColumnText': '1 kolom tekst',
+    'emailFooter': 'e-mail footer',
+    'emailBleedBackground': 'e-mail volledige breedte sectie',
   },
   /* eslint-enable */
 };

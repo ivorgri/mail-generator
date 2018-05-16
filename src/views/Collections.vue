@@ -24,7 +24,7 @@
         </li>
       </ul>
     </aside>
-    <router-view id="collections-settings" :collection="collection"/>
+    <router-view id="collections-settings" class="settings" :collection="collection"/>
   </section>
 </template>
 
@@ -47,33 +47,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-  @import './../styles/settings.scss';
-
-  .collections {
-    padding: 0em;
-    display: grid;
-    grid-template-columns: 200px auto;
-  }
-
-  #collections-menu {
-    height: 100%;
-    padding: 1em 0.5em;
-    border-right: $border-color $border-size $border-style;
-
-    .menu-list li a {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-    }
-    .icon {
-      visibility: hidden;
-    }
-    .is-active:hover .icon,
-    a:hover .icon {
-      visibility: visible;
-    }
-  }
-</style>
-

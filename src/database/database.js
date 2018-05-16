@@ -7,6 +7,7 @@ import StateSchema from './StateSchema';
 import UserSchema from './UserSchema';
 import CollectionSchema from './CollectionSchema';
 import TemplateSchema from './TemplateSchema';
+import ElementSchema from './ElementSchema';
 
 RxDB.plugin(require('pouchdb-adapter-idb'));
 
@@ -22,6 +23,9 @@ const collections = [{
 }, {
   name: 'templates',
   schema: TemplateSchema,
+}, {
+  name: 'elements',
+  schema: ElementSchema,
 }];
 
 export default async function (store) {

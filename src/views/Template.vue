@@ -1,37 +1,35 @@
 <template>
-  <div class="box">
-    <div class="columns">
-      <div class="column is-one-third">
-        <h5 v-if="!this.template" class="title is-5">
-          {{ $t('createTemplate') | capitalize }}
-        </h5>
-        <h5 v-if="this.template"
-          class="title is-5">
-          {{ $t('updateTemplate') | capitalize }}
-        </h5>
-        <form>
-          <vue-form-generator
-            :schema="schema"
-            :model="model"
-            :options="formOptions"
-            :tag="tag"
-            @validated="onValidated">
-          </vue-form-generator>
-        </form>
-        <div class="buttons">
-          <button class="button"
-            @click="cancel">{{ $t('cancel') | capitalize }}</button>
-          <button v-if="!this.template"
-            class="button is-success"
-            :disabled="!entriesAreValid"
-            @click="createAndSelectTemplate">
-              {{ $t('saveAndOpenTemplate') | capitalize }}
-          </button>
-          <button v-if="this.template"
-            class="button is-success"
-            :disabled="!entriesAreValid"
-            @click="updateTemplate">{{ $t('updateTemplate') | capitalize }}</button>
-        </div>
+  <div class="columns">
+    <div class="column is-one-third">
+      <h5 v-if="!this.template" class="title is-5">
+        {{ $t('createTemplate') | capitalize }}
+      </h5>
+      <h5 v-if="this.template"
+        class="title is-5">
+        {{ $t('updateTemplate') | capitalize }}
+      </h5>
+      <form>
+        <vue-form-generator
+          :schema="schema"
+          :model="model"
+          :options="formOptions"
+          :tag="tag"
+          @validated="onValidated">
+        </vue-form-generator>
+      </form>
+      <div class="buttons">
+        <button class="button"
+          @click="cancel">{{ $t('cancel') | capitalize }}</button>
+        <button v-if="!this.template"
+          class="button is-success"
+          :disabled="!entriesAreValid"
+          @click="createAndSelectTemplate">
+            {{ $t('saveAndOpenTemplate') | capitalize }}
+        </button>
+        <button v-if="this.template"
+          class="button is-success"
+          :disabled="!entriesAreValid"
+          @click="updateTemplate">{{ $t('updateTemplate') | capitalize }}</button>
       </div>
     </div>
   </div>
@@ -39,7 +37,6 @@
 
 <script>
 import VueFormGenerator from 'vue-form-generator';
-import 'vue-form-generator/dist/vfg.css';
 import { mapGetters, mapActions } from 'vuex';
 import { capitalize, isEmpty, cloneDeep } from 'lodash';
 

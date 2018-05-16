@@ -1,5 +1,5 @@
 <template>
-  <nav id="main-menu" class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+  <nav id="main-menu" class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand is-hidden-desktop">
       <a class="navbar-item" href="#">
         Menu
@@ -69,6 +69,28 @@
               { template: this.selectedTemplate }}"
               class="navbar-item">
               {{ $t('editTemplate') | capitalize }}
+            </router-link>
+          </div>
+        </div>
+        <!-- Elements -->
+        <div v-if="selectedTemplate" class="navbar-item has-dropdown"
+          :class="{ 'is-active': openDropdown.element }"
+          @click="toggleDropdown('element')">
+          <a class="navbar-link no-select">
+            <span class="icon">
+              <i class="fas fa-folder" aria-hidden="true"></i>
+            </span>
+            <span>{{ $t('elements') | capitalize }}</span>
+          </a>
+          <div class="navbar-dropdown">
+            <router-link :to="{ name: 'elements' }"
+              class="navbar-item">
+              {{ $t('openElements') | capitalize }}
+            </router-link>
+            <hr class="navbar-divider">
+            <router-link :to="{ name: 'addElements' }"
+              class="navbar-item">
+              {{ $t('addElements') | capitalize }}
             </router-link>
           </div>
         </div>
@@ -187,7 +209,8 @@ export default {
 @import '../styles/settings.scss';
 
 #main-menu {
-  grid-area: navbar;
+  // grid-area: navbar;
+  height: 50px;
   border-bottom: $border-color $border-size $border-style;
 }
 </style>

@@ -1,12 +1,12 @@
 <template>
   <div class="columns">
     <div class="column is-one-third">
-      <h5 v-if="!this.collection" class="title is-5">
-        {{ $t('createCollection') | capitalize }}
+      <h5 v-if="!this.template" class="title is-5">
+        {{ $t('createTemplate') | capitalize }}
       </h5>
-      <h5 v-if="this.collection"
+      <h5 v-if="this.template"
         class="title is-5">
-        {{ $t('updateCollection') | capitalize }}
+        {{ $t('updateTemplate') | capitalize }}
       </h5>
       <form>
         <vue-form-generator
@@ -20,16 +20,16 @@
       <div class="buttons">
         <button class="button"
           @click="cancel">{{ $t('cancel') | capitalize }}</button>
-        <button v-if="!this.collection"
+        <button v-if="!this.template"
           class="button is-success"
           :disabled="!entriesAreValid"
-          @click="createAndSelectCollection">
-            {{ $t('saveAndOpenCollection') | capitalize }}
+          @click="createAndSelectTemplate">
+            {{ $t('saveAndOpenTemplate') | capitalize }}
         </button>
-        <button v-if="this.collection"
+        <button v-if="this.template"
           class="button is-success"
           :disabled="!entriesAreValid"
-          @click="updateCollection">{{ $t('updateCollection') | capitalize }}</button>
+          @click="updateTemplate">{{ $t('updateTemplate') | capitalize }}</button>
       </div>
     </div>
   </div>
@@ -37,15 +37,16 @@
 
 <script>
 import VueFormGenerator from 'vue-form-generator';
+import 'vue-form-generator/dist/vfg.css';
 import { mapGetters, mapActions } from 'vuex';
 import { capitalize, isEmpty, cloneDeep } from 'lodash';
 
 export default {
-  name: 'Collection',
+  name: 'Template',
   components: {
     'vue-form-generator': VueFormGenerator.component,
   },
-  props: ['collection'],
+  props: ['template'],
   data() {
     return {
       entriesAreValid: true,
@@ -56,7 +57,7 @@ export default {
           label: capitalize(this.$t('name')),
           model: 'name',
           id: 'name',
-          placeholder: capitalize(this.$t('collectionName')),
+          placeholder: capitalize(this.$t('templateName')),
           min: 3,
           validator: VueFormGenerator.validators.string,
           required: true,
@@ -65,14 +66,21 @@ export default {
           label: capitalize(this.$t('description')),
           model: 'description',
           id: 'description',
-          placeholder: capitalize(this.$t('collectionDescription')),
+          placeholder: capitalize(this.$t('templateDescription')),
+        }, {
+          type: 'input',
+          inputType: 'text',
+          label: capitalize(this.$t('color')),
+          model: 'color',
+          id: 'color',
+          placeholder: capitalize(this.$t('templateColor')),
         }],
       },
 
       formOptions: {
         validateAfterLoad: true,
         validateAfterChanged: true,
-        fieldIdPrefix: 'collection-',
+        fieldIdPrefix: 'template-',
       },
 
       tag: 'div',
@@ -85,53 +93,52 @@ export default {
   computed: {
     ...mapGetters([
       'db',
-      'selectedUserId',
-      'selectedUser',
+      'selectedCollectionId',
+      'selectedCollection',
     ]),
     model() {
-      if (isEmpty(this.collection)) {
+      if (isEmpty(this.template)) {
         return {
           name: '',
           description: '',
+          color: '',
         };
       }
-      return this.collection;
+      return this.template;
     },
   },
   methods: {
     ...mapActions([
-      'selectCollection',
+      'selectTemplate',
     ]),
     onValidated(isValid) {
       this.entriesAreValid = isValid;
     },
     cancel() {
-      this.collection.resync();
+      this.template.resync();
       // Go back to last page
       this.$router.go(-1);
     },
-    async createAndSelectCollection() {
-      const collection = cloneDeep(this.model);
-      collection.id = `${new Date().toJSON()}${this.model.name}`;
-      collection.createTime = new Date().toJSON();
-      collection.authorId = this.selectedUserId;
+    async createAndSelectTemplate() {
+      const template = cloneDeep(this.model);
+      template.id = `${new Date().toJSON()}${this.model.name}`;
+      template.createTime = new Date().toJSON();
+      template.collectionId = this.selectedCollectionId;
       try {
-        await this.db.templatecollections.upsert(collection);
+        await this.db.templates.upsert(template);
       } catch (error) {
         console.log(error);
       }
-      this.selectCollection(collection.id);
-      // When creating a collection, always go to the templates overview
+      this.selectTemplate(template.id);
       this.$router.push({ name: 'templates' });
     },
-    async updateCollection() {
+    async updateTemplate() {
       try {
-        await this.collection.save();
+        await this.template.save();
       } catch (error) {
         console.log(error);
       }
-      // Go back to last page
-      this.$router.go(-1);
+      this.$router.push({ name: 'templates' });
     },
   },
 };
