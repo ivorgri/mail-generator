@@ -1,33 +1,35 @@
 <template>
-  <div>
-    <h5 v-if="!this.user"
-      class="title is-5">
-      {{ $t('createUser') | capitalize }}
-    </h5>
-    <h5 v-if="this.user"
-      class="title is-5">
-      {{ $t('updateUser') | capitalize }}
-    </h5>
-    <form>
-      <vue-form-generator
-        :schema="schema"
-        :model="model"
-        :options="formOptions"
-        :tag="tag"
-        @validated="onValidated">
-      </vue-form-generator>
-    </form>
-    <div class="buttons">
-      <button class="button"
-        @click="cancel">{{ $t('cancel') | capitalize }}</button>
-      <button v-if="!this.user"
-        class="button is-success"
-        :disabled="!entriesAreValid"
-        @click="createAndSelectUser">{{ $t('saveAndLogin') | capitalize }}</button>
-      <button v-if="this.user"
-        class="button is-success"
-        :disabled="!entriesAreValid"
-        @click="updateUser">{{ $t('updateUser') | capitalize }}</button>
+  <div class="columns">
+    <div class="column is-one-third">
+      <h5 v-if="!this.user"
+        class="title is-5">
+        {{ $t('createUser') | capitalize }}
+      </h5>
+      <h5 v-if="this.user"
+        class="title is-5">
+        {{ $t('updateUser') | capitalize }}
+      </h5>
+      <form>
+        <vue-form-generator
+          :schema="schema"
+          :model="model"
+          :options="formOptions"
+          :tag="tag"
+          @validated="onValidated">
+        </vue-form-generator>
+      </form>
+      <div class="buttons">
+        <button class="button"
+          @click="cancel">{{ $t('cancel') | capitalize }}</button>
+        <button v-if="!this.user"
+          class="button is-success"
+          :disabled="!entriesAreValid"
+          @click="createAndSelectUser">{{ $t('saveAndLogin') | capitalize }}</button>
+        <button v-if="this.user"
+          class="button is-success"
+          :disabled="!entriesAreValid"
+          @click="updateUser">{{ $t('updateUser') | capitalize }}</button>
+      </div>
     </div>
   </div>
 </template>

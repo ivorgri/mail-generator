@@ -1,12 +1,10 @@
 <template>
   <section id="user" class="section">
-    <div class="container">
-      <div class="columns">
-        <div class="column is-one-third">
-          <router-view :user="user"/>
-        </div>
-      </div>
-    </div>
+    <aside
+      id="user-menu"
+      class="menu">
+    </aside>
+    <router-view id="collections-settings" class="settings" :user="user"/>
   </section>
 </template>
 
