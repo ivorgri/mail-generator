@@ -14,12 +14,10 @@
 </template>
 
 <script>
-// import PouchDB from 'pouchdb';
 import * as Database from '@/database/database';
 
-// import Templater from '@/components/Templater.vue';
 import MainMenu from '@/components/MainMenu.vue';
-// import 'vue-form-generator/dist/vfg.css';
+import 'vue-form-generator/dist/vfg.css';
 import { mapGetters, mapActions } from 'vuex';
 
 
