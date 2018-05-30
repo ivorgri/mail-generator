@@ -8,39 +8,47 @@
     width="100%"
     style="max-width: 680px;
       font-family: sans-serif;
-      color: #888888;
       font-size: 12px;
-      line-height: 140%;">
-    <tr>
+      line-height: 140%;"
+    :style="{ color: getValueByName('txtcolor') }">
+    <tr class="element-container">
       <td style="padding: 40px 10px;
         width: 100%;
         font-family: sans-serif;
         font-size: 12px;
         line-height: 140%;
-        text-align: center;
-        color: #888888;"
-        class="x-gmail-data-detectors">
-        <webversion style="color: #cccccc;
-          text-decoration: underline;
-          font-weight: bold;">
+        text-align: center;"
+        :style="{ color: getValueByName('txtcolor') }"
+        class="editable-element x-gmail-data-detectors">
+        <a style="text-decoration: underline;
+          font-weight: bold;"
+          :style="{ color: getValueByName('webversioncolor') }">
           View as a Web Page
-        </webversion>
+        </a>
         <br><br>
         Company Name<br>123 Fake Street, SpringField, OR, 97477 US<br>(123) 456-7890
         <br><br>
-        <unsubscribe style="color: #888888;
-          text-decoration: underline;">
+        <a style="text-decoration: underline;"
+          :style="{ color: getValueByName('txtcolor') }">
           unsubscribe
-        </unsubscribe>
+        </a>
       </td>
+      <!-- Element actions: BEGIN -->
+      <element-action-buttons :element="element"/>
+      <!-- Element actions: END -->
     </tr>
   </table>
   <!-- Email Footer : END -->
 </template>
 
 <script>
+const ElementActionButtons = () => import(/* webpackChunkName: "actionbuttons" */ '@/components/EmailElements/ElementActionButtons.vue');
+
 export default {
   name: 'EmailFooter',
+  components: {
+    ElementActionButtons,
+  },
   props: ['element'],
   methods: {
     getValueByName(name) {

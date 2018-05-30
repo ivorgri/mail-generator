@@ -7,8 +7,6 @@ const state = {
     1: {
       id: 1,
       name: 'emailHeader',
-      component: 'CerberusEmailHeader',
-      allowedOnce: true,
       coreFields: [{
         name: 'image_link',
         type: 'text',
@@ -28,7 +26,6 @@ const state = {
     2: {
       id: 2,
       name: 'heroImage',
-      component: 'CerberusHeroImage',
       coreFields: [{
         type: 'text',
         tag: 'input',
@@ -39,68 +36,93 @@ const state = {
     3: {
       id: 3,
       name: 'oneColumnTextButton',
-      component: 'CerberusOneColumnTextButton',
       coreFields: [],
     },
     4: {
       id: 4,
       name: 'backgroundImageText',
-      component: 'CerberusBackgroundImageText',
       coreFields: [],
     },
     5: {
       id: 5,
       name: 'twoEvenColumns',
-      component: 'CerberusTwoEvenColumns',
       coreFields: [],
     },
     6: {
       id: 6,
       name: 'threeEvenColumns',
-      component: 'CerberusThreeEvenColumns',
       coreFields: [],
     },
     7: {
       id: 7,
       name: 'thumbmailLeftTextRight',
-      component: 'CerberusThumbnailLeftTextRight',
       coreFields: [],
     },
     8: {
       id: 8,
       name: 'thumbnailRightTextLeft',
-      component: 'CerberusThumbnailRightTextLeft',
       coreFields: [],
     },
     9: {
       id: 9,
       name: 'clearSpacer',
-      component: 'CerberusClearSpacer',
       coreFields: [],
     },
     10: {
       id: 10,
       name: 'oneColumnText',
-      component: 'CerberusOneColumnText',
       coreFields: [],
     },
     11: {
       id: 11,
       name: 'emailFooter',
-      component: 'CerberusEmailFooter',
-      allowedOnce: true,
-      coreFields: [],
+      coreFields: [{
+        name: 'txtcolor',
+        type: 'text',
+        tag: 'input',
+        value: '#888888',
+        placeholder: 'Set text color',
+        label: 'textColor',
+      }, {
+        name: 'webversioncolor',
+        type: 'text',
+        tag: 'input',
+        value: '#cccccc',
+        placeholder: 'Set webversion text color',
+        label: 'webversionColor',
+      }],
     },
     12: {
       id: 12,
       name: 'emailBleedBackground',
-      component: 'CerberusEmailBleedBackground',
-      allowedOnce: true,
-      coreFields: [],
+      coreFields: [{
+        name: 'content',
+        type: 'text',
+        tag: 'textarea',
+        value: 'Content',
+        placeholder: 'Add content here',
+        label: 'content',
+      }, {
+        name: 'bgcolor',
+        type: 'text',
+        tag: 'input',
+        value: '#709f2b',
+        placeholder: 'Set background color',
+        label: 'backgroundColor',
+      }, {
+        name: 'txtcolor',
+        type: 'text',
+        tag: 'input',
+        value: '#ffffff',
+        placeholder: 'Set text color',
+        label: 'textColor',
+      }],
     },
   },
   elements: {},
-  // selectedTemplateId: '',
+  selectedElement: {},
+  editElement: false,
+  removeElement: false,
 };
 
 const getters = {
@@ -122,6 +144,9 @@ const getters = {
   /* selectedTemplateId: state => state.selectedTemplateId,
   selectedTemplate: state => (state.selectedTemplateId === '' ? false :
     state.templates[state.selectedTemplateId]), */
+  selectedElement: state => state.selectedElement,
+  editElement: state => state.editElement,
+  removeElement: state => state.removeElement,
 };
 
 const mutations = {
@@ -134,6 +159,23 @@ const mutations = {
   clearSelectedTemplate(state) {
     state.selectedTemplateId = '';
   }, */
+  toggleEditElement(state, show) {
+    state.removeElement = false;
+    if (show === undefined) {
+      state.editElement = !state.editElement;
+    }
+    state.editElement = show;
+  },
+  toggleRemoveElement(state, show) {
+    state.editElement = false;
+    if (show === undefined) {
+      state.removeElement = !state.removeElement;
+    }
+    state.removeElement = show;
+  },
+  setSelectedElement(state, element) {
+    state.selectedElement = element;
+  },
 };
 
 const actions = {

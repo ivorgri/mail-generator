@@ -1,6 +1,6 @@
 <template>
   <div class="columns">
-    <div class="column is-one-third">
+    <div class="column is-half">
       <h5 v-if="!this.template" class="title is-5">
         {{ $t('createTemplate') | capitalize }}
       </h5>

@@ -40,6 +40,14 @@
       </ul>
     </aside>
     <router-view id="template-settings" class="settings" :template="template"/>
+    <div class="element-editor" v-show="editElement">
+      Edit element <br>
+      {{ selectedElement.id }}
+    </div>
+    <div class="element-editor" v-show="removeElement">
+      Remove element <br>
+      {{ selectedElement.id }}
+    </div>
   </section>
 </template>
 
@@ -55,6 +63,9 @@ export default {
       'selectedCollection',
       'templateSet',
       'selectedTemplateId',
+      'editElement',
+      'removeElement',
+      'selectedElement',
     ]),
   },
   data() {
@@ -78,3 +89,19 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+@import '../styles/settings.scss';
+
+.section {
+  grid-template-columns: 200px 1fr 300px;
+  grid-template-areas: "templatemenu elements elementeditor";
+}
+
+.element-editor {
+  grid-area: elementeditor;
+  height: 100%;
+  padding: 1em 0.5em;
+  border-left: $border-color $border-size $border-style;
+}
+</style>

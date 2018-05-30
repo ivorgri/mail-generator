@@ -44,9 +44,6 @@
           style="margin: 0 auto;"
           class="email-container">
 
-          <div v-for="element in elementSet" :key="element.id">
-            {{ element.name }}
-          </div>
           <email-header v-if="emailHeader" :element="emailHeader"/>
 
         </table>
@@ -54,55 +51,8 @@
 
         <email-footer v-if="emailFooter" :element="emailFooter"/>
 
-        <!-- Full Bleed Background Section : BEGIN -->
-        <table role="presentation"
-          bgcolor="#709f2b"
-          cellspacing="0"
-          cellpadding="0"
-          border="0"
-          align="center"
-          width="100%">
-          <tr>
-            <td valign="top" align="center">
-              <div style="max-width: 600px; margin: auto;" class="email-container">
-                <!--[if mso]>
-                <table
-                  role="presentation"
-                  cellspacing="0"
-                  cellpadding="0"
-                  border="0"
-                  width="600"
-                  align="center">
-                <tr>
-                <td>
-                <![endif]-->
-                <table
-                  role="presentation"
-                  cellspacing="0"
-                  cellpadding="0"
-                  border="0"
-                  width="100%">
-                  <tr>
-                    <td style="padding: 40px;
-                      text-align: left;
-                      font-family: sans-serif;
-                      font-size: 15px;
-                      line-height: 140%;
-                      color: #ffffff;">
-                      <p style="margin: 0;">Maecenas sed ante pellentesque</p>
-                    </td>
-                  </tr>
-                </table>
-                <!--[if mso]>
-                </td>
-                </tr>
-                </table>
-                <![endif]-->
-              </div>
-            </td>
-          </tr>
-        </table>
-        <!-- Full Bleed Background Section : END -->
+        <email-bleed-background v-if="emailBleedBackground" :element="emailBleedBackground"/>
+
       </center>
     </div>
   </div>
@@ -114,12 +64,14 @@ import { find } from 'lodash';
 
 const EmailHeader = () => import(/* webpackChunkName: "emailElements" */ '@/components/EmailElements/EmailHeader.vue');
 const EmailFooter = () => import(/* webpackChunkName: "emailElements" */ '@/components/EmailElements/EmailFooter.vue');
+const EmailBleedBackground = () => import(/* webpackChunkName: "emailElements" */ '@/components/EmailElements/EmailBleedBackground.vue');
 
 export default {
   name: 'Elements',
   components: {
     EmailHeader,
     EmailFooter,
+    EmailBleedBackground,
   },
   computed: {
     ...mapGetters([
@@ -131,9 +83,49 @@ export default {
     emailFooter() {
       return find(this.elementSet, { coreElementId: 11 });
     },
+    emailBleedBackground() {
+      return find(this.elementSet, { coreElementId: 12 });
+    },
   },
 };
 </script>
+
+<style lang="scss">
+.element-container {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: repeat(2, auto);
+
+  .editable-element {
+    grid-column-start: 1;
+    grid-row-start: 1;
+    grid-column-end: 3;
+    grid-row-end: 3;
+  }
+
+  .element-action-buttons {
+    grid-column-start: 2;
+    grid-row-start: 1;
+    grid-column-end: 3;
+    grid-row-end: 2;
+    display: none;
+    margin: 5px;
+    position: relative;
+    top: 5px;
+    right: 5px;
+  }
+}
+
+.element-container:hover {
+  outline: 1px solid red;
+  cursor: pointer;
+
+  .element-action-buttons {
+    display: inline;
+  }
+}
+
+</style>
 
 <style scoped>
 /* CSS Reset : BEGIN */

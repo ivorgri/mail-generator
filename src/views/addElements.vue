@@ -1,6 +1,6 @@
 <template>
   <div class="columns">
-    <div class="column is-one-third">
+    <div class="column is-half">
       <h5 class="title is-5">
         {{ $t('chooseElement') | capitalize }}
       </h5>
