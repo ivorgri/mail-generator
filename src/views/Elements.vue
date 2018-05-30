@@ -44,64 +44,15 @@
           style="margin: 0 auto;"
           class="email-container">
 
-          <!-- Email Header : BEGIN -->
-          <tr>
-            <td style="padding: 20px 0; text-align: center">
-              <img src="http://placehold.it/200x50"
-                width="200"
-                height="50"
-                alt="alt_text"
-                border="0"
-                style="height: auto;
-                  background: #dddddd;
-                  font-family: sans-serif;
-                  font-size: 15px;
-                  line-height: 140%;
-                  color: #555555;">
-            </td>
-          </tr>
-          <!-- Email Header : END -->
+          <div v-for="element in elementSet" :key="element.id">
+            {{ element.name }}
+          </div>
+          <email-header v-if="emailHeader" :element="emailHeader"/>
 
         </table>
         <!-- Email Body : END -->
 
-        <!-- Email Footer : BEGIN -->
-        <table role="presentation"
-          cellspacing="0"
-          cellpadding="0"
-          border="0"
-          align="center"
-          width="100%"
-          style="max-width: 680px;
-            font-family: sans-serif;
-            color: #888888;
-            font-size: 12px;
-            line-height: 140%;">
-          <tr>
-            <td style="padding: 40px 10px;
-              width: 100%;
-              font-family: sans-serif;
-              font-size: 12px;
-              line-height: 140%;
-              text-align: center;
-              color: #888888;"
-              class="x-gmail-data-detectors">
-              <webversion style="color: #cccccc;
-                text-decoration: underline;
-                font-weight: bold;">
-                View as a Web Page
-              </webversion>
-              <br><br>
-              Company Name<br>123 Fake Street, SpringField, OR, 97477 US<br>(123) 456-7890
-              <br><br>
-              <unsubscribe style="color: #888888;
-                text-decoration: underline;">
-                unsubscribe
-              </unsubscribe>
-            </td>
-          </tr>
-        </table>
-        <!-- Email Footer : END -->
+        <email-footer v-if="emailFooter" :element="emailFooter"/>
 
         <!-- Full Bleed Background Section : BEGIN -->
         <table role="presentation"
@@ -158,10 +109,28 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import { find } from 'lodash';
+
+const EmailHeader = () => import(/* webpackChunkName: "emailElements" */ '@/components/EmailElements/EmailHeader.vue');
+const EmailFooter = () => import(/* webpackChunkName: "emailElements" */ '@/components/EmailElements/EmailFooter.vue');
+
 export default {
   name: 'Elements',
-  data() {
-    return {};
+  components: {
+    EmailHeader,
+    EmailFooter,
+  },
+  computed: {
+    ...mapGetters([
+      'elementSet',
+    ]),
+    emailHeader() {
+      return find(this.elementSet, { coreElementId: 1 });
+    },
+    emailFooter() {
+      return find(this.elementSet, { coreElementId: 11 });
+    },
   },
 };
 </script>

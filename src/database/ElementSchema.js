@@ -12,7 +12,7 @@ const ElementSchema = {
       type: 'string',
     },
     coreElementId: {
-      type: 'string',
+      type: 'integer',
       index: true,
     },
     templateId: {

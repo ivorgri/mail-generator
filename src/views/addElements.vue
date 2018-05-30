@@ -1,6 +1,6 @@
 <template>
   <div class="columns">
-    <div class="column">
+    <div class="column is-one-third">
       <h5 class="title is-5">
         {{ $t('chooseElement') | capitalize }}
       </h5>
@@ -27,7 +27,7 @@
 <script>
 import VueFormGenerator from 'vue-form-generator';
 import { mapGetters } from 'vuex';
-import { capitalize } from 'lodash';
+import { capitalize, find, isEmpty } from 'lodash';
 
 export default {
   name: 'AddElements',
@@ -53,11 +53,17 @@ export default {
     const coreElementIds = Object.keys(this.coreElements);
     const generatedModel = {};
     coreElementIds.forEach((coreElementId) => {
+      let disabled = false;
+      const intCoreElementId = parseInt(coreElementId, 10);
+      if (intCoreElementId === 1 || intCoreElementId === 11 || intCoreElementId === 12) {
+        disabled = this.uniqueElementExistsAlready(intCoreElementId);
+      }
       const field = {
         type: 'checkbox',
         label: capitalize(this.$t(this.coreElements[coreElementId].name)),
         model: coreElementId,
         default: false,
+        disabled,
       };
       generatedSchema.fields.push(field);
       generatedModel[coreElementId] = false;
@@ -68,7 +74,9 @@ export default {
   computed: {
     ...mapGetters([
       'db',
+      'selectedTemplateId',
       'coreElements',
+      'elementSet',
     ]),
     selectedElements() {
       const modelKeys = Object.keys(this.model);
@@ -89,7 +97,33 @@ export default {
     },
     addSelectedElements() {
       console.log('2DO: Handle added elements');
-      console.log(this.selectedElements);
+      this.selectedElements.forEach(async (coreElementId) => {
+        const coreElement = this.coreElements[coreElementId];
+        const element = {
+          id: `${new Date().toJSON()}${coreElementId}`,
+          coreElementId,
+          name: coreElement.name,
+          templateId: this.selectedTemplateId,
+          createTime: new Date().toJSON(),
+          values: coreElement.coreFields,
+        };
+        try {
+          await this.db.elements.upsert(element);
+        } catch (error) {
+          console.log(error);
+        }
+      });
+      this.$router.push({ name: 'elements' });
+    },
+    uniqueElementExistsAlready(coreElementId) {
+      if (isEmpty(this.elementSet)) {
+        return false;
+      }
+      const uniqueElement = find(this.elementSet, { coreElementId: parseInt(coreElementId, 10) });
+      if (isEmpty(uniqueElement)) {
+        return false;
+      }
+      return true;
     },
   },
 };
