@@ -1,7 +1,7 @@
 <template>
   <!-- Full Bleed Background Section : BEGIN -->
   <table role="presentation"
-    :bgcolor="getValueByName('bgcolor')"
+    :bgcolor="getValueByName('backgroundColor')"
     cellspacing="0"
     cellpadding="0"
     border="0"
@@ -34,7 +34,7 @@
                 font-family: sans-serif;
                 font-size: 15px;
                 line-height: 140%;"
-                :style="{ color: getValueByName('txtcolor') }">
+                :style="{ color: getValueByName('textColor') }">
                 <p style="margin: 0;">{{ getValueByName('content') }}</p>
               </td>
             </tr>
@@ -65,13 +65,7 @@ export default {
   props: ['element'],
   methods: {
     getValueByName(name) {
-      let value = false;
-      this.element.values.forEach((elementValue) => {
-        if (name === elementValue.name) {
-          ({ value } = elementValue);
-        }
-      });
-      return value;
+      return this.element.model[name];
     },
   },
 };

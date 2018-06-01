@@ -96,7 +96,6 @@ export default {
       this.$router.go(-1);
     },
     addSelectedElements() {
-      console.log('2DO: Handle added elements');
       this.selectedElements.forEach(async (coreElementId) => {
         const coreElement = this.coreElements[coreElementId];
         const element = {
@@ -105,7 +104,7 @@ export default {
           name: coreElement.name,
           templateId: this.selectedTemplateId,
           createTime: new Date().toJSON(),
-          values: coreElement.coreFields,
+          model: coreElement.model,
         };
         try {
           await this.db.elements.upsert(element);

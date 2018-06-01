@@ -18,18 +18,18 @@
         font-size: 12px;
         line-height: 140%;
         text-align: center;"
-        :style="{ color: getValueByName('txtcolor') }"
+        :style="{ color: getValueByName('textColor') }"
         class="editable-element x-gmail-data-detectors">
         <a style="text-decoration: underline;
           font-weight: bold;"
-          :style="{ color: getValueByName('webversioncolor') }">
+          :style="{ color: getValueByName('webversionColor') }">
           View as a Web Page
         </a>
         <br><br>
         Company Name<br>123 Fake Street, SpringField, OR, 97477 US<br>(123) 456-7890
         <br><br>
         <a style="text-decoration: underline;"
-          :style="{ color: getValueByName('txtcolor') }">
+          :style="{ color: getValueByName('textColor') }">
           unsubscribe
         </a>
       </td>
@@ -52,13 +52,7 @@ export default {
   props: ['element'],
   methods: {
     getValueByName(name) {
-      let value = false;
-      this.element.values.forEach((elementValue) => {
-        if (name === elementValue.name) {
-          ({ value } = elementValue);
-        }
-      });
-      return value;
+      return this.element.model[name];
     },
   },
 };

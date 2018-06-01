@@ -43,6 +43,25 @@
     <div class="element-editor" v-show="editElement">
       Edit element <br>
       {{ selectedElement.id }}
+      <!-- <h5 class="title is-5">
+        {{ $t('editElement') | capitalize }}
+      </h5>
+      <form>
+        <vue-form-generator
+          :schema="elementSchema"
+          :model="elementModel"
+          :options="elementFormOptions"
+          :tag="tag"
+          @validated="onValidated">
+        </vue-form-generator>
+      </form>
+      <div class="buttons">
+        <button class="button"
+          @click="cancel">{{ $t('cancel') | capitalize }}</button>
+        <button class="button is-success">
+          {{ $t('saveAndOpenTemplate') | capitalize }}
+        </button>
+      </div> -->
     </div>
     <div class="element-editor" v-show="removeElement">
       Remove element <br>
@@ -58,6 +77,54 @@ import { mapGetters, mapActions } from 'vuex';
 export default {
   name: 'Templates',
   props: ['template'],
+  data() {
+    return {
+      menuHeight: 0,
+
+      /* entriesAreValid: true,
+      schema: {
+        fields: [{
+          type: 'input',
+          inputType: 'text',
+          label: capitalize(this.$t('name')),
+          model: 'name',
+          id: 'name',
+          placeholder: capitalize(this.$t('templateName')),
+          min: 3,
+          validator: VueFormGenerator.validators.string,
+          required: true,
+        }, {
+          type: 'textArea',
+          label: capitalize(this.$t('description')),
+          model: 'description',
+          id: 'description',
+          // placeholder: capitalize(this.$t('templateDescription')),
+        }, {
+          type: 'input',
+          inputType: 'text',
+          label: capitalize(this.$t('color')),
+          model: 'color',
+          id: 'color',
+          // placeholder: capitalize(this.$t('templateColor')),
+        }],
+      },
+
+      formOptions: {
+        validateAfterLoad: true,
+        validateAfterChanged: true,
+        fieldIdPrefix: 'element-',
+      },
+
+      tag: 'div', */
+    };
+  },
+  created() {
+    // this.model = this.selectedElement.model;
+  },
+  mounted() {
+    // VueFormGenerator.validators.resources.fieldIsRequired = capitalize(this.$t('fieldIsRequired'));
+    // VueFormGenerator.validators.resources.textTooSmall = capitalize(this.$t('textTooSmall'));
+  },
   computed: {
     ...mapGetters([
       'selectedCollection',
@@ -67,11 +134,6 @@ export default {
       'removeElement',
       'selectedElement',
     ]),
-  },
-  data() {
-    return {
-      menuHeight: 0,
-    };
   },
   watch: {
     selectedCollection(newVal) {

@@ -23,17 +23,23 @@ const ElementSchema = {
       type: 'string',
       format: 'date-time',
     },
-    values: {
-      type: 'array',
-      item: {
-        type: 'object',
-        properties: {
-          name: {
-            type: 'string',
-          },
-          value: {
-            type: 'string',
-          },
+    model: {
+      type: 'object',
+      properties: {
+        imageLink: {
+          type: 'string',
+        },
+        imageLinkAlt: {
+          type: 'string',
+        },
+        textColor: {
+          type: 'string',
+        },
+        webversionColor: {
+          type: 'string',
+        },
+        backgroundColor: {
+          type: 'string',
         },
       },
     },

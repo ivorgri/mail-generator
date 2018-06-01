@@ -12,8 +12,8 @@
           font-size: 15px;
           line-height: 140%;
           color: #555555;"
-        :src="getValueByName('image_link')"
-        :alt="getValueByName('image_link_alt')">
+        :src="getValueByName('imageLink')"
+        :alt="getValueByName('imageLinkAlt')">
     </td>
     <!-- Element actions: BEGIN -->
     <element-action-buttons :element="element"/>
@@ -33,13 +33,8 @@ export default {
   props: ['element'],
   methods: {
     getValueByName(name) {
-      let value = false;
-      this.element.values.forEach((elementValue) => {
-        if (name === elementValue.name) {
-          ({ value } = elementValue);
-        }
-      });
-      return value;
+      console.log(this.element);
+      return this.element.model[name];
     },
   },
 };
