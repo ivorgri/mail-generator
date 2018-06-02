@@ -59,6 +59,7 @@ const messages = {
     'openElements': 'open @:elements',
     'addElements': 'add @:elements',
     'chooseElement': 'choose one or more @:element',
+    'editElement': 'edit @:element',
     /* Core Elements */
     'emailHeader': 'e-mail header',
     'heroImage': 'hero image',
@@ -127,6 +128,7 @@ const messages = {
     'openElements': 'open @:elements',
     'addElements': 'voeg @:elements toe',
     'chooseElement': 'kies een of meer @:elements',
+    'editElement': 'pas @:element aan',
     /* Core Elements */
     'emailHeader': 'e-mail header',
     'heroImage': 'hero afbeelding',

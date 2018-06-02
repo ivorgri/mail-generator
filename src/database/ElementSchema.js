@@ -29,7 +29,7 @@ const ElementSchema = {
         imageLink: {
           type: 'string',
         },
-        imageLinkAlt: {
+        imageAltText: {
           type: 'string',
         },
         textColor: {

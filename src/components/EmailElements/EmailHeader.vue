@@ -13,7 +13,7 @@
           line-height: 140%;
           color: #555555;"
         :src="getValueByName('imageLink')"
-        :alt="getValueByName('imageLinkAlt')">
+        :alt="getValueByName('imageAltText')">
     </td>
     <!-- Element actions: BEGIN -->
     <element-action-buttons :element="element"/>
@@ -33,7 +33,6 @@ export default {
   props: ['element'],
   methods: {
     getValueByName(name) {
-      console.log(this.element);
       return this.element.model[name];
     },
   },

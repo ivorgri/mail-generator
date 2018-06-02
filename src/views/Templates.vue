@@ -41,21 +41,19 @@
     </aside>
     <router-view id="template-settings" class="settings" :template="template"/>
     <div class="element-editor" v-show="editElement">
-      Edit element <br>
-      {{ selectedElement.id }}
-      <!-- <h5 class="title is-5">
+      <h5 class="title is-5">
         {{ $t('editElement') | capitalize }}
       </h5>
       <form>
         <vue-form-generator
           :schema="elementSchema"
-          :model="elementModel"
+          :model="selectedElement.model"
           :options="elementFormOptions"
           :tag="tag"
           @validated="onValidated">
         </vue-form-generator>
       </form>
-      <div class="buttons">
+      <!-- <div class="buttons">
         <button class="button"
           @click="cancel">{{ $t('cancel') | capitalize }}</button>
         <button class="button is-success">
@@ -71,59 +69,36 @@
 </template>
 
 <script>
+import VueFormGenerator from 'vue-form-generator';
 import Vue from 'vue';
 import { mapGetters, mapActions } from 'vuex';
+import { capitalize, isEmpty } from 'lodash';
 
 export default {
   name: 'Templates',
   props: ['template'],
+  components: {
+    'vue-form-generator': VueFormGenerator.component,
+  },
   data() {
     return {
       menuHeight: 0,
 
-      /* entriesAreValid: true,
-      schema: {
-        fields: [{
-          type: 'input',
-          inputType: 'text',
-          label: capitalize(this.$t('name')),
-          model: 'name',
-          id: 'name',
-          placeholder: capitalize(this.$t('templateName')),
-          min: 3,
-          validator: VueFormGenerator.validators.string,
-          required: true,
-        }, {
-          type: 'textArea',
-          label: capitalize(this.$t('description')),
-          model: 'description',
-          id: 'description',
-          // placeholder: capitalize(this.$t('templateDescription')),
-        }, {
-          type: 'input',
-          inputType: 'text',
-          label: capitalize(this.$t('color')),
-          model: 'color',
-          id: 'color',
-          // placeholder: capitalize(this.$t('templateColor')),
-        }],
-      },
-
-      formOptions: {
+      entriesAreValid: true,
+      elementModel: {},
+      elementSchema: {},
+      elementFormOptions: {
         validateAfterLoad: true,
         validateAfterChanged: true,
         fieldIdPrefix: 'element-',
       },
 
-      tag: 'div', */
+      tag: 'div',
     };
   },
-  created() {
-    // this.model = this.selectedElement.model;
-  },
   mounted() {
-    // VueFormGenerator.validators.resources.fieldIsRequired = capitalize(this.$t('fieldIsRequired'));
-    // VueFormGenerator.validators.resources.textTooSmall = capitalize(this.$t('textTooSmall'));
+    VueFormGenerator.validators.resources.fieldIsRequired = capitalize(this.$t('fieldIsRequired'));
+    VueFormGenerator.validators.resources.textTooSmall = capitalize(this.$t('textTooSmall'));
   },
   computed: {
     ...mapGetters([
@@ -133,6 +108,7 @@ export default {
       'editElement',
       'removeElement',
       'selectedElement',
+      'coreElements',
     ]),
   },
   watch: {
@@ -143,11 +119,19 @@ export default {
         });
       }
     },
+    selectedElement(newVal) {
+      if (!isEmpty(newVal)) {
+        this.elementSchema = this.coreElements[newVal.coreElementId].schema;
+      }
+    },
   },
   methods: {
     ...mapActions([
       'selectTemplate',
     ]),
+    onValidated() {
+      console.log('Do something on validate');
+    },
   },
 };
 </script>
