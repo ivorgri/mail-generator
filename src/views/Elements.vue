@@ -1,7 +1,9 @@
 <template>
-  <div id="elements">
-    <div width="100%" style="margin: 0; mso-line-height-rule: exactly; background-color: #222222;">
-      <center style="width: 100%; background-color: #222222; text-align: left;">
+  <div v-if="selectedTemplate" id="elements">
+    <div width="100%" style="margin: 0; mso-line-height-rule: exactly;"
+      :style="{ 'background-color': getValueByName('backgroundColor') || '#222222' }">
+      <center style="width: 100%; text-align: left;"
+        :style="{ 'background-color': getValueByName('backgroundColor') || '#222222' }">
         <!--[if mso | IE]>
         <table role="presentation"
           border="0"
@@ -76,6 +78,7 @@ export default {
   computed: {
     ...mapGetters([
       'elementSet',
+      'selectedTemplate',
     ]),
     emailHeader() {
       return find(this.elementSet, { coreElementId: 1 });
@@ -85,6 +88,11 @@ export default {
     },
     emailBleedBackground() {
       return find(this.elementSet, { coreElementId: 12 });
+    },
+  },
+  methods: {
+    getValueByName(name) {
+      return this.selectedTemplate[name];
     },
   },
 };

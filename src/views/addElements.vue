@@ -112,7 +112,8 @@ export default {
           console.log(error);
         }
       });
-      this.$router.push({ name: 'elements' });
+      // this.$router.push({ name: 'elements' });
+      this.$router.go(-1);
     },
     uniqueElementExistsAlready(coreElementId) {
       if (isEmpty(this.elementSet)) {

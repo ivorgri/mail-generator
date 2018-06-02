@@ -70,8 +70,8 @@ export default {
           type: 'input',
           inputType: 'text',
           label: capitalize(this.$t('color')),
-          model: 'color',
-          id: 'color',
+          model: 'backgroundColor',
+          id: 'backgroundColor',
           placeholder: capitalize(this.$t('templateColor')),
         }],
       },
@@ -100,7 +100,7 @@ export default {
         return {
           name: '',
           description: '',
-          color: '',
+          backgroundColor: '#222222',
         };
       }
       return this.template;
@@ -129,7 +129,7 @@ export default {
         console.log(error);
       }
       this.selectTemplate(template.id);
-      this.$router.push({ name: 'templates' });
+      this.$router.push({ name: 'elements' });
     },
     async updateTemplate() {
       try {
@@ -137,7 +137,7 @@ export default {
       } catch (error) {
         console.log(error);
       }
-      this.$router.push({ name: 'templates' });
+      this.$router.push({ name: 'elements' });
     },
   },
 };

@@ -10,6 +10,7 @@ const state = {
       model: {
         imageLink: 'http://placehold.it/200x50',
         imageAltText: 'alt_text',
+        textColor: '#555555',
       },
       schema: {
         fields: [{
@@ -92,19 +93,17 @@ const state = {
       },
       schema: {
         fields: [{
-          name: 'textColor',
-          type: 'text',
-          tag: 'input',
-          value: '#888888',
-          placeholder: 'Set text color',
+          type: 'input',
+          inputType: 'text',
           label: 'textColor',
+          model: 'textColor',
+          placeholder: 'Set text color',
         }, {
-          name: 'webversioncolor',
-          type: 'text',
-          tag: 'input',
-          value: '#cccccc',
-          placeholder: 'Set webversion text color',
+          type: 'input',
+          inputType: 'text',
           label: 'webversionColor',
+          model: 'webversionColor',
+          placeholder: 'Set webversion text color',
         }],
       },
     },
@@ -118,26 +117,22 @@ const state = {
       },
       schema: {
         fields: [{
-          name: 'content',
-          type: 'text',
-          tag: 'textarea',
-          value: 'Content',
-          placeholder: 'Add content here',
+          type: 'textArea',
           label: 'content',
+          model: 'content',
+          placeholder: 'Add content here',
         }, {
-          name: 'backgroundColor',
-          type: 'text',
-          tag: 'input',
-          value: '#709f2b',
-          placeholder: 'Set background color',
+          type: 'input',
+          inputType: 'text',
           label: 'backgroundColor',
+          model: 'backgroundColor',
+          placeholder: 'Set background color',
         }, {
-          name: 'textColor',
-          type: 'text',
-          tag: 'input',
-          value: '#ffffff',
-          placeholder: 'Set text color',
+          type: 'input',
+          inputType: 'text',
           label: 'textColor',
+          model: 'textColor',
+          placeholder: 'Set text color',
         }],
       },
     },
@@ -176,12 +171,6 @@ const mutations = {
   setElements(state, elements) {
     state.elements = elements;
   },
-  /* selectTemplate(state, selectedTemplateId) {
-    state.selectedTemplateId = selectedTemplateId;
-  },
-  clearSelectedTemplate(state) {
-    state.selectedTemplateId = '';
-  }, */
   toggleEditElement(state, show) {
     state.removeElement = false;
     if (show === undefined) {
@@ -198,6 +187,9 @@ const mutations = {
   },
   setSelectedElement(state, element) {
     state.selectedElement = element;
+  },
+  clearSelectedElement(state) {
+    state.selectedElement = {};
   },
 };
 

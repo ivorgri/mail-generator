@@ -23,7 +23,7 @@ const TemplateSchema = {
       type: 'string',
       format: 'date-time',
     },
-    color: {
+    backgroundColor: {
       type: 'string',
     },
   },

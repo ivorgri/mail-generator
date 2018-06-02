@@ -47,19 +47,21 @@
       <form>
         <vue-form-generator
           :schema="elementSchema"
-          :model="selectedElement.model"
+          :model="elementModel"
           :options="elementFormOptions"
           :tag="tag"
           @validated="onValidated">
         </vue-form-generator>
       </form>
-      <!-- <div class="buttons">
+      <div class="buttons">
         <button class="button"
           @click="cancel">{{ $t('cancel') | capitalize }}</button>
-        <button class="button is-success">
-          {{ $t('saveAndOpenTemplate') | capitalize }}
+        <button class="button is-success"
+          :disabled="!entriesAreValid"
+          @click="updateElement">
+          {{ $t('updateElement') | capitalize }}
         </button>
-      </div> -->
+      </div>
     </div>
     <div class="element-editor" v-show="removeElement">
       Remove element <br>
@@ -71,7 +73,7 @@
 <script>
 import VueFormGenerator from 'vue-form-generator';
 import Vue from 'vue';
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapMutations, mapActions } from 'vuex';
 import { capitalize, isEmpty } from 'lodash';
 
 export default {
@@ -122,15 +124,34 @@ export default {
     selectedElement(newVal) {
       if (!isEmpty(newVal)) {
         this.elementSchema = this.coreElements[newVal.coreElementId].schema;
+        this.elementModel = this.selectedElement.model;
       }
     },
   },
   methods: {
+    ...mapMutations([
+      'toggleEditElement',
+      'clearSelectedElement',
+    ]),
     ...mapActions([
       'selectTemplate',
     ]),
     onValidated() {
-      console.log('Do something on validate');
+      // console.log('Do something on validate');
+    },
+    cancel() {
+      this.selectedElement.resync();
+      this.clearSelectedElement();
+      this.toggleEditElement(false);
+    },
+    async updateElement() {
+      try {
+        await this.selectedElement.save();
+      } catch (error) {
+        console.log(error);
+      }
+      this.clearSelectedElement();
+      this.toggleEditElement(false);
     },
   },
 };

@@ -10,8 +10,8 @@
           background: #dddddd;
           font-family: sans-serif;
           font-size: 15px;
-          line-height: 140%;
-          color: #555555;"
+          line-height: 140%;"
+        :style="{ color: getValueByName('textColor') }"
         :src="getValueByName('imageLink')"
         :alt="getValueByName('imageAltText')">
     </td>

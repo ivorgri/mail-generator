@@ -22,11 +22,17 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
+import { isEmpty } from 'lodash';
 
 export default {
   name: 'ElementActionButtons',
   props: ['element'],
+  computed: {
+    ...mapGetters([
+      'selectedElement',
+    ]),
+  },
   methods: {
     ...mapMutations([
       'toggleEditElement',
@@ -34,10 +40,24 @@ export default {
       'setSelectedElement',
     ]),
     updateElement() {
+      if (!isEmpty(this.selectedElement)) {
+        try {
+          this.selectedElement.resync();
+        } catch (error) {
+          console.log(error);
+        }
+      }
       this.setSelectedElement(this.element);
       this.toggleEditElement(true);
     },
     removeElement() {
+      if (!isEmpty(this.selectedElement)) {
+        try {
+          this.selectedElement.resync();
+        } catch (error) {
+          console.log(error);
+        }
+      }
       this.setSelectedElement(this.element);
       this.toggleRemoveElement(true);
     },

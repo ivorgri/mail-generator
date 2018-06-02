@@ -14,7 +14,7 @@
           v-for="collection in collectionSet"
           :key="collection.id"
           @click="selectCollection(collection.id)">
-          <router-link to="/templates" class="no-select"
+          <router-link to="/elements" class="no-select"
             :class="{ 'is-active' : (collection.id === selectedCollectionId) }">
             {{ collection.name }}
             <span class="icon is-small">

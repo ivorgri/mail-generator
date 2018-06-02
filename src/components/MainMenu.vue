@@ -83,11 +83,11 @@
             <span>{{ $t('elements') | capitalize }}</span>
           </a>
           <div class="navbar-dropdown">
-            <router-link :to="{ name: 'elements' }"
+            <!-- <router-link :to="{ name: 'elements' }"
               class="navbar-item">
               {{ $t('openElements') | capitalize }}
             </router-link>
-            <hr class="navbar-divider">
+            <hr class="navbar-divider"> -->
             <router-link :to="{ name: 'addElements' }"
               class="navbar-item">
               {{ $t('addElements') | capitalize }}

@@ -26,6 +26,12 @@ const ElementSchema = {
     model: {
       type: 'object',
       properties: {
+        backgroundColor: {
+          type: 'string',
+        },
+        content: {
+          type: 'string',
+        },
         imageLink: {
           type: 'string',
         },
@@ -36,9 +42,6 @@ const ElementSchema = {
           type: 'string',
         },
         webversionColor: {
-          type: 'string',
-        },
-        backgroundColor: {
           type: 'string',
         },
       },
