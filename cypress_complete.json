@@ -1,0 +1,10 @@
+// This file should be used in the future once everything is set up
+{
+  "baseUrl": "http://localhost:8080",
+  "fixturesFolder": "test/fixtures",
+  "integrationFolder": "test/features",
+  "pluginsFile": "test/plugins",
+  "screenshotsFolder": "test/screenshots",
+  "supportFile": "test/support",
+  "videosFolder": "test/videos"
+}

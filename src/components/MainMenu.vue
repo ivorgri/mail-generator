@@ -26,21 +26,21 @@
             <span class="icon">
               <i class="fas fa-folder" aria-hidden="true"></i>
             </span>
-            <span>{{ $t('collections') | capitalize }}</span>
+            <span data-qa="collections-menu">{{ $t('collections') | capitalize }}</span>
           </a>
           <div class="navbar-dropdown">
             <router-link to="/collections"
-              class="navbar-item">
+              class="navbar-item" data-qa="open-collections">
               {{ $t('openCollections') | capitalize }}
             </router-link>
             <hr class="navbar-divider">
             <router-link :to="{ name: 'createCollection' }"
-              class="navbar-item">
+              class="navbar-item" data-qa="create-collection">
               {{ $t('addCollection') | capitalize }}
             </router-link>
             <router-link v-if="selectedCollection" :to="{ name: 'editCollection', params:
               { collection: this.selectedCollection }}"
-              class="navbar-item">
+              class="navbar-item" data-qa="update-collection">
               {{ $t('editCollection') | capitalize }}
             </router-link>
           </div>
@@ -53,21 +53,22 @@
             <span class="icon">
               <i class="fas fa-folder" aria-hidden="true"></i>
             </span>
-            <span>{{ $t('templates') | capitalize }}</span>
+            <span data-qa="templates-menu">{{ $t('templates') | capitalize }}</span>
           </a>
           <div class="navbar-dropdown">
             <router-link to="/templates"
-              class="navbar-item">
+              class="navbar-item"
+              data-qa="open-templates">
               {{ $t('openTemplates') | capitalize }}
             </router-link>
             <hr class="navbar-divider">
             <router-link :to="{ name: 'createTemplate' }"
-              class="navbar-item">
+              class="navbar-item" data-qa="create-template">
               {{ $t('addTemplate') | capitalize }}
             </router-link>
             <router-link v-if="selectedTemplate" :to="{ name: 'editTemplate', params:
               { template: this.selectedTemplate }}"
-              class="navbar-item">
+              class="navbar-item" data-qa="update-template">
               {{ $t('editTemplate') | capitalize }}
             </router-link>
           </div>

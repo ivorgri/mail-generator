@@ -15,7 +15,8 @@
           :key="collection.id"
           @click="selectCollection(collection.id)">
           <router-link to="/elements" class="no-select"
-            :class="{ 'is-active' : (collection.id === selectedCollectionId) }">
+            :class="{ 'is-active' : (collection.id === selectedCollectionId) }"
+            data-qa="collection-list-item">
             {{ collection.name }}
             <span class="icon is-small">
               <i class="fas fa-angle-right" aria-hidden="true"></i>

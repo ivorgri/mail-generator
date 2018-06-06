@@ -14,22 +14,23 @@
           :model="model"
           :options="formOptions"
           :tag="tag"
-          @validated="onValidated">
+          @validated="onValidated" data-qa="collection-form">
         </vue-form-generator>
       </form>
       <div class="buttons">
         <button class="button"
-          @click="cancel">{{ $t('cancel') | capitalize }}</button>
+          @click="cancel" data-qa="cancel-collection">{{ $t('cancel') | capitalize }}</button>
         <button v-if="!this.collection"
           class="button is-success"
           :disabled="!entriesAreValid"
-          @click="createAndSelectCollection">
+          @click="createAndSelectCollection" data-qa="create-collection-button">
             {{ $t('saveAndOpenCollection') | capitalize }}
         </button>
         <button v-if="this.collection"
           class="button is-success"
           :disabled="!entriesAreValid"
-          @click="updateCollection">{{ $t('updateCollection') | capitalize }}</button>
+          @click="updateCollection"
+          data-qa="update-collection-button">{{ $t('updateCollection') | capitalize }}</button>
       </div>
     </div>
   </div>

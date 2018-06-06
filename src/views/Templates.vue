@@ -7,7 +7,7 @@
         {{ $t('collections') | capitalize }}
       </p>
       <ul v-if="selectedCollection" class="menu-list selected-collection-menu"
-        :style="{ minHeight: menuHeight + 'px' }">
+        :style="{ minHeight: menuHeight + 'px' }" data-qa="selected-collection-menu-item">
         <li id="selected-collection" ref="selectedCollection">
           <router-link to="/collections"
             class="is-active">
@@ -29,7 +29,8 @@
         <li v-else
           v-for="template in templateSet"
           :key="template.id"
-          @click="selectTemplate(template.id)">
+          @click="selectTemplate(template.id)"
+          data-qa="template-items">
           <a class="no-select" :class="{ 'is-active' : (template.id === selectedTemplateId) }">
             {{ template.name }}
             <span class="icon is-small">

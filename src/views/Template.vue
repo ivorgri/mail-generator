@@ -14,7 +14,7 @@
           :model="model"
           :options="formOptions"
           :tag="tag"
-          @validated="onValidated">
+          @validated="onValidated" data-qa="template-form">
         </vue-form-generator>
       </form>
       <div class="buttons">
@@ -23,13 +23,15 @@
         <button v-if="!this.template"
           class="button is-success"
           :disabled="!entriesAreValid"
-          @click="createAndSelectTemplate">
+          @click="createAndSelectTemplate"
+          data-qa="create-template-button">
             {{ $t('saveAndOpenTemplate') | capitalize }}
         </button>
         <button v-if="this.template"
           class="button is-success"
           :disabled="!entriesAreValid"
-          @click="updateTemplate">{{ $t('updateTemplate') | capitalize }}</button>
+          @click="updateTemplate"
+          data-qa="update-template-button">{{ $t('updateTemplate') | capitalize }}</button>
       </div>
     </div>
   </div>

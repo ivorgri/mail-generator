@@ -1,8 +1,8 @@
 <template>
-  <div id="app">
+  <div id="app" data-qa="app">
     <main-menu v-if="databaseCreated"/>
     <router-view v-if="databaseCreated"/>
-    <div v-if="!databaseCreated" id="init-database">
+    <div v-if="!databaseCreated" id="init-database" data-qa="init-database">
       <div id="init-database-message">
         <h5 class="title is-5">Initializing databases</h5>
         <span class="icon fa-3x">
