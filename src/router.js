@@ -4,8 +4,6 @@ import Collections from '@/views/Collections.vue';
 import Collection from '@/views/Collection.vue';
 import Templates from '@/views/Templates.vue';
 import Template from '@/views/Template.vue';
-import Elements from '@/views/Elements.vue';
-import addElements from '@/views/addElements.vue';
 import User from '@/views/User.vue';
 import SelectUser from '@/views/SelectUser.vue';
 import EditUser from '@/views/EditUser.vue';
@@ -18,15 +16,26 @@ export default new Router({
     name: 'collections',
     props: true,
     component: Collections,
+    meta: {
+      test: 'test',
+    },
     children: [{
       path: 'create',
       name: 'createCollection',
-      component: Collection,
+      component: Collections,
+      meta: {
+        action: 'create',
+        element: 'collection',
+      },
     }, {
       path: 'edit',
       name: 'editCollection',
       props: true,
-      component: Collection,
+      component: Collections,
+      meta: {
+        action: 'edit',
+        element: 'collection',
+      },
     }],
   }, {
     path: '/templates',
@@ -36,20 +45,41 @@ export default new Router({
     children: [{
       path: 'create',
       name: 'createTemplate',
-      component: Template,
+      component: Templates,
+      meta: {
+        action: 'create',
+        element: 'template',
+      },
     }, {
       path: 'edit',
       name: 'editTemplate',
       props: true,
-      component: Template,
+      component: Templates,
+      meta: {
+        action: 'edit',
+        element: 'template',
+      },
     }, {
       path: '/elements',
       name: 'elements',
-      component: Elements,
-    }, {
-      path: '/elements/add',
-      name: 'addElements',
-      component: addElements,
+      component: Templates,
+      children: [{
+        path: '/elements/add',
+        name: 'addElements',
+        component: Templates,
+        meta: {
+          action: 'add',
+          element: 'elements',
+        },
+       }, {
+        path: '/elements/edit',
+        name: 'editElements',
+        component: Templates,
+        meta: {
+          action: 'edit',
+          element: 'element',
+        },
+      }]
     }],
   }, {
     path: '/user',

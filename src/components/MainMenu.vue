@@ -1,5 +1,6 @@
 <template>
   <nav id="main-menu" class="navbar" role="navigation" aria-label="main navigation">
+    <!-- Hamburger menu -->
     <div class="navbar-brand is-hidden-desktop">
       <a class="navbar-item" href="#">
         Menu
@@ -15,6 +16,7 @@
         <span aria-hidden="true"></span>
       </a>
     </div>
+    <!-- Navigation menu -->
     <div class="navbar-menu"
       :class="{ 'is-active': openDropdown.burger }">
       <div class="navbar-start">
@@ -30,12 +32,14 @@
           </a>
           <div class="navbar-dropdown">
             <router-link to="/collections"
-              class="navbar-item" data-qa="open-collections">
+              class="navbar-item"
+              data-qa="open-collections">
               {{ $t('openCollections') | capitalize }}
             </router-link>
             <hr class="navbar-divider">
             <router-link :to="{ name: 'createCollection' }"
-              class="navbar-item" data-qa="create-collection">
+              class="navbar-item"
+              data-qa="create-collection">
               {{ $t('addCollection') | capitalize }}
             </router-link>
             <router-link v-if="selectedCollection" :to="{ name: 'editCollection', params:
@@ -81,7 +85,7 @@
             <span class="icon">
               <i class="fas fa-folder" aria-hidden="true"></i>
             </span>
-            <span>{{ $t('elements') | capitalize }}</span>
+            <span data-qa="elements-menu">{{ $t('elements') | capitalize }}</span>
           </a>
           <div class="navbar-dropdown">
             <!-- <router-link :to="{ name: 'elements' }"
@@ -90,7 +94,8 @@
             </router-link>
             <hr class="navbar-divider"> -->
             <router-link :to="{ name: 'addElements' }"
-              class="navbar-item">
+              class="navbar-item"
+              data-qa="add-elements">
               {{ $t('addElements') | capitalize }}
             </router-link>
           </div>
@@ -210,8 +215,7 @@ export default {
 @import '../styles/settings.scss';
 
 #main-menu {
-  // grid-area: navbar;
-  height: 50px;
+  grid-area: mainmenu;
   border-bottom: $border-color $border-size $border-style;
 }
 </style>

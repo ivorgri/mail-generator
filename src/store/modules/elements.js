@@ -33,6 +33,9 @@ const state = {
       name: 'heroImage',
       model: {
         imageLink: 'http://placehold.it/1200x600',
+        imageAltText: 'alt_text',
+        backgroundColor: '#ffffff',
+        textColor: '#555555',
       },
       schema: {
         fields: [{
@@ -41,13 +44,83 @@ const state = {
           label: 'imageLink',
           model: 'imageLink',
           placeholder: 'Add link to image here',
+        }, {
+          type: 'input',
+          inputType: 'text',
+          label: 'imageAltText',
+          model: 'imageAltText',
+          placeholder: 'Add alternative text here',
+        }, {
+          type: 'input',
+          inputType: 'text',
+          label: 'backgroundColor',
+          model: 'backgroundColor',
+          placeholder: 'Add background color here',
+        }, {
+          type: 'input',
+          inputType: 'text',
+          label: 'textColor',
+          model: 'textColor',
+          placeholder: 'Set text color',
         }],
       },
     },
     3: {
       id: 3,
       name: 'oneColumnTextButton',
-      coreFields: [],
+      model: {
+        backgroundColor: '#ffffff',
+        textColor: '#555555',
+        title: 'Title',
+        content: 'Content',
+        buttonLink: 'https://www.google.com',
+        buttonText: 'Centered Primary Button',
+        buttonColor: '#222222',
+      },
+      schema: {
+        fields: [{
+          type: 'input',
+          inputType: 'text',
+          label: 'backgroundColor',
+          model: 'backgroundColor',
+          placeholder: 'Add background color here',
+        }, {
+          type: 'input',
+          inputType: 'text',
+          label: 'textColor',
+          model: 'textColor',
+          placeholder: 'Set text color',
+        }, {
+          type: 'input',
+          inputType: 'text',
+          label: 'title',
+          model: 'title',
+          placeholder: 'Set title',
+        }, {
+          type: 'textArea',
+          label: 'content',
+          model: 'content',
+          placeholder: 'Add content here',
+        }, {
+          type: 'input',
+          inputType: 'text',
+          label: 'buttonLink',
+          model: 'buttonLink',
+          placeholder: 'Add link to button here',
+        }, {
+          type: 'input',
+          inputType: 'text',
+          label: 'buttonText',
+          model: 'buttonText',
+          placeholder: 'Add button text',
+        }, {
+          type: 'input',
+          inputType: 'text',
+          label: 'buttonColor',
+          model: 'buttonColor',
+          placeholder: 'Add button color',
+        }],
+      },
     },
     4: {
       id: 4,
@@ -154,7 +227,9 @@ const getters = {
     const elementSet = [];
     elementIds.forEach((elementId) => {
       if (state.elements[elementId].templateId === getters.selectedTemplateId) {
-        elementSet.push(state.elements[elementId]);
+        if(elementId !== 1 || elementId !== 11 || elementId !== 12) {
+          elementSet.push(state.elements[elementId]);
+        }
       }
     });
     return elementSet;

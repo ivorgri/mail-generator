@@ -44,6 +44,18 @@ const ElementSchema = {
         webversionColor: {
           type: 'string',
         },
+        buttonLink: {
+          type: 'string',
+        },
+        buttonText: {
+          type: 'string',
+        },
+        buttonColor: {
+          type: 'string',
+        },
+        title: {
+          type: 'string',
+        },
       },
     },
   },

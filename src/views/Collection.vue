@@ -1,39 +1,23 @@
 <template>
-  <div class="columns">
-    <div class="column is-one-third">
-      <h5 v-if="!this.collection" class="title is-5">
-        {{ $t('createCollection') | capitalize }}
-      </h5>
-      <h5 v-if="this.collection"
-        class="title is-5">
-        {{ $t('updateCollection') | capitalize }}
-      </h5>
-      <form>
-        <vue-form-generator
-          :schema="schema"
-          :model="model"
-          :options="formOptions"
-          :tag="tag"
-          @validated="onValidated" data-qa="collection-form">
-        </vue-form-generator>
-      </form>
-      <div class="buttons">
-        <button class="button"
-          @click="cancel" data-qa="cancel-collection">{{ $t('cancel') | capitalize }}</button>
-        <button v-if="!this.collection"
-          class="button is-success"
-          :disabled="!entriesAreValid"
-          @click="createAndSelectCollection" data-qa="create-collection-button">
-            {{ $t('saveAndOpenCollection') | capitalize }}
-        </button>
-        <button v-if="this.collection"
-          class="button is-success"
-          :disabled="!entriesAreValid"
-          @click="updateCollection"
-          data-qa="update-collection-button">{{ $t('updateCollection') | capitalize }}</button>
-      </div>
-    </div>
-  </div>
+  <base-main>
+    <h5 class="title is-5">
+      {{ $t(`${interfaceAction}Collection`) | capitalize }}
+    </h5>
+    <form>
+      <vue-form-generator
+        :schema="schema"
+        :model="model"
+        :options="formOptions"
+        :tag="tag"
+        @validated="onValidated"
+        data-qa="collection-form">
+      </vue-form-generator>
+    </form>
+    <base-buttons
+      :disabled="!entriesAreValid"
+      v-on:cancel-action="cancel"
+      v-on:perform-action="performAction"/>
+  </base-main>
 </template>
 
 <script>
@@ -41,12 +25,21 @@ import VueFormGenerator from 'vue-form-generator';
 import { mapGetters, mapActions } from 'vuex';
 import { capitalize, isEmpty, cloneDeep } from 'lodash';
 
+const BaseMain = () => import(/* webpackChunkName: "base" */ '@/components/BaseMain.vue');
+const BaseButtons = () => import(/* webpackChunkName: "base" */ '@/components/BaseButtons.vue');
+
 export default {
   name: 'Collection',
   components: {
     'vue-form-generator': VueFormGenerator.component,
+    BaseMain,
+    BaseButtons,
   },
-  props: ['collection'],
+  props: {
+    collection: {
+      type: Object,
+    },
+  },
   data() {
     return {
       entriesAreValid: true,
@@ -88,6 +81,7 @@ export default {
       'db',
       'selectedUserId',
       'selectedUser',
+      'interfaceAction',
     ]),
     model() {
       if (isEmpty(this.collection)) {
@@ -107,9 +101,18 @@ export default {
       this.entriesAreValid = isValid;
     },
     cancel() {
-      this.collection.resync();
+      if (!isEmpty(this.collection)) {
+        this.collection.resync();
+      }
       // Go back to last page
       this.$router.go(-1);
+    },
+    performAction() {
+      if (this.interfaceAction === 'create') {
+        this.createAndSelectCollection();
+      } else if (this.interfaceAction === 'edit') {
+        this.updateCollection();
+      }
     },
     async createAndSelectCollection() {
       const collection = cloneDeep(this.model);

@@ -1,29 +1,23 @@
 <template>
   <div id="app" data-qa="app">
+    <loading-database v-if="!databaseCreated"/>
     <main-menu v-if="databaseCreated"/>
     <router-view v-if="databaseCreated"/>
-    <div v-if="!databaseCreated" id="init-database" data-qa="init-database">
-      <div id="init-database-message">
-        <h5 class="title is-5">Initializing databases</h5>
-        <span class="icon fa-3x">
-          <i class="fas fa-cog fa-spin" aria-hidden="true"></i>
-        </span>
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
 import * as Database from '@/database/database';
-
-import MainMenu from '@/components/MainMenu.vue';
 import 'vue-form-generator/dist/vfg.css';
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapMutations, mapActions } from 'vuex';
 
+const LoadingDatabase = () => import(/* webpackChunkName: "loadingDatabase" */ '@/components/LoadingDatabase.vue');
+const MainMenu = () => import(/* webpackChunkName: "mainMenu" */ '@/components/MainMenu.vue');
 
 export default {
   name: 'MailGenerator',
   components: {
+    LoadingDatabase,
     MainMenu,
   },
   data() {
@@ -47,12 +41,22 @@ export default {
       this.updateElements(results);
     }));
   },
+  watch: {
+    '$route'(to) {
+      this.setAction(to.meta.action === undefined ? '' : to.meta.action);
+      this.setElement(to.meta.element === undefined ? '' : to.meta.element);
+    },
+  },
   computed: {
     ...mapGetters([
       'db',
     ]),
   },
   methods: {
+    ...mapMutations([
+      'setAction',
+      'setElement',
+    ]),
     ...mapActions([
       'updateUsers',
       'updateCollections',
@@ -68,36 +72,55 @@ export default {
   @import '../node_modules/bulma/bulma.sass';
 
   #app {
-    /* display: grid;
-    grid-template-columns: 100%;
-    grid-template-rows: 3em 1fr;
-    grid-template-areas: "navbar"
-    "view"; */
-    display: flex;
-    flex-direction: column;
-  }
-
-  #init-database {
-    height: 100%;
-    grid-column: 1 / span 1;
-    grid-row: 1 / span 2;
+    height: 100vh;
     display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    grid-template-rows: 1fr auto 1fr;
-    grid-template-areas:
-    ". . ."
-    ". message ."
-    ". . .";
-
-    #init-database-message {
-      grid-area: message;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+    grid-template-rows: $menu-height $row-height;
+    grid-template-areas: "mainmenu"
+      "container";
+    /* grid-template-columns: 200px auto 200px;
+    grid-template-areas: "mainmenu mainmenu mainmenu"
+      "aside preview element"; */
   }
 
   .section {
+    grid-area: container;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 200px auto 300px;
+
+    > aside, > main {
+      border-right: $border-color $border-size $border-style;
+    }
+
+    > * {
+      padding: 1em 0.5em;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+
+  }
+
+  /* .menu {
+    grid-area: aside;
+    border: 1px solid blue;
+    overflow: auto;
+    padding: 5px;
+  }
+
+  #preview {
+    grid-area: preview;
+    border: 1px solid green;
+    overflow: auto;
+  }
+
+  #element {
+    grid-area: element;
+    border: 1px solid yellow;
+    overflow: auto;
+  }
+
+  /* .section {
     height: -webkit-calc(100% - 20px);
     overflow: hidden;
     display: grid;
@@ -128,7 +151,7 @@ export default {
       overflow-x: hidden;
       padding: 1em 0.5em;
     }
-  }
+  } */
 
   .no-select {
     -webkit-touch-callout: none; /* iOS Safari */

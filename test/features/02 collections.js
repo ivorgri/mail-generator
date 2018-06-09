@@ -50,7 +50,7 @@ describe('Collections', () => {
     cy.get('[id="collection-name"]').should('be.visible');
     cy.get('[id="collection-name"]').clear();
     cy.get('[id="collection-name"]').type(newCollectionName);
-    cy.get('[data-qa="update-collection-button"]').click();
+    cy.get('[data-qa="edit-collection-button"]').click();
     cy.url().should('eq', 'http://localhost:8080/#/templates');
     cy.get('[data-qa="selected-collection-menu-item"]').should('be.visible');
     cy.get('[data-qa="selected-collection-menu-item"]').should(($li) => {

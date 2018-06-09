@@ -1,8 +1,6 @@
 <template>
-  <section class="templates section">
-    <aside
-      id="templates-menu"
-      class="menu">
+  <base-layout>
+    <template slot="aside">
       <p class="menu-label">
         {{ $t('collections') | capitalize }}
       </p>
@@ -39,36 +37,23 @@
           </a>
         </li>
       </ul>
-    </aside>
-    <router-view id="template-settings" class="settings" :template="template"/>
-    <div class="element-editor" v-show="editElement">
-      <h5 class="title is-5">
-        {{ $t('editElement') | capitalize }}
-      </h5>
-      <form>
-        <vue-form-generator
-          :schema="elementSchema"
-          :model="elementModel"
-          :options="elementFormOptions"
-          :tag="tag"
-          @validated="onValidated">
-        </vue-form-generator>
-      </form>
-      <div class="buttons">
-        <button class="button"
-          @click="cancel">{{ $t('cancel') | capitalize }}</button>
-        <button class="button is-success"
-          :disabled="!entriesAreValid"
-          @click="updateElement">
-          {{ $t('updateElement') | capitalize }}
-        </button>
-      </div>
-    </div>
-    <div class="element-editor" v-show="removeElement">
-      Remove element <br>
-      {{ selectedElement.id }}
-    </div>
-  </section>
+    </template>
+    <templateForm
+      v-if="(interfaceAction === 'create'
+        || interfaceAction === 'edit')
+        && interfaceElement === 'template'"
+      :template="template"/>
+    <add-elements v-if="interfaceAction === 'add'
+      && interfaceElement === 'elements'"/>
+    <elements v-if="selectedTemplateId
+      && interfaceAction === ''
+      && interfaceElement === ''"/>
+    <template slot="element">
+      <element v-if="interfaceAction === 'edit'
+        && interfaceElement === 'element'"
+        :elementToEdit="elementToEdit"/>
+    </template>
+  </base-layout>
 </template>
 
 <script>
@@ -77,31 +62,32 @@ import Vue from 'vue';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
 import { capitalize, isEmpty } from 'lodash';
 
+const BaseLayout = () => import(/* webpackChunkName: "base" */ '@/components/BaseLayout.vue');
+const TemplateForm = () => import(/* webpackChunkName: "template" */ '@/views/Template.vue');
+const AddElements = () => import(/* webpackChunkName: "elements" */ '@/views/AddElements.vue');
+const Elements = () => import(/* webpackChunkName: "elements" */ '@/views/Elements.vue');
+const Element = () => import(/* webpackChunkName: "element" */ '@/views/Elements.vue');
+
 export default {
   name: 'Templates',
-  props: ['template'],
+  props: {
+    template: {
+      type: Object,
+    },
+  },
   components: {
-    'vue-form-generator': VueFormGenerator.component,
+    BaseLayout,
+    TemplateForm,
+    AddElements,
+    Elements,
   },
   data() {
     return {
       menuHeight: 0,
 
-      entriesAreValid: true,
-      elementModel: {},
-      elementSchema: {},
-      elementFormOptions: {
-        validateAfterLoad: true,
-        validateAfterChanged: true,
-        fieldIdPrefix: 'element-',
-      },
-
-      tag: 'div',
+      action: '',
+      element: '',
     };
-  },
-  mounted() {
-    VueFormGenerator.validators.resources.fieldIsRequired = capitalize(this.$t('fieldIsRequired'));
-    VueFormGenerator.validators.resources.textTooSmall = capitalize(this.$t('textTooSmall'));
   },
   computed: {
     ...mapGetters([
@@ -112,6 +98,8 @@ export default {
       'removeElement',
       'selectedElement',
       'coreElements',
+      'interfaceAction',
+      'interfaceElement',
     ]),
   },
   watch: {

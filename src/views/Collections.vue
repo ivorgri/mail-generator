@@ -1,8 +1,6 @@
 <template>
-  <section class="collections section">
-    <aside
-      id="collections-menu"
-      class="menu">
+  <base-layout>
+    <template slot="aside">
       <p class="menu-label no-select">
         {{ $t('collections') | capitalize }}
       </p>
@@ -24,21 +22,41 @@
           </router-link>
         </li>
       </ul>
-    </aside>
-    <router-view id="collections-settings" class="settings" :collection="collection"/>
-  </section>
+    </template>
+    <collection
+      v-if="interfaceAction !== ''"
+      :collection="collection"/>
+  </base-layout>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
 
+const BaseLayout = () => import(/* webpackChunkName: "base" */ '@/components/BaseLayout.vue');
+const Collection = () => import(/* webpackChunkName: "collection" */ '@/views/Collection.vue');
+
 export default {
   name: 'Collections',
-  props: ['collection'],
+  props: {
+    collection: {
+      type: Object,
+    },
+  },
+  components: {
+    BaseLayout,
+    Collection,
+  },
+  data() {
+    return {
+      action: '',
+      element: '',
+    };
+  },
   computed: {
     ...mapGetters([
       'collectionSet',
       'selectedCollectionId',
+      'interfaceAction',
     ]),
   },
   methods: {

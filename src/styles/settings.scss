@@ -1,4 +1,8 @@
 /* App settings */
+/* Size settings */
+$menu-height: 50px;
+$row-height: -webkit-calc(100% - #{$menu-height});
+
 /* Border settings */
 $border-color: lightgray;
 $border-size: 2px;

@@ -28,7 +28,7 @@ describe('Templates', () => {
     cy.get('[id="template-name"]').should('be.visible');
     cy.get('[id="template-name"]').type(templateName);
     cy.get('[data-qa="create-template-button"]').click();
-    cy.url().should('eq', 'http://localhost:8080/#/elements');
+    cy.url().should('eq', 'http://localhost:8080/#/templates');
     cy.get('[data-qa="template-items"]').should('be.visible');
     cy.get('[data-qa="template-items"]').should(($li) => {
       const text = $li.text().trim();
@@ -50,8 +50,8 @@ describe('Templates', () => {
     cy.get('[id="template-name"]').should('be.visible');
     cy.get('[id="template-name"]').clear();
     cy.get('[id="template-name"]').type(newCollectionName);
-    cy.get('[data-qa="update-template-button"]').click();
-    cy.url().should('eq', 'http://localhost:8080/#/elements');
+    cy.get('[data-qa="edit-template-button"]').click();
+    cy.url().should('eq', 'http://localhost:8080/#/templates');
     cy.get('[data-qa="template-items"]').should('be.visible');
     cy.get('[data-qa="template-items"]').should(($li) => {
       const text = $li.text().trim();

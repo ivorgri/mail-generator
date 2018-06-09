@@ -1,27 +1,22 @@
 <template>
-  <div class="columns">
-    <div class="column is-half">
-      <h5 class="title is-5">
-        {{ $t('chooseElement') | capitalize }}
-      </h5>
-      <form>
-        <vue-form-generator v-if="model && schema"
-          :schema="schema"
-          :model="model"
-          :options="formOptions"
-          :tag="tag">
-        </vue-form-generator>
-      </form>
-      <div class="buttons">
-        <button class="button"
-          @click="cancel">{{ $t('cancel') | capitalize }}</button>
-        <button
-          class="button is-success"
-          :disabled="selectedElements.length < 1"
-          @click="addSelectedElements">{{ $t('addElements') | capitalize }}</button>
-      </div>
-    </div>
-  </div>
+  <base-main>
+    <h5 class="title is-5">
+      {{ $t('chooseElement') | capitalize }}
+    </h5>
+    <form>
+      <vue-form-generator v-if="model && schema"
+        :schema="schema"
+        :model="model"
+        :options="formOptions"
+        :tag="tag"
+        data-qa="element-form">
+      </vue-form-generator>
+    </form>
+    <base-buttons
+      :disabled="selectedElements.length < 1"
+      v-on:cancel-action="cancel"
+      v-on:perform-action="addSelectedElements"/>
+  </base-main>
 </template>
 
 <script>
@@ -29,10 +24,20 @@ import VueFormGenerator from 'vue-form-generator';
 import { mapGetters } from 'vuex';
 import { capitalize, find, isEmpty } from 'lodash';
 
+const BaseMain = () => import(/* webpackChunkName: "base" */ '@/components/BaseMain.vue');
+const BaseButtons = () => import(/* webpackChunkName: "base" */ '@/components/BaseButtons.vue');
+
 export default {
   name: 'AddElements',
   components: {
     'vue-form-generator': VueFormGenerator.component,
+    BaseMain,
+    BaseButtons,
+  },
+  props: {
+    element: {
+      type: String,
+    },
   },
   data() {
     return {
@@ -91,7 +96,6 @@ export default {
   },
   methods: {
     cancel() {
-      // this.template.resync();
       // Go back to last page
       this.$router.go(-1);
     },
@@ -112,7 +116,7 @@ export default {
           console.log(error);
         }
       });
-      // this.$router.push({ name: 'elements' });
+      // this.$router.push({ name: 'templates' });
       this.$router.go(-1);
     },
     uniqueElementExistsAlready(coreElementId) {
@@ -130,34 +134,18 @@ export default {
 </script>
 
 <style lang="scss">
-  .title {
-    margin-bottom: 1em;
-  }
-  .column {
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-  }
+  .vue-form-generator .field-checkbox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 
-  form {
-    overflow-y: auto;
-
-    .vue-form-generator .field-checkbox {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-
-      .field-wrap {
-        order: 0;
-      }
-
-      label {
-        order: 1;
-        margin-left: 0.5em;
-      }
+    .field-wrap {
+      order: 0;
     }
-  }
 
-  .buttons {
-    margin-top: 0.5em;
+    label {
+      order: 1;
+      margin-left: 0.5em;
+    }
   }
 </style>

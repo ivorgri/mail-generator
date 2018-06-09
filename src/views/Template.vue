@@ -1,40 +1,23 @@
 <template>
-  <div class="columns">
-    <div class="column is-half">
-      <h5 v-if="!this.template" class="title is-5">
-        {{ $t('createTemplate') | capitalize }}
-      </h5>
-      <h5 v-if="this.template"
-        class="title is-5">
-        {{ $t('updateTemplate') | capitalize }}
-      </h5>
-      <form>
-        <vue-form-generator
-          :schema="schema"
-          :model="model"
-          :options="formOptions"
-          :tag="tag"
-          @validated="onValidated" data-qa="template-form">
-        </vue-form-generator>
-      </form>
-      <div class="buttons">
-        <button class="button"
-          @click="cancel">{{ $t('cancel') | capitalize }}</button>
-        <button v-if="!this.template"
-          class="button is-success"
-          :disabled="!entriesAreValid"
-          @click="createAndSelectTemplate"
-          data-qa="create-template-button">
-            {{ $t('saveAndOpenTemplate') | capitalize }}
-        </button>
-        <button v-if="this.template"
-          class="button is-success"
-          :disabled="!entriesAreValid"
-          @click="updateTemplate"
-          data-qa="update-template-button">{{ $t('updateTemplate') | capitalize }}</button>
-      </div>
-    </div>
-  </div>
+  <base-main>
+    <h5 class="title is-5">
+      {{ $t(`${interfaceAction}Template`) | capitalize }}
+    </h5>
+    <form>
+      <vue-form-generator
+        :schema="schema"
+        :model="model"
+        :options="formOptions"
+        :tag="tag"
+        @validated="onValidated"
+        data-qa="template-form">
+      </vue-form-generator>
+    </form>
+    <base-buttons
+      :disabled="!entriesAreValid"
+      v-on:cancel-action="cancel"
+      v-on:perform-action="performAction"/>
+  </base-main>
 </template>
 
 <script>
@@ -42,12 +25,21 @@ import VueFormGenerator from 'vue-form-generator';
 import { mapGetters, mapActions } from 'vuex';
 import { capitalize, isEmpty, cloneDeep } from 'lodash';
 
+const BaseMain = () => import(/* webpackChunkName: "base" */ '@/components/BaseMain.vue');
+const BaseButtons = () => import(/* webpackChunkName: "base" */ '@/components/BaseButtons.vue');
+
 export default {
   name: 'Template',
   components: {
     'vue-form-generator': VueFormGenerator.component,
+    BaseMain,
+    BaseButtons,
   },
-  props: ['template'],
+  props: {
+    template: {
+      type: Object,
+    },
+  },
   data() {
     return {
       entriesAreValid: true,
@@ -96,6 +88,7 @@ export default {
       'db',
       'selectedCollectionId',
       'selectedCollection',
+      'interfaceAction'
     ]),
     model() {
       if (isEmpty(this.template)) {
@@ -116,9 +109,18 @@ export default {
       this.entriesAreValid = isValid;
     },
     cancel() {
-      this.template.resync();
+      if (!isEmpty(this.template)) {
+        this.template.resync();
+      }
       // Go back to last page
       this.$router.go(-1);
+    },
+    performAction() {
+      if (this.interfaceAction === 'create') {
+        this.createAndSelectTemplate();
+      } else if (this.interfaceAction === 'edit') {
+        this.updateTemplate();
+      }
     },
     async createAndSelectTemplate() {
       const template = cloneDeep(this.model);
@@ -131,7 +133,7 @@ export default {
         console.log(error);
       }
       this.selectTemplate(template.id);
-      this.$router.push({ name: 'elements' });
+      this.$router.push({ name: 'templates' });
     },
     async updateTemplate() {
       try {
@@ -139,7 +141,7 @@ export default {
       } catch (error) {
         console.log(error);
       }
-      this.$router.push({ name: 'elements' });
+      this.$router.push({ name: 'templates' });
     },
   },
 };

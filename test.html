@@ -1,0 +1,90 @@
+<html>
+  <head>
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+      .app {
+        height: 100vh;
+        border: 1px solid red;
+        display: grid;
+        grid-template-rows: 50px auto;
+        grid-template-areas: "menu"
+          "sub";
+      }
+      .sub {
+        grid-area: sub;
+        display: grid;
+        grid-template-columns: 200px auto 300px;
+
+        grid-template-areas: "aside preview element";
+      }
+      .menu {
+        grid-area: menu;
+        border: 1px solid purple;
+        overflow: auto;
+      }
+      .aside {
+        grid-area: aside;
+        border: 1px solid blue;
+        overflow: auto;
+      }
+      .preview {
+        grid-area: preview;
+        border: 1px solid green;
+        overflow: auto;
+      }
+      .element {
+        grid-area: element;
+        border: 1px solid yellow;
+        overflow: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <div class="menu">Menu</div>
+      <div class="sub">
+        <aside class="aside">
+          <h1>Aside</h1>
+          <ul>
+            <li>Test</li>
+            <li>Test</li>
+            <li>Test</li>
+            <li>Test</li>
+            <li>Test</li>
+            <li>Test</li>
+            <li>Test</li>
+          </ul>
+        </aside>
+        <div class="preview">
+          <h1>Preview</h1>
+          <ul>
+            <li>Test</li>
+            <li>Test</li>
+            <li>Test</li>
+            <li>Test</li>
+            <li>Test</li>
+            <li>Test</li>
+            <li>Test</li>
+          </ul>
+        </div>
+        <div class="element">
+            <h1>Element</h1>
+            <ul>
+              <li>Test</li>
+              <li>Test</li>
+              <li>Test</li>
+              <li>Test</li>
+              <li>Test</li>
+              <li>Test</li>
+              <li>Test</li>
+            </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
