@@ -88,7 +88,7 @@ export default {
       'db',
       'selectedCollectionId',
       'selectedCollection',
-      'interfaceAction'
+      'interfaceAction',
     ]),
     model() {
       if (isEmpty(this.template)) {

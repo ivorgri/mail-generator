@@ -42,7 +42,7 @@ export default {
     }));
   },
   watch: {
-    '$route'(to) {
+    $route(to) {
       this.setAction(to.meta.action === undefined ? '' : to.meta.action);
       this.setElement(to.meta.element === undefined ? '' : to.meta.element);
     },

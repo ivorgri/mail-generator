@@ -1,5 +1,5 @@
 <template>
-  <div class="element-action-buttons">
+  <div class="element-action-buttons" data-qa="element-action-buttons">
     <div class="field has-addons">
       <p class="control">
         <a class="button"
@@ -25,14 +25,13 @@
 
 <script>
 // import { mapGetters, mapMutations } from 'vuex';
-import { isEmpty } from 'lodash';
 
 export default {
   name: 'ElementActionButtons',
   props: {
     element: {
       type: Object,
-    }
+    },
   },
   /* computed: {
     ...mapGetters([
@@ -56,7 +55,7 @@ export default {
       this.setSelectedElement(this.element);
       this.toggleEditElement(true); */
       console.log('Editing element');
-      console.log(element);
+      console.log(this.element);
     },
     removeElement() {
       /* if (!isEmpty(this.selectedElement)) {
@@ -69,7 +68,7 @@ export default {
       this.setSelectedElement(this.element);
       this.toggleRemoveElement(true); */
       console.log('Removing element');
-      console.log(element);
+      console.log(this.element);
     },
   },
 };

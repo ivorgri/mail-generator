@@ -1,9 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Collections from '@/views/Collections.vue';
-import Collection from '@/views/Collection.vue';
 import Templates from '@/views/Templates.vue';
-import Template from '@/views/Template.vue';
 import User from '@/views/User.vue';
 import SelectUser from '@/views/SelectUser.vue';
 import EditUser from '@/views/EditUser.vue';
@@ -71,7 +69,7 @@ export default new Router({
           action: 'add',
           element: 'elements',
         },
-       }, {
+      }, {
         path: '/elements/edit',
         name: 'editElements',
         component: Templates,
@@ -79,7 +77,7 @@ export default new Router({
           action: 'edit',
           element: 'element',
         },
-      }]
+      }],
     }],
   }, {
     path: '/user',

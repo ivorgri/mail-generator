@@ -57,10 +57,9 @@
 </template>
 
 <script>
-import VueFormGenerator from 'vue-form-generator';
 import Vue from 'vue';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
-import { capitalize, isEmpty } from 'lodash';
+import { isEmpty } from 'lodash';
 
 const BaseLayout = () => import(/* webpackChunkName: "base" */ '@/components/BaseLayout.vue');
 const TemplateForm = () => import(/* webpackChunkName: "template" */ '@/views/Template.vue');
@@ -80,6 +79,7 @@ export default {
     TemplateForm,
     AddElements,
     Elements,
+    Element,
   },
   data() {
     return {

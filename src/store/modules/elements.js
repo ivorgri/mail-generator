@@ -227,12 +227,25 @@ const getters = {
     const elementSet = [];
     elementIds.forEach((elementId) => {
       if (state.elements[elementId].templateId === getters.selectedTemplateId) {
-        if(elementId !== 1 || elementId !== 11 || elementId !== 12) {
+        const { coreElementId } = state.elements[elementId];
+        if (coreElementId !== 1 && coreElementId !== 11 && coreElementId !== 12) {
           elementSet.push(state.elements[elementId]);
         }
       }
     });
     return elementSet;
+  },
+  elementById: (state, getters) => (coreElementId) => {
+    let element = {};
+    const elementIds = Object.keys(state.elements);
+    elementIds.forEach((elementId) => {
+      if (state.elements[elementId].templateId === getters.selectedTemplateId) {
+        if (state.elements[elementId].coreElementId === coreElementId) {
+          element = state.elements[elementId];
+        }
+      }
+    });
+    return element;
   },
   /* selectedTemplateId: state => state.selectedTemplateId,
   selectedTemplate: state => (state.selectedTemplateId === '' ? false :

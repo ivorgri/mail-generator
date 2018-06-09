@@ -34,10 +34,26 @@ describe('Elements', () => {
   });
 
   it('... when you hover over an element, an update button should be present', () => {
-    cy.get('[data-qa="email-element"]').each(($el) => {
+    /* CSS hover does not work (yet) with cypress, so working around it here.
+    More info: https://github.com/cypress-io/cypress/issues/1485 */
+    cy.get('[data-qa="email-header"]')
+      .find('[data-qa="element-action-buttons"]')
+      .invoke('show');
+    cy.get('[data-qa="email-header"]')
+      .find('[data-qa="element-action-buttons"]')
+      .find('[data-qa="edit-element"]')
+      .should('be.visible');
+    cy.get('[data-qa="email-footer"]')
+      .find('[data-qa="element-action-buttons"]')
+      .invoke('show');
+      cy.get('[data-qa="email-footer"]')
+      .find('[data-qa="element-action-buttons"]')
+      .find('[data-qa="edit-element"]')
+      .should('be.visible');
+    /* cy.get('[data-qa="email-element"]').each(($el) => {
       cy.wrap($el).trigger('mouseover');
       cy.get('[data-qa="edit-element"]').should('be.visible');
-    });
+    }); */
   });
 
   it('... when you hover over an element, a remove button should be present', () => {

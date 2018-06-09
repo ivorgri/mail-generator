@@ -7,7 +7,7 @@
     border="0"
     align="center"
     width="100%">
-    <tr class="element-container">
+    <tr class="element-container" data-qa="email-bleed-background">
       <td valign="top" align="center"
         class="editable-element">
         <div style="max-width: 600px; margin: auto;" class="email-container">

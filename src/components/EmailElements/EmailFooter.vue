@@ -11,7 +11,7 @@
       font-size: 12px;
       line-height: 140%;"
     :style="{ color: getValueByName('txtcolor') }">
-    <tr class="element-container">
+    <tr class="element-container" data-qa="email-footer">
       <td style="padding: 40px 10px;
         width: 100%;
         font-family: sans-serif;

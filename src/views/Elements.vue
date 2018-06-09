@@ -45,8 +45,7 @@
         style="margin: 0 auto;"
         class="email-container">
 
-        <email-header v-if="emailHeader" :element="emailHeader"
-          data-qa="email-header"/>
+        <email-header v-if="emailHeader" :element="emailHeader"/>
 
         <div v-for="element in elementSet" :key="element.id"
           data-qa="email-element">
@@ -57,11 +56,9 @@
       </table>
       <!-- Email Body : END -->
 
-      <email-footer v-if="emailFooter" :element="emailFooter"
-        data-qa="email-footer"/>
+      <email-footer v-if="emailFooter" :element="emailFooter"/>
 
-      <email-bleed-background v-if="emailBleedBackground" :element="emailBleedBackground"
-        data-qa="email-bleed-background"/>
+      <email-bleed-background v-if="emailBleedBackground" :element="emailBleedBackground"/>
 
     </center>
   </div>
@@ -69,7 +66,6 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { find } from 'lodash';
 
 const EmailHeader = () => import(/* webpackChunkName: "emailElements" */ '@/components/EmailElements/EmailHeader.vue');
 const HeroImage = () => import(/* webpackChunkName: "emailElements" */ '@/components/EmailElements/HeroImage.vue');
@@ -91,15 +87,16 @@ export default {
     ...mapGetters([
       'elementSet',
       'selectedTemplate',
+      'elementById',
     ]),
     emailHeader() {
-      return find(this.elementSet, { coreElementId: 1 });
+      return this.elementById(1);
     },
     emailFooter() {
-      return find(this.elementSet, { coreElementId: 11 });
+      return this.elementById(11);
     },
     emailBleedBackground() {
-      return find(this.elementSet, { coreElementId: 12 });
+      return this.elementById(12);
     },
   },
   methods: {

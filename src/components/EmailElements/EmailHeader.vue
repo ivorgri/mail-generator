@@ -1,6 +1,6 @@
 <template>
   <!-- Email Header : BEGIN -->
-  <tr class="element-container">
+  <tr class="element-container" data-qa="email-header">
     <td class="editable-element" style="padding: 20px 0; text-align: center">
       <img
         width="200"
