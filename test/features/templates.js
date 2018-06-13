@@ -1,10 +1,11 @@
-import { openTemplatesMenu, createTemplate, updateTemplate } from "../support";
-
 // test/features/templates.js
 
 describe('Templates', () => {
   beforeEach(() => {
     cy.viewport(1366, 768);
+    cy.visitCollections();
+    cy.openCollectionsMenu();
+    cy.createCollection();
   });
 
   it('... should have a templates menu item.', () => {
@@ -12,16 +13,18 @@ describe('Templates', () => {
   });
 
   it('... should have an "open template" menu item.', () => {
-    openTemplatesMenu();
+    cy.openTemplatesMenu();
     cy.get('[data-qa="open-templates"]').should('be.visible');
   });
 
   it('... should have a "create template" menu item.', () => {
+    cy.openTemplatesMenu();
     cy.get('[data-qa="create-template"]').should('be.visible');
   });
 
   it('... should create a template when clicking create template menu item.', () => {
-    createTemplate();
+    cy.openTemplatesMenu();
+    cy.get('[data-qa="create-template"').click();
     cy.url().should('eq', 'http://localhost:8080/#/templates/create');
     const templateName = 'Test template';
     cy.get('[data-qa="template-form"]').should('be.visible');
@@ -38,12 +41,17 @@ describe('Templates', () => {
   });
 
   it('... should now have a "update template" menu item.', () => {
-    openTemplatesMenu();
+    cy.openTemplatesMenu();
+    cy.createTemplate();
+    cy.openTemplatesMenu();
     cy.get('[data-qa="update-template"]').should('be.visible');
   });
 
   it('... should be able to update a collection.', () => {
-    updateTemplate();
+    cy.openTemplatesMenu();
+    cy.createTemplate();
+    cy.openTemplatesMenu();
+    cy.get('[data-qa="update-template"').click();
     cy.url().should('eq', 'http://localhost:8080/#/templates/edit');
     const newCollectionName = 'New test collection';
     cy.get('[data-qa="template-form"]').should('be.visible');

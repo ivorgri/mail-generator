@@ -1,10 +1,13 @@
-import { openElementsMenu, addElements } from "../support";
-
 // test/features/elements.js
 
 describe('Elements', () => {
   beforeEach(() => {
     cy.viewport(1366, 768);
+    cy.visitCollections();
+    cy.openCollectionsMenu();
+    cy.createCollection();
+    cy.openTemplatesMenu();
+    cy.createTemplate();
   });
 
   it('... should have a elements menu item.', () => {
@@ -12,12 +15,13 @@ describe('Elements', () => {
   });
 
   it('... should have a "add element" menu item.', () => {
-    openElementsMenu();
+    cy.openElementsMenu();
     cy.get('[data-qa="add-elements"]').should('be.visible');
   });
 
   it('... should be able to add elements when clicking add element menu item.', () => {
-    addElements();
+    cy.openElementsMenu();
+    cy.get('[data-qa="add-elements"').click();
     cy.url().should('eq', 'http://localhost:8080/#/elements/add');
     cy.get('[data-qa="element-form"]').should('be.visible');
     cy.get('[data-qa="element-form"]').find('input[type="checkbox"]').should('have.length', 12);
@@ -34,6 +38,8 @@ describe('Elements', () => {
   });
 
   it('... when you hover over an element, an update button should be present', () => {
+    cy.openElementsMenu();
+    cy.addElements();
     /* CSS hover does not work (yet) with cypress, so working around it here.
     More info: https://github.com/cypress-io/cypress/issues/1485 */
     cy.get('[data-qa="email-header"]')
@@ -46,7 +52,7 @@ describe('Elements', () => {
     cy.get('[data-qa="email-footer"]')
       .find('[data-qa="element-action-buttons"]')
       .invoke('show');
-      cy.get('[data-qa="email-footer"]')
+    cy.get('[data-qa="email-footer"]')
       .find('[data-qa="element-action-buttons"]')
       .find('[data-qa="edit-element"]')
       .should('be.visible');
@@ -57,10 +63,12 @@ describe('Elements', () => {
   });
 
   it('... when you hover over an element, a remove button should be present', () => {
-    cy.get('[data-qa="email-element"]').each(($el) => {
+    cy.openElementsMenu();
+    cy.addElements();
+    /* cy.get('[data-qa="email-element"]').each(($el) => {
       cy.wrap($el).trigger('mouseover');
       cy.get('[data-qa="remove-element"]').should('be.visible');
-    });
+    }); */
   });
 
   /*

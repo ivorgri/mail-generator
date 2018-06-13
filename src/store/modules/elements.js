@@ -125,7 +125,18 @@ const state = {
     4: {
       id: 4,
       name: 'backgroundImageText',
-      coreFields: [],
+      model: {
+        imageLink: 'http://placehold.it/600x230/222222/666666',
+      },
+      schema: {
+        fields: [{
+          type: 'input',
+          inputType: 'text',
+          label: 'imageLink',
+          model: 'imageLink',
+          placeholder: 'Add link to image here',
+        }],
+      }
     },
     5: {
       id: 5,

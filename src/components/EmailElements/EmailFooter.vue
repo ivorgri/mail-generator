@@ -10,7 +10,7 @@
       font-family: sans-serif;
       font-size: 12px;
       line-height: 140%;"
-    :style="{ color: getValueByName('txtcolor') }">
+    :style="{ color: getValueByName('textColor') }">
     <tr class="element-container" data-qa="email-footer">
       <td style="padding: 40px 10px;
         width: 100%;
@@ -42,18 +42,10 @@
 </template>
 
 <script>
-const ElementActionButtons = () => import(/* webpackChunkName: "actionbuttons" */ '@/components/EmailElements/ElementActionButtons.vue');
+import elementBase from '@/mixins/elementBase';
 
 export default {
   name: 'EmailFooter',
-  components: {
-    ElementActionButtons,
-  },
-  props: ['element'],
-  methods: {
-    getValueByName(name) {
-      return this.element.model[name];
-    },
-  },
+  mixins: [elementBase],
 };
 </script>

@@ -1,10 +1,9 @@
-import { visitCollections } from "../support";
-
 // test/features/app.js
 
 describe('App', () => {
   beforeEach(() => {
     cy.viewport(1366, 768);
+    cy.visitCollections();
   });
 
   it('... should be loaded.', () => {
@@ -12,7 +11,6 @@ describe('App', () => {
     // CSS selectors used for styling from those used
     // exclusively for testing our application.
     // See: https://docs.cypress.io/guides/references/best-practices.html#Selecting-Elements
-    visitCollections();
     cy.get('[data-qa="app"]').should('be.visible');
   });
 
