@@ -1,12 +1,14 @@
 <template>
   <div class="buttons">
     <button class="button"
+      :disabled="submitting"
       @click="$emit('cancel-action')"
       :data-qa="`cancel-${interfaceElement}`">
       {{ $t('cancel') | capitalize }}
     </button>
     <button class="button is-success"
-      :disabled="disabled"
+      :class="{ 'is-loading': submitting }"
+      :disabled="disabled || cancelling"
       @click="$emit('perform-action')"
       :data-qa="`${interfaceAction}-${interfaceElement}-button`">
         {{ $t(`${interfaceAction}${capElement}`) | capitalize }}
@@ -24,6 +26,14 @@ export default {
     disabled: {
       type: Boolean,
       required: true,
+    },
+    cancelling: {
+      type: Boolean,
+      default: false,
+    },
+    submitting: {
+      type: Boolean,
+      default: false,
     },
   },
   computed: {

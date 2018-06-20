@@ -14,6 +14,8 @@
       </vue-form-generator>
     </form>
     <base-buttons
+      :cancelling="cancelling"
+      :submitting="submitting"
       :disabled="!entriesAreValid"
       v-on:cancel-action="cancel"
       v-on:perform-action="performAction"/>
@@ -24,16 +26,16 @@
 import VueFormGenerator from 'vue-form-generator';
 import { mapGetters, mapActions } from 'vuex';
 import { capitalize, isEmpty, cloneDeep } from 'lodash';
+import baseButtonState from '@/mixins/baseButtonState';
 
 const BaseMain = () => import(/* webpackChunkName: "base" */ '@/components/BaseMain.vue');
-const BaseButtons = () => import(/* webpackChunkName: "base" */ '@/components/BaseButtons.vue');
 
 export default {
   name: 'Template',
+  mixins: [baseButtonState],
   components: {
     'vue-form-generator': VueFormGenerator.component,
     BaseMain,
-    BaseButtons,
   },
   props: {
     template: {
@@ -109,13 +111,16 @@ export default {
       this.entriesAreValid = isValid;
     },
     cancel() {
+      this.cancelling = true;
       if (!isEmpty(this.template)) {
         this.template.resync();
       }
+      this.cancelling = false;
       // Go back to last page
       this.$router.go(-1);
     },
     performAction() {
+      this.submitting = true;
       if (this.interfaceAction === 'create') {
         this.createAndSelectTemplate();
       } else if (this.interfaceAction === 'edit') {
@@ -133,6 +138,7 @@ export default {
         console.log(error);
       }
       this.selectTemplate(template.id);
+      this.submitting = false;
       this.$router.push({ name: 'templates' });
     },
     async updateTemplate() {
@@ -141,6 +147,7 @@ export default {
       } catch (error) {
         console.log(error);
       }
+      this.submitting = false;
       this.$router.push({ name: 'templates' });
     },
   },

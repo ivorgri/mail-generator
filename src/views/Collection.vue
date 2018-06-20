@@ -14,6 +14,8 @@
       </vue-form-generator>
     </form>
     <base-buttons
+      :cancelling="cancelling"
+      :submitting="submitting"
       :disabled="!entriesAreValid"
       v-on:cancel-action="cancel"
       v-on:perform-action="performAction"/>
@@ -24,16 +26,16 @@
 import VueFormGenerator from 'vue-form-generator';
 import { mapGetters, mapActions } from 'vuex';
 import { capitalize, isEmpty, cloneDeep } from 'lodash';
+import baseButtonState from '@/mixins/baseButtonState';
 
 const BaseMain = () => import(/* webpackChunkName: "base" */ '@/components/BaseMain.vue');
-const BaseButtons = () => import(/* webpackChunkName: "base" */ '@/components/BaseButtons.vue');
 
 export default {
   name: 'Collection',
+  mixins: [baseButtonState],
   components: {
     'vue-form-generator': VueFormGenerator.component,
     BaseMain,
-    BaseButtons,
   },
   props: {
     collection: {
@@ -101,13 +103,16 @@ export default {
       this.entriesAreValid = isValid;
     },
     cancel() {
+      this.cancelling = true;
       if (!isEmpty(this.collection)) {
         this.collection.resync();
       }
+      this.cancelling = false;
       // Go back to last page
       this.$router.go(-1);
     },
     performAction() {
+      this.submitting = true;
       if (this.interfaceAction === 'create') {
         this.createAndSelectCollection();
       } else if (this.interfaceAction === 'edit') {
@@ -125,6 +130,7 @@ export default {
         console.log(error);
       }
       this.selectCollection(collection.id);
+      this.submitting = false;
       // When creating a collection, always go to the templates overview
       this.$router.push({ name: 'templates' });
     },
@@ -134,6 +140,7 @@ export default {
       } catch (error) {
         console.log(error);
       }
+      this.submitting = false;
       // Go back to last page
       this.$router.go(-1);
     },

@@ -13,6 +13,8 @@
       </vue-form-generator>
     </form>
     <base-buttons
+      :cancelling="cancelling"
+      :submitting="submitting"
       :disabled="selectedElements.length < 1"
       v-on:cancel-action="cancel"
       v-on:perform-action="addSelectedElements"/>
@@ -23,16 +25,16 @@
 import VueFormGenerator from 'vue-form-generator';
 import { mapGetters } from 'vuex';
 import { capitalize, find, isEmpty } from 'lodash';
+import baseButtonState from '@/mixins/baseButtonState';
 
 const BaseMain = () => import(/* webpackChunkName: "base" */ '@/components/BaseMain.vue');
-const BaseButtons = () => import(/* webpackChunkName: "base" */ '@/components/BaseButtons.vue');
 
 export default {
   name: 'AddElements',
+  mixins: [baseButtonState],
   components: {
     'vue-form-generator': VueFormGenerator.component,
     BaseMain,
-    BaseButtons,
   },
   props: {
     element: {
@@ -96,10 +98,13 @@ export default {
   },
   methods: {
     cancel() {
+      this.cancelling = true;
+      this.cancelling = false;
       // Go back to last page
       this.$router.go(-1);
     },
     addSelectedElements() {
+      this.submitting = true;
       this.selectedElements.forEach(async (coreElementId) => {
         const coreElement = this.coreElements[coreElementId];
         const element = {
@@ -116,6 +121,7 @@ export default {
           console.log(error);
         }
       });
+      this.submitting = false;
       // this.$router.push({ name: 'templates' });
       this.$router.go(-1);
     },
