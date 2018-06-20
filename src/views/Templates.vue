@@ -47,7 +47,8 @@
       && interfaceElement === 'elements'"/>
     <elements v-if="selectedTemplateId
       && interfaceAction === ''
-      && interfaceElement === ''"/>
+      && interfaceElement === ''
+      && elementsExist"/>
     <template slot="element">
       <element v-if="interfaceAction === 'edit'
         && interfaceElement === 'element'"
@@ -84,7 +85,6 @@ export default {
   data() {
     return {
       menuHeight: 0,
-
       action: '',
       element: '',
     };
@@ -100,7 +100,11 @@ export default {
       'coreElements',
       'interfaceAction',
       'interfaceElement',
+      'elementSet',
     ]),
+    elementsExist() {
+      return !isEmpty(this.elementSet);
+    },
   },
   watch: {
     selectedCollection(newVal) {

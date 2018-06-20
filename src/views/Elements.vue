@@ -73,7 +73,6 @@ const OneColumnTextButton = () => import(/* webpackChunkName: "emailElements" */
 const EmailFooter = () => import(/* webpackChunkName: "emailElements" */ '@/components/EmailElements/EmailFooter.vue');
 const EmailBleedBackground = () => import(/* webpackChunkName: "emailElements" */ '@/components/EmailElements/EmailBleedBackground.vue');
 
-
 export default {
   name: 'Elements',
   components: {
