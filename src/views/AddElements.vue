@@ -24,7 +24,7 @@
 <script>
 import VueFormGenerator from 'vue-form-generator';
 import { mapGetters } from 'vuex';
-import { capitalize, find, isEmpty } from 'lodash';
+import { capitalize, isEmpty } from 'lodash';
 import baseButtonState from '@/mixins/baseButtonState';
 
 const BaseMain = () => import(/* webpackChunkName: "base" */ '@/components/BaseMain.vue');
@@ -84,6 +84,7 @@ export default {
       'selectedTemplateId',
       'coreElements',
       'elementSet',
+      'elementById',
     ]),
     selectedElements() {
       const modelKeys = Object.keys(this.model);
@@ -126,10 +127,7 @@ export default {
       this.$router.go(-1);
     },
     uniqueElementExistsAlready(coreElementId) {
-      if (isEmpty(this.elementSet)) {
-        return false;
-      }
-      const uniqueElement = find(this.elementSet, { coreElementId: parseInt(coreElementId, 10) });
+      const uniqueElement = this.elementById(parseInt(coreElementId, 10));
       if (isEmpty(uniqueElement)) {
         return false;
       }
