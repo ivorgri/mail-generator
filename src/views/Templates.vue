@@ -46,13 +46,13 @@
     <add-elements v-if="interfaceAction === 'add'
       && interfaceElement === 'elements'"/>
     <elements v-if="selectedTemplateId
-      && interfaceAction === ''
-      && interfaceElement === ''
+      && (interfaceAction === '' || interfaceAction === 'edit')
+      && (interfaceElement === '' || interfaceElement === 'element')
       && elementsExist"/>
     <template slot="element">
-      <element v-if="interfaceAction === 'edit'
-        && interfaceElement === 'element'"
-        :elementToEdit="elementToEdit"/>
+      <edit-element v-if="interfaceAction === 'edit' &&
+        interfaceElement === 'element'"
+        :elementToEdit="selectedElement"/>
     </template>
   </base-layout>
 </template>
@@ -66,7 +66,7 @@ const BaseLayout = () => import(/* webpackChunkName: "base" */ '@/components/Bas
 const TemplateForm = () => import(/* webpackChunkName: "template" */ '@/views/Template.vue');
 const AddElements = () => import(/* webpackChunkName: "elements" */ '@/views/AddElements.vue');
 const Elements = () => import(/* webpackChunkName: "elements" */ '@/views/Elements.vue');
-const Element = () => import(/* webpackChunkName: "element" */ '@/views/Elements.vue');
+const EditElement = () => import(/* webpackChunkName: "elements" */ '@/views/EditElement.vue');
 
 export default {
   name: 'Templates',
@@ -80,13 +80,11 @@ export default {
     TemplateForm,
     AddElements,
     Elements,
-    Element,
+    EditElement,
   },
   data() {
     return {
       menuHeight: 0,
-      action: '',
-      element: '',
     };
   },
   computed: {
@@ -101,9 +99,14 @@ export default {
       'interfaceAction',
       'interfaceElement',
       'elementSet',
+      'selectedElement',
+      'elementById',
     ]),
     elementsExist() {
-      return !isEmpty(this.elementSet);
+      return !isEmpty(this.elementSet) ||
+        !isEmpty(this.elementById(1)) ||
+        !isEmpty(this.elementById(11)) ||
+        !isEmpty(this.elementById(12));
     },
   },
   watch: {

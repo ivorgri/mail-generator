@@ -136,7 +136,7 @@ const state = {
           model: 'imageLink',
           placeholder: 'Add link to image here',
         }],
-      }
+      },
     },
     5: {
       id: 5,
@@ -258,9 +258,6 @@ const getters = {
     });
     return element;
   },
-  /* selectedTemplateId: state => state.selectedTemplateId,
-  selectedTemplate: state => (state.selectedTemplateId === '' ? false :
-    state.templates[state.selectedTemplateId]), */
   selectedElement: state => state.selectedElement,
   editElement: state => state.editElement,
   removeElement: state => state.removeElement,
@@ -300,17 +297,6 @@ const actions = {
     });
     commit('setElements', elements);
   },
-  /* async selectTemplate({ getters, commit }, selectedTemplateId) {
-    commit('selectTemplate', selectedTemplateId);
-    if (getters.selectedCollection !== false) {
-      getters.selectedCollection.selectedTemplateId = selectedTemplateId;
-      try {
-        await getters.selectedCollection.save();
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  }, */
 };
 
 export default {

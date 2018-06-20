@@ -1,56 +1,48 @@
 <template>
-  <div class="columns">
-    <div class="column is-one-third">
-      <h5 v-if="!this.template" class="title is-5">
-        {{ $t('createTemplate') | capitalize }}
-      </h5>
-      <h5 v-if="this.template"
-        class="title is-5">
-        {{ $t('updateTemplate') | capitalize }}
-      </h5>
-      <form>
-        <vue-form-generator
-          :schema="schema"
-          :model="model"
-          :options="formOptions"
-          :tag="tag"
-          @validated="onValidated">
-        </vue-form-generator>
-      </form>
-      <div class="buttons">
-        <button class="button"
-          @click="cancel">{{ $t('cancel') | capitalize }}</button>
-        <button v-if="!this.template"
-          class="button is-success"
-          :disabled="!entriesAreValid"
-          @click="createAndSelectTemplate">
-            {{ $t('saveAndOpenTemplate') | capitalize }}
-        </button>
-        <button v-if="this.template"
-          class="button is-success"
-          :disabled="!entriesAreValid"
-          @click="updateTemplate">{{ $t('updateTemplate') | capitalize }}</button>
-      </div>
-    </div>
+  <div>
+    <h5 class="title is-5">
+      {{ $t('editElement') | capitalize }}
+    </h5>
+    <!-- <form>
+      <vue-form-generator
+        :schema="schema"
+        :model="model"
+        :options="formOptions"
+        :tag="tag"
+        @validated="onValidated">
+      </vue-form-generator>
+    </form> -->
+    <base-buttons
+      :cancelling="cancelling"
+      :submitting="submitting"
+      :disabled="!entriesAreValid"
+      v-on:cancel-action="cancel"
+      v-on:perform-action="performAction"/>
   </div>
 </template>
 
 <script>
 import VueFormGenerator from 'vue-form-generator';
-import 'vue-form-generator/dist/vfg.css';
-import { mapGetters, mapActions } from 'vuex';
-import { capitalize, isEmpty, cloneDeep } from 'lodash';
+import { mapMutations } from 'vuex';
+import { isEmpty, capitalize } from 'lodash';
+import baseButtonState from '@/mixins/baseButtonState';
 
 export default {
-  name: 'Template',
+  name: 'EditElement',
+  mixins: [baseButtonState],
   components: {
     'vue-form-generator': VueFormGenerator.component,
+    baseButtonState,
   },
-  props: ['template'],
+  props: {
+    elementToEdit: {
+      type: Object,
+    },
+  },
   data() {
     return {
       entriesAreValid: true,
-      schema: {
+      /* schema: {
         fields: [{
           type: 'input',
           inputType: 'text',
@@ -75,12 +67,12 @@ export default {
           id: 'color',
           placeholder: capitalize(this.$t('templateColor')),
         }],
-      },
+      }, */
 
       formOptions: {
         validateAfterLoad: true,
         validateAfterChanged: true,
-        fieldIdPrefix: 'template-',
+        fieldIdPrefix: 'edit-element-',
       },
 
       tag: 'div',
@@ -91,29 +83,51 @@ export default {
     VueFormGenerator.validators.resources.textTooSmall = capitalize(this.$t('textTooSmall'));
   },
   computed: {
-    ...mapGetters([
+    model() {
+      return this.elementToEdit.model;
+    },
+    /* ...mapGetters([
       'db',
       'selectedCollectionId',
       'selectedCollection',
     ]),
-    model() {
-      if (isEmpty(this.template)) {
-        return {
-          name: '',
-          description: '',
-          color: '',
-        };
-      }
-      return this.template;
-    },
+    */
   },
   methods: {
-    ...mapActions([
-      'selectTemplate',
+    ...mapMutations([
+      'setAction',
+      'setElement',
     ]),
     onValidated(isValid) {
       this.entriesAreValid = isValid;
     },
+    cancel() {
+      this.cancelling = true;
+      if (!isEmpty(this.elementToEdit)) {
+        this.elementToEdit.resync();
+      }
+      this.setAction('');
+      this.setElement('');
+      this.cancelling = false;
+      this.$router.push({ name: 'templates' });
+    },
+    performAction() {
+      this.submitting = true;
+      this.updateElement();
+    },
+    async updateElement() {
+      try {
+        await this.elementToEdit.save();
+      } catch (error) {
+        console.log(error);
+      }
+      this.setAction('');
+      this.setElement('');
+      this.submitting = false;
+      this.$router.push({ name: 'templates' });
+    },
+    /*
+
     cancel() {
       this.template.resync();
       // Go back to last page
@@ -132,14 +146,7 @@ export default {
       this.selectTemplate(template.id);
       this.$router.push({ name: 'templates' });
     },
-    async updateTemplate() {
-      try {
-        await this.template.save();
-      } catch (error) {
-        console.log(error);
-      }
-      this.$router.push({ name: 'templates' });
-    },
+     */
   },
 };
 </script>
