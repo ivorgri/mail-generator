@@ -45,7 +45,7 @@
         style="margin: 0 auto;"
         class="email-container">
 
-        <email-header v-if="emailHeader" :element="emailHeader"/>
+        <email-header v-if="elementExists(1)" :element="elementById(1)"/>
 
         <div v-for="element in elementSet" :key="element.id"
           data-qa="email-element">
@@ -56,9 +56,9 @@
       </table>
       <!-- Email Body : END -->
 
-      <email-footer v-if="emailFooter" :element="emailFooter"/>
+      <email-footer v-if="elementExists(11)" :element="elementById(11)"/>
 
-      <email-bleed-background v-if="emailBleedBackground" :element="emailBleedBackground"/>
+      <email-bleed-background v-if="elementExists(12)" :element="elementById(12)"/>
 
     </center>
   </div>
@@ -66,6 +66,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import { isEmpty } from 'lodash';
 
 const EmailHeader = () => import(/* webpackChunkName: "emailElements" */ '@/components/EmailElements/EmailHeader.vue');
 const HeroImage = () => import(/* webpackChunkName: "emailElements" */ '@/components/EmailElements/HeroImage.vue');
@@ -88,19 +89,17 @@ export default {
       'selectedTemplate',
       'elementById',
     ]),
-    emailHeader() {
-      return this.elementById(1);
-    },
-    emailFooter() {
-      return this.elementById(11);
-    },
-    emailBleedBackground() {
-      return this.elementById(12);
-    },
   },
   methods: {
     getValueByName(name) {
       return this.selectedTemplate[name];
+    },
+    elementExists(id) {
+      const element = this.elementById(id);
+      if (isEmpty(element)) {
+        return false;
+      }
+      return element;
     },
   },
 };
