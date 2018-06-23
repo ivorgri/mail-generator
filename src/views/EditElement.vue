@@ -3,7 +3,7 @@
     <h5 class="title is-5">
       {{ $t('editElement') | capitalize }}
     </h5>
-    <!-- <form>
+    <form>
       <vue-form-generator
         :schema="schema"
         :model="model"
@@ -11,7 +11,7 @@
         :tag="tag"
         @validated="onValidated">
       </vue-form-generator>
-    </form> -->
+    </form>
     <base-buttons
       :cancelling="cancelling"
       :submitting="submitting"
@@ -23,7 +23,7 @@
 
 <script>
 import VueFormGenerator from 'vue-form-generator';
-import { mapMutations } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 import { isEmpty, capitalize } from 'lodash';
 import baseButtonState from '@/mixins/baseButtonState';
 
@@ -42,32 +42,6 @@ export default {
   data() {
     return {
       entriesAreValid: true,
-      /* schema: {
-        fields: [{
-          type: 'input',
-          inputType: 'text',
-          label: capitalize(this.$t('name')),
-          model: 'name',
-          id: 'name',
-          placeholder: capitalize(this.$t('templateName')),
-          min: 3,
-          validator: VueFormGenerator.validators.string,
-          required: true,
-        }, {
-          type: 'textArea',
-          label: capitalize(this.$t('description')),
-          model: 'description',
-          id: 'description',
-          placeholder: capitalize(this.$t('templateDescription')),
-        }, {
-          type: 'input',
-          inputType: 'text',
-          label: capitalize(this.$t('color')),
-          model: 'color',
-          id: 'color',
-          placeholder: capitalize(this.$t('templateColor')),
-        }],
-      }, */
 
       formOptions: {
         validateAfterLoad: true,
@@ -86,12 +60,12 @@ export default {
     model() {
       return this.elementToEdit.model;
     },
-    /* ...mapGetters([
-      'db',
-      'selectedCollectionId',
-      'selectedCollection',
+    schema() {
+      return this.coreElements[this.elementToEdit.coreElementId].schema;
+    },
+    ...mapGetters([
+      'coreElements',
     ]),
-    */
   },
   methods: {
     ...mapMutations([
@@ -126,27 +100,6 @@ export default {
       this.submitting = false;
       this.$router.push({ name: 'templates' });
     },
-    /*
-
-    cancel() {
-      this.template.resync();
-      // Go back to last page
-      this.$router.go(-1);
-    },
-    async createAndSelectTemplate() {
-      const template = cloneDeep(this.model);
-      template.id = `${new Date().toJSON()}${this.model.name}`;
-      template.createTime = new Date().toJSON();
-      template.collectionId = this.selectedCollectionId;
-      try {
-        await this.db.templates.upsert(template);
-      } catch (error) {
-        console.log(error);
-      }
-      this.selectTemplate(template.id);
-      this.$router.push({ name: 'templates' });
-    },
-     */
   },
 };
 </script>

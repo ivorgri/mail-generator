@@ -53,7 +53,13 @@ const ElementSchema = {
         buttonColor: {
           type: 'string',
         },
+        buttonTextColor: {
+          type: 'string',
+        },
         title: {
+          type: 'string',
+        },
+        list: {
           type: 'string',
         },
       },

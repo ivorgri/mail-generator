@@ -12,16 +12,14 @@
               line-height: 30px;
               color: #333333;
               font-weight: normal;">
-              Praesent laoreet malesuada&nbsp;cursus.
               {{ getValueByName('title') }}
             </h1>
             <p style="margin: 0 0 10px;">{{ getValueByName('content') }}</p>
             <ul style="padding: 0; margin: 0; list-style-type: disc;">
-              <li style="margin:0 0 10px 20px;" class="list-item-first">A list item.</li>
-              <li style="margin:0 0 10px 20px;">Another list item here.</li>
-              <li style="margin: 0 0 0 20px;" class="list-item-last">
-                Everyone gets a list item, list items for everyone!
-              </li>
+              <li v-for="(listItem, index) in listItems"
+                :key="index"
+                :class="[listItem.class]"
+                :style="[listItem.style]">{{ listItem.content }}</li>
             </ul>
           </td>
         </tr>
@@ -38,16 +36,16 @@
                 <td class="button-td button-td-primary" style="border-radius: 4px;"
                   :style="{ background: getValueByName('buttonColor') }">
                   <a class="button-a button-a-primary"
-                    style="border: 1px solid #000000;
-                      font-family: sans-serif;
+                    style="font-family: sans-serif;
                       font-size: 15px;
                       line-height: 15px;
                       text-decoration: none;
                       padding: 13px 17px;
-                      color: #ffffff;
                       display: block;
                       border-radius: 4px;"
-                    :style="{ background: getValueByName('buttonColor') }"
+                    :style="{ background: getValueByName('buttonColor'),
+                      color: getValueByName('buttonTextColor'),
+                      border: `1px solid ${getValueByName('buttonColor')}` }"
                     :href="getValueByName('buttonLink')">
                     {{ getValueByName('buttonText') }}
                   </a>
@@ -67,17 +65,34 @@
 </template>
 
 <script>
-const ElementActionButtons = () => import(/* webpackChunkName: "actionbuttons" */ '@/components/EmailElements/ElementActionButtons.vue');
+import elementBase from '@/mixins/elementBase';
 
 export default {
-  name: 'EmailHeader',
-  components: {
-    ElementActionButtons,
-  },
-  props: ['element'],
-  methods: {
-    getValueByName(name) {
-      return this.element.model[name];
+  name: 'OneColumnTextButton',
+  mixins: [elementBase],
+  computed: {
+    listItems() {
+      const list = this.getValueByName('list').split('|');
+      const alteredList = [];
+      list.forEach((listItem, index) => {
+        let style = '';
+        let className = '';
+        if (index === 0) {
+          className = { 'list-item-first': true };
+          style = { margin: '0 0 10px 20px' };
+        } else if (index === list.length - 1) {
+          className = { 'list-item-last': true };
+          style = { margin: '0 0 0 20px' };
+        } else {
+          style = { margin: '0 0 10px 20px' };
+        }
+        alteredList.push({
+          content: listItem,
+          class: className,
+          style,
+        });
+      });
+      return alteredList;
     },
   },
 };

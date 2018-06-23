@@ -47,8 +47,14 @@ const actions = {
     });
     commit('setCollections', collections);
   },
-  async selectCollection({ getters, commit }, selectedCollectionId) {
+  async selectCollection({ getters, commit, dispatch }, selectedCollectionId) {
     commit('selectCollection', selectedCollectionId);
+    try {
+      dispatch('selectTemplate', getters.collectionSet.selectedTemplateId);
+    } catch (error) {
+      console.log(error);
+    }
+
     if (getters.selectedUser !== false) {
       getters.selectedUser.selectedCollectionId = selectedCollectionId;
       try {

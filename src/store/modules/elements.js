@@ -73,8 +73,10 @@ const state = {
         textColor: '#555555',
         title: 'Title',
         content: 'Content',
+        list: 'A list item.|Another list item here.|Everyone gets a list item, list items for everyone!',
         buttonLink: 'https://www.google.com',
         buttonText: 'Centered Primary Button',
+        buttonTextColor: '#ffffff',
         buttonColor: '#222222',
       },
       schema: {
@@ -102,6 +104,11 @@ const state = {
           model: 'content',
           placeholder: 'Add content here',
         }, {
+          type: 'textArea',
+          label: 'list',
+          model: 'list',
+          placeholder: 'Add list items here. Split items using "|"',
+        }, {
           type: 'input',
           inputType: 'text',
           label: 'buttonLink',
@@ -116,6 +123,12 @@ const state = {
         }, {
           type: 'input',
           inputType: 'text',
+          label: 'buttonTextColor',
+          model: 'buttonTextColor',
+          placeholder: 'Add button text color',
+        }, {
+          type: 'input',
+          inputType: 'text',
           label: 'buttonColor',
           model: 'buttonColor',
           placeholder: 'Add button color',
@@ -127,6 +140,8 @@ const state = {
       name: 'backgroundImageText',
       model: {
         imageLink: 'http://placehold.it/600x230/222222/666666',
+        content: 'Content',
+        textColor: '#ffffff',
       },
       schema: {
         fields: [{
@@ -135,6 +150,17 @@ const state = {
           label: 'imageLink',
           model: 'imageLink',
           placeholder: 'Add link to image here',
+        }, {
+          type: 'input',
+          inputType: 'text',
+          label: 'textColor',
+          model: 'textColor',
+          placeholder: 'Set text color',
+        }, {
+          type: 'textArea',
+          label: 'content',
+          model: 'content',
+          placeholder: 'Add content here',
         }],
       },
     },
@@ -150,7 +176,7 @@ const state = {
     },
     7: {
       id: 7,
-      name: 'thumbmailLeftTextRight',
+      name: 'thumbnailLeftTextRight',
       coreFields: [],
     },
     8: {

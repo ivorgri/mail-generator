@@ -28,18 +28,10 @@
 </template>
 
 <script>
-const ElementActionButtons = () => import(/* webpackChunkName: "actionbuttons" */ '@/components/EmailElements/ElementActionButtons.vue');
+import elementBase from '@/mixins/elementBase';
 
 export default {
   name: 'HeroImage',
-  components: {
-    ElementActionButtons,
-  },
-  props: ['element'],
-  methods: {
-    getValueByName(name) {
-      return this.element.model[name];
-    },
-  },
+  mixins: [elementBase],
 };
 </script>

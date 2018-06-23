@@ -51,6 +51,7 @@
           data-qa="email-element">
           <hero-image v-if="element.coreElementId === 2" :element="element"/>
           <one-column-text-button v-if="element.coreElementId === 3" :element="element"/>
+          <background-image-text v-if="element.coreElementId === 4" :element="element"/>
         </div>
 
       </table>
@@ -70,9 +71,10 @@ import { isEmpty } from 'lodash';
 
 const EmailHeader = () => import(/* webpackChunkName: "emailElements" */ '@/components/EmailElements/EmailHeader.vue');
 const HeroImage = () => import(/* webpackChunkName: "emailElements" */ '@/components/EmailElements/HeroImage.vue');
-const OneColumnTextButton = () => import(/* webpackChunkName: "emailElements" */ '@/components/EmailElements/oneColumnTextButton.vue');
+const OneColumnTextButton = () => import(/* webpackChunkName: "emailElements" */ '@/components/EmailElements/OneColumnTextButton.vue');
 const EmailFooter = () => import(/* webpackChunkName: "emailElements" */ '@/components/EmailElements/EmailFooter.vue');
 const EmailBleedBackground = () => import(/* webpackChunkName: "emailElements" */ '@/components/EmailElements/EmailBleedBackground.vue');
+const BackgroundImageText = () => import(/* webpackChunkName: "emailElements" */ '@/components/EmailElements/BackgroundImageText.vue');
 
 export default {
   name: 'Elements',
@@ -82,6 +84,7 @@ export default {
     OneColumnTextButton,
     EmailFooter,
     EmailBleedBackground,
+    BackgroundImageText,
   },
   computed: {
     ...mapGetters([

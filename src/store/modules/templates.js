@@ -48,14 +48,18 @@ const actions = {
     commit('setTemplates', templates);
   },
   async selectTemplate({ getters, commit }, selectedTemplateId) {
-    commit('selectTemplate', selectedTemplateId);
-    if (getters.selectedCollection !== false) {
-      getters.selectedCollection.selectedTemplateId = selectedTemplateId;
-      try {
-        await getters.selectedCollection.save();
-      } catch (error) {
-        console.log(error);
+    if (!isEmpty(selectedTemplateId)) {
+      commit('selectTemplate', selectedTemplateId);
+      if (getters.selectedCollection !== false) {
+        getters.selectedCollection.selectedTemplateId = selectedTemplateId;
+        try {
+          await getters.selectedCollection.save();
+        } catch (error) {
+          console.log(error);
+        }
       }
+    } else {
+      commit('selectTemplate', '');
     }
   },
 };
