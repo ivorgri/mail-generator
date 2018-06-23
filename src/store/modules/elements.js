@@ -284,6 +284,10 @@ const getters = {
     });
     return element;
   },
+  elementsExist: (state, getters) => !isEmpty(getters.elementSet) ||
+      !isEmpty(getters.elementById(1)) ||
+      !isEmpty(getters.elementById(11)) ||
+      !isEmpty(getters.elementById(12)),
   selectedElement: state => state.selectedElement,
   editElement: state => state.editElement,
   removeElement: state => state.removeElement,

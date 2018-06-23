@@ -101,13 +101,8 @@ export default {
       'elementSet',
       'selectedElement',
       'elementById',
+      'elementsExist',
     ]),
-    elementsExist() {
-      return !isEmpty(this.elementSet) ||
-        !isEmpty(this.elementById(1)) ||
-        !isEmpty(this.elementById(11)) ||
-        !isEmpty(this.elementById(12));
-    },
   },
   watch: {
     selectedCollection(newVal) {
