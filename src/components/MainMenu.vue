@@ -77,13 +77,11 @@
             </router-link>
             <hr v-if="elementsExist"
               class="navbar-divider">
-            <a v-if="elementsExist"
-              class="navbar-item"
-              download="test.html"
-              :href="htmlFile"
-              data-qa="download-template">
+            <router-link v-if="elementsExist" :to="{ name: 'downloadTemplate', params:
+              { template: this.selectedTemplate }}"
+              class="navbar-item" data-qa="download-template">
               {{ $t('downloadTemplate') | capitalize }}
-            </a>
+            </router-link>
           </div>
         </div>
         <!-- Elements -->
@@ -168,16 +166,7 @@ export default {
         element: false,
         burger: false,
       },
-      htmlBody: '',
-      htmlFile: null,
     };
-  },
-  mounted() {
-    this.htmlBody = `<!DOCTYPE html>
-        <html lang="en">
-        <head><title>Embedded Window</title></head>
-        <body><h1>42</h1></body>
-        </html>`;
   },
   computed: {
     ...mapGetters([
@@ -200,17 +189,6 @@ export default {
     },
     $route() {
       this.toggleDropdown('none');
-    },
-    htmlBody(newValue) {
-      const data = new Blob([newValue], { type: 'text/html' });
-
-      // If we are replacing a previously generated file we need to
-      // manually revoke the object URL to avoid memory leaks.
-      if (this.htmlFile !== null) {
-        window.URL.revokeObjectURL(this.htmlFile);
-      }
-
-      this.htmlFile = window.URL.createObjectURL(data);
     },
   },
   methods: {

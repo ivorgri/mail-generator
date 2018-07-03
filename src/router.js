@@ -58,6 +58,15 @@ export default new Router({
         element: 'template',
       },
     }, {
+      path: 'download',
+      name: 'downloadTemplate',
+      props: true,
+      component: Templates,
+      meta: {
+        action: 'download',
+        element: 'template',
+      },
+    }, {
       path: '/elements',
       name: 'elements',
       component: Templates,

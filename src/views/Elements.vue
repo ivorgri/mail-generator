@@ -9,7 +9,7 @@
         cellpadding="0"
         cellspacing="0"
         width="100%"
-        style="background-color: #222222;">
+        :style="{ 'background-color': getValueByName('backgroundColor') || '#222222' }">
       <tr>
       <td>
       <![endif]-->

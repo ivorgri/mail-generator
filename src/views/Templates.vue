@@ -43,6 +43,10 @@
         || interfaceAction === 'edit')
         && interfaceElement === 'template'"
       :template="template"/>
+    <downloadTemplate
+      v-if="interfaceAction === 'download'
+        && interfaceElement === 'template'"
+      :template="template"/>
     <add-elements v-if="interfaceAction === 'add'
       && interfaceElement === 'elements'"/>
     <elements v-if="selectedTemplateId
@@ -64,6 +68,7 @@ import { isEmpty } from 'lodash';
 
 const BaseLayout = () => import(/* webpackChunkName: "base" */ '@/components/BaseLayout.vue');
 const TemplateForm = () => import(/* webpackChunkName: "template" */ '@/views/Template.vue');
+const DownloadTemplate = () => import(/* webpackChunkName: "template" */ '@/views/DownloadTemplate.vue');
 const AddElements = () => import(/* webpackChunkName: "elements" */ '@/views/AddElements.vue');
 const Elements = () => import(/* webpackChunkName: "elements" */ '@/views/Elements.vue');
 const EditElement = () => import(/* webpackChunkName: "elements" */ '@/views/EditElement.vue');
@@ -81,6 +86,7 @@ export default {
     AddElements,
     Elements,
     EditElement,
+    DownloadTemplate,
   },
   data() {
     return {
