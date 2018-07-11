@@ -61,7 +61,7 @@
                     <tr>
                       <td class="button-td button-td-primary"
                         style="border-radius: 4px;"
-                        :style="{ background: getValueByName('buttonColor') }">>
+                        :style="{ background: getValueByName('buttonColor') }">
                         <a class="button-a button-a-primary"
                           style="font-family: sans-serif;
                             font-size: 15px;

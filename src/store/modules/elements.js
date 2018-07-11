@@ -362,6 +362,7 @@ const state = {
     },
     8: {
       id: 8,
+      name: 'thumbnailRightTextLeft',
       model: {
         imageLink: 'http://placehold.it/170',
         imageAltText: 'alt_text',
