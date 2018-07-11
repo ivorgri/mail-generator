@@ -120,7 +120,7 @@
 import elementBase from '@/mixins/elementBase';
 
 export default {
-  name: 'threeEvenColumns',
+  name: 'ThreeEvenColumns',
   mixins: [elementBase],
 };
 </script>

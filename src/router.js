@@ -46,7 +46,7 @@ export default new Router({
     name: 'ElementsAdd',
     component: ElementsAdd,
   }, {
-    path: '/elements/edit/:id',
+    path: '/elements/edit',
     name: 'ElementsEdit',
     props: true,
     component: ElementsEdit,

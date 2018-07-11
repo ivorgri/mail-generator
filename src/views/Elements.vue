@@ -55,6 +55,7 @@
             <background-image-text v-if="element.coreElementId === 4" :element="element"/>
             <two-even-columns v-if="element.coreElementId === 5" :element="element"/>
             <three-even-columns v-if="element.coreElementId === 6" :element="element"/>
+            <thumbnail-left-text-right v-if="element.coreElementId === 7" :element="element"/>
           </div>
 
         </table>
@@ -81,6 +82,7 @@ const EmailBleedBackground = () => import(/* webpackChunkName: "emailElements" *
 const BackgroundImageText = () => import(/* webpackChunkName: "emailElements" */ '@/components/EmailElements/BackgroundImageText.vue');
 const TwoEvenColumns = () => import(/* webpackChunkName: "emailElements" */ '@/components/EmailElements/TwoEvenColumns.vue');
 const ThreeEvenColumns = () => import(/* webpackChunkName: "emailElements" */ '@/components/EmailElements/ThreeEvenColumns.vue');
+const ThumbnailLeftTextRight = () => import(/* webpackChunkName: "emailElements" */ '@/components/EmailElements/ThumbnailLeftTextRight.vue');
 
 export default {
   name: 'Elements',
@@ -93,6 +95,7 @@ export default {
     BackgroundImageText,
     TwoEvenColumns,
     ThreeEvenColumns,
+    ThumbnailLeftTextRight,
   },
   computed: {
     ...mapGetters([

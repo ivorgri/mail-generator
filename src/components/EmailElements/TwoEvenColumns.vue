@@ -87,7 +87,7 @@
 import elementBase from '@/mixins/elementBase';
 
 export default {
-  name: 'twoEvenColumns',
+  name: 'TwoEvenColumns',
   mixins: [elementBase],
 };
 </script>
