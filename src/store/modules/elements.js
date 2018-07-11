@@ -185,14 +185,26 @@ const state = {
         }, {
           type: 'input',
           inputType: 'text',
-          label: 'imageLink',
-          model: 'imageLink2',
-          placeholder: 'Add link to image here',
+          label: 'imageAltText',
+          model: 'imageAltText',
+          placeholder: 'Add alternative text here',
         }, {
           type: 'textArea',
           label: 'content',
           model: 'content',
           placeholder: 'Add content here',
+        }, {
+          type: 'input',
+          inputType: 'text',
+          label: 'imageLink',
+          model: 'imageLink2',
+          placeholder: 'Add link to image here',
+        }, {
+          type: 'input',
+          inputType: 'text',
+          label: 'imageAltText',
+          model: 'imageAltText2',
+          placeholder: 'Add alternative text here',
         }, {
           type: 'textArea',
           label: 'content',
@@ -204,7 +216,71 @@ const state = {
     6: {
       id: 6,
       name: 'threeEvenColumns',
-      coreFields: [],
+      model: {
+        imageLink: 'http://placehold.it/170',
+        imageLink2: 'http://placehold.it/170',
+        imageLink3: 'http://placehold.it/170',
+        imageAltText: 'alt_text',
+        imageAltText2: 'alt_text',
+        imageAltText3: 'alt_text',
+        content: 'Content',
+        content2: 'Content',
+        content3: 'Content',
+      },
+      schema: {
+        fields: [{
+          type: 'input',
+          inputType: 'text',
+          label: 'imageLink',
+          model: 'imageLink',
+          placeholder: 'Add link to image here',
+        }, {
+          type: 'input',
+          inputType: 'text',
+          label: 'imageAltText',
+          model: 'imageAltText',
+          placeholder: 'Add alternative text here',
+        }, {
+          type: 'textArea',
+          label: 'content',
+          model: 'content',
+          placeholder: 'Add content here',
+        }, {
+          type: 'input',
+          inputType: 'text',
+          label: 'imageLink',
+          model: 'imageLink2',
+          placeholder: 'Add link to image here',
+        }, {
+          type: 'input',
+          inputType: 'text',
+          label: 'imageAltText',
+          model: 'imageAltText2',
+          placeholder: 'Add alternative text here',
+        }, {
+          type: 'textArea',
+          label: 'content',
+          model: 'content2',
+          placeholder: 'Add content here',
+        }, {
+          type: 'input',
+          inputType: 'text',
+          label: 'imageLink',
+          model: 'imageLink3',
+          placeholder: 'Add link to image here',
+        }, {
+          type: 'input',
+          inputType: 'text',
+          label: 'imageAltText',
+          model: 'imageAltText3',
+          placeholder: 'Add alternative text here',
+        }, {
+          type: 'textArea',
+          label: 'content',
+          model: 'content3',
+          placeholder: 'Add content here',
+        }],
+      },
     },
     7: {
       id: 7,
