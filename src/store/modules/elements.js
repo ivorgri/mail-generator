@@ -459,7 +459,24 @@ const state = {
     10: {
       id: 10,
       name: 'oneColumnText',
-      coreFields: [],
+      model: {
+        textColor: '#555555',
+        content: 'Content',
+      },
+      schema: {
+        fields: [{
+          type: 'input',
+          inputType: 'text',
+          label: 'textColor',
+          model: 'textColor',
+          placeholder: 'Set text color',
+        }, {
+          type: 'textArea',
+          label: 'content',
+          model: 'content',
+          placeholder: 'Add content here',
+        }],
+      },
     },
     11: {
       id: 11,
