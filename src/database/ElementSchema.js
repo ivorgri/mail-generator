@@ -83,6 +83,9 @@ const ElementSchema = {
         height: {
           type: 'integer',
         },
+        htmlContent: {
+          type: 'string',
+        }
       },
     },
   },

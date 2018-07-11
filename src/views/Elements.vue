@@ -59,6 +59,7 @@
             <thumbnail-right-text-left v-if="element.coreElementId === 8" :element="element"/>
             <spacer v-if="element.coreElementId === 9" :element="element"/>
             <one-column-text v-if="element.coreElementId === 10" :element="element"/>
+            <custom-element v-if="element.coreElementId === 13" :element="element"/>
           </div>
 
         </table>
@@ -89,6 +90,7 @@ const ThumbnailLeftTextRight = () => import(/* webpackChunkName: "emailElements"
 const ThumbnailRightTextLeft = () => import(/* webpackChunkName: "emailElements" */ '@/components/EmailElements/ThumbnailRightTextLeft.vue');
 const Spacer = () => import(/* webpackChunkName: "emailElements" */ '@/components/EmailElements/Spacer.vue');
 const OneColumnText = () => import(/* webpackChunkName: "emailElements" */ '@/components/EmailElements/OneColumnText.vue');
+const CustomElement = () => import(/* webpackChunkName: "emailElements" */ '@/components/EmailElements/CustomElement.vue');
 
 export default {
   name: 'Elements',
@@ -105,6 +107,7 @@ export default {
     ThumbnailRightTextLeft,
     Spacer,
     OneColumnText,
+    CustomElement,
   },
   computed: {
     ...mapGetters([

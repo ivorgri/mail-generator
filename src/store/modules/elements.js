@@ -530,6 +530,28 @@ const state = {
         }],
       },
     },
+    13: {
+      id: 13,
+      name: 'customElement',
+      model: {
+        textColor: '#555555',
+        htmlContent: '<h1>Example</h1>',
+      },
+      schema: {
+        fields: [{
+          type: 'input',
+          inputType: 'text',
+          label: 'textColor',
+          model: 'textColor',
+          placeholder: 'Set text color',
+        }, {
+          type: 'textArea',
+          label: 'htmlContent',
+          model: 'htmlContent',
+          placeholder: 'Enter valid HTML here',
+        }],
+      },
+    },
   },
   elements: {},
   selectedElement: {},
