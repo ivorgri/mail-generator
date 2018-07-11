@@ -80,6 +80,9 @@ const ElementSchema = {
         list: {
           type: 'string',
         },
+        height: {
+          type: 'integer',
+        },
       },
     },
   },

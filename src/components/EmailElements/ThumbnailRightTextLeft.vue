@@ -98,7 +98,7 @@
 import elementBase from '@/mixins/elementBase';
 
 export default {
-  name: 'ThumbnailLeftTextRight',
+  name: 'ThumbnailRightTextLeft',
   mixins: [elementBase],
 };
 </script>

@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign, no-shadow */
 
+import VueFormGenerator from 'vue-form-generator';
 import { isEmpty } from 'lodash';
 
 const state = {
@@ -441,7 +442,19 @@ const state = {
     9: {
       id: 9,
       name: 'clearSpacer',
-      coreFields: [],
+      model: {
+        height: 40,
+      },
+      schema: {
+        fields: [{
+          type: 'input',
+          inputType: 'number',
+          label: 'height',
+          model: 'height',
+          min: 20,
+          validator: VueFormGenerator.validators.integer,
+        }],
+      },
     },
     10: {
       id: 10,

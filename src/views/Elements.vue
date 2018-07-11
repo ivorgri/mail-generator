@@ -57,6 +57,7 @@
             <three-even-columns v-if="element.coreElementId === 6" :element="element"/>
             <thumbnail-left-text-right v-if="element.coreElementId === 7" :element="element"/>
             <thumbnail-right-text-left v-if="element.coreElementId === 8" :element="element"/>
+            <spacer v-if="element.coreElementId === 9" :element="element"/>
           </div>
 
         </table>
@@ -85,6 +86,7 @@ const TwoEvenColumns = () => import(/* webpackChunkName: "emailElements" */ '@/c
 const ThreeEvenColumns = () => import(/* webpackChunkName: "emailElements" */ '@/components/EmailElements/ThreeEvenColumns.vue');
 const ThumbnailLeftTextRight = () => import(/* webpackChunkName: "emailElements" */ '@/components/EmailElements/ThumbnailLeftTextRight.vue');
 const ThumbnailRightTextLeft = () => import(/* webpackChunkName: "emailElements" */ '@/components/EmailElements/ThumbnailRightTextLeft.vue');
+const Spacer = () => import(/* webpackChunkName: "emailElements" */ '@/components/EmailElements/Spacer.vue');
 
 export default {
   name: 'Elements',
@@ -99,6 +101,7 @@ export default {
     ThreeEvenColumns,
     ThumbnailLeftTextRight,
     ThumbnailRightTextLeft,
+    Spacer,
   },
   computed: {
     ...mapGetters([

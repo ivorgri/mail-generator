@@ -28,6 +28,7 @@ const messages = {
     'fieldIsRequired': 'this field is required',
     'textTooSmall': 'too short, should be {1} and is {0}',
     'noneSelectedText': '@:select @:language',
+    'numberTooSmall': 'number is too low, should be above {0}',
     /* Projects */
     'project': 'project',
     'projects': 'projects',
@@ -100,6 +101,7 @@ const messages = {
     'fieldIsRequired': 'dit veld is verplicht',
     'textTooSmall': 'te kort, zou {1} moeten zijn en is {0}',
     'noneSelectedText': '@:select @:language',
+    'numberTooSmall': 'waarde is te laag, moet hoger dan {0} zijn',
     /* Projects */
     'project': 'project',
     'projects': 'projecten',

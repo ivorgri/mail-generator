@@ -9,6 +9,7 @@
         :model="model"
         :options="formOptions"
         :tag="tag"
+        @validated="onValidated"
         data-qa="element-form">
       </vue-form-generator>
     </form>
@@ -46,10 +47,13 @@ export default {
   },
   data() {
     return {
+      entriesAreValid: true,
       model: {},
       schema: {},
 
       formOptions: {
+        validateAfterLoad: true,
+        validateAfterChanged: true,
         fieldIdPrefix: 'element-',
       },
 
@@ -57,6 +61,8 @@ export default {
     };
   },
   mounted() {
+    VueFormGenerator.validators.resources.numberTooSmall = this.$lodash.capitalize(this.$t('numberTooSmall'));
+
     if (this.action === 'edit') {
       this.schema = this.coreElements[this.element.coreElementId].schema;
       this.model = this.element.model;
@@ -104,10 +110,13 @@ export default {
       return selectedElements;
     },
     disabledAction() {
-      return (this.action === 'add') ? this.selectedElements.length < 1 : false;
+      return (this.action === 'add') ? this.selectedElements.length < 1 : !this.entriesAreValid;
     },
   },
   methods: {
+    onValidated(isValid) {
+      this.entriesAreValid = isValid;
+    },
     cancel() {
       this.cancelling = true;
       this.cancelling = false;
