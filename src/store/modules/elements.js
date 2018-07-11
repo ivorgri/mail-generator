@@ -167,7 +167,39 @@ const state = {
     5: {
       id: 5,
       name: 'twoEvenColumns',
-      coreFields: [],
+      model: {
+        imageLink: 'http://placehold.it/270',
+        imageLink2: 'http://placehold.it/270',
+        imageAltText: 'alt_text',
+        imageAltText2: 'alt_text',
+        content: 'Content',
+        content2: 'Content',
+      },
+      schema: {
+        fields: [{
+          type: 'input',
+          inputType: 'text',
+          label: 'imageLink',
+          model: 'imageLink',
+          placeholder: 'Add link to image here',
+        }, {
+          type: 'input',
+          inputType: 'text',
+          label: 'imageLink',
+          model: 'imageLink2',
+          placeholder: 'Add link to image here',
+        }, {
+          type: 'textArea',
+          label: 'content',
+          model: 'content',
+          placeholder: 'Add content here',
+        }, {
+          type: 'textArea',
+          label: 'content',
+          model: 'content2',
+          placeholder: 'Add content here',
+        }],
+      },
     },
     6: {
       id: 6,

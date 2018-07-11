@@ -32,10 +32,19 @@ const ElementSchema = {
         content: {
           type: 'string',
         },
+        content2: {
+          type: 'string',
+        },
         imageLink: {
           type: 'string',
         },
         imageAltText: {
+          type: 'string',
+        },
+        imageLink2: {
+          type: 'string',
+        },
+        imageAltText2: {
           type: 'string',
         },
         textColor: {
