@@ -17,9 +17,9 @@
       :submitting="submitting"
       :action="action"
       element="elements"
-      :disabled="selectedElements.length < 1"
+      :disabled="disabledAction"
       v-on:cancel-action="cancel"
-      v-on:perform-action="addSelectedElements"/>
+      v-on:perform-action="performAction"/>
   </div>
 </template>
 
@@ -103,6 +103,9 @@ export default {
       });
       return selectedElements;
     },
+    disabledAction() {
+      return (this.action === 'add') ? this.selectedElements.length < 1 : false;
+    },
   },
   methods: {
     cancel() {
@@ -111,7 +114,15 @@ export default {
       // Go back to last page
       this.$router.go(-1);
     },
-    addSelectedElements() {
+    performAction() {
+      this.submitting = true;
+      if (this.action === 'add') {
+        this.addSelectedElements();
+      } else if (this.action === 'edit') {
+        this.updateElement();
+      }
+    },
+    async addSelectedElements() {
       this.submitting = true;
       this.selectedElements.forEach(async (coreElementId) => {
         const coreElement = this.coreElements[coreElementId];
@@ -132,6 +143,15 @@ export default {
       this.submitting = false;
       // this.$router.push({ name: 'templates' });
       this.$router.go(-1);
+    },
+    async updateElement() {
+      try {
+        await this.element.save();
+      } catch (error) {
+        console.log(error);
+      }
+      this.submitting = false;
+      this.$router.push({ name: 'templates' });
     },
     uniqueElementExistsAlready(coreElementId) {
       const uniqueElement = this.elementById(parseInt(coreElementId, 10));

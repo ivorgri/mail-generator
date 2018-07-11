@@ -3,7 +3,7 @@
     <div class="field has-addons">
       <p class="control">
         <router-link :to="{ name: 'ElementsEdit', params:
-            { element }}"
+            { id: element.id, element }}"
             class="button" data-qa="edit-element">
             <span class="icon is-small">
             <i class="fas fa-cog"></i>

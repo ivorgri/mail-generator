@@ -5,9 +5,14 @@
     </template>
     <elements v-if="elementsExist"/>
     <template slot="element">
+      <!--
+        Key is added so element gets updated
+        https://laracasts.com/discuss/channels/vue/vue-2-reload-component-when-same-route-is-requested
+      -->
       <element-form
         action="edit"
-        :element="element"/>
+        :element="element"
+        :key="element.id"/>
     </template>
   </base-layout>
 </template>
