@@ -1,7 +1,7 @@
 <template>
-  <base-main>
+  <div>
     <h5 class="title is-5">
-      {{ $t('chooseElement') | capitalize }}
+      {{ $t(`${action}Element`) | capitalize }}
     </h5>
     <form>
       <vue-form-generator v-if="model && schema"
@@ -15,10 +15,12 @@
     <base-buttons
       :cancelling="cancelling"
       :submitting="submitting"
+      :action="action"
+      element="elements"
       :disabled="selectedElements.length < 1"
       v-on:cancel-action="cancel"
       v-on:perform-action="addSelectedElements"/>
-  </base-main>
+  </div>
 </template>
 
 <script>
@@ -27,18 +29,19 @@ import { mapGetters } from 'vuex';
 import { capitalize, isEmpty } from 'lodash';
 import baseButtonState from '@/mixins/baseButtonState';
 
-const BaseMain = () => import(/* webpackChunkName: "base" */ '@/components/BaseMain.vue');
-
 export default {
-  name: 'AddElements',
+  name: 'Element',
   mixins: [baseButtonState],
   components: {
     'vue-form-generator': VueFormGenerator.component,
-    BaseMain,
   },
   props: {
     element: {
+      type: Object,
+    },
+    action: {
       type: String,
+      default: '',
     },
   },
   data() {
@@ -54,36 +57,40 @@ export default {
     };
   },
   mounted() {
-    const generatedSchema = {
-      fields: [],
-    };
-    const coreElementIds = Object.keys(this.coreElements);
-    const generatedModel = {};
-    coreElementIds.forEach((coreElementId) => {
-      let disabled = false;
-      const intCoreElementId = parseInt(coreElementId, 10);
-      if (intCoreElementId === 1 || intCoreElementId === 11 || intCoreElementId === 12) {
-        disabled = this.uniqueElementExistsAlready(intCoreElementId);
-      }
-      const field = {
-        type: 'checkbox',
-        label: capitalize(this.$t(this.coreElements[coreElementId].name)),
-        model: coreElementId,
-        default: false,
-        disabled,
+    if (this.action === 'edit') {
+      this.schema = this.coreElements[this.element.coreElementId].schema;
+      this.model = this.element.model;
+    } else {
+      const generatedSchema = {
+        fields: [],
       };
-      generatedSchema.fields.push(field);
-      generatedModel[coreElementId] = false;
-    });
-    this.model = generatedModel;
-    this.schema = generatedSchema;
+      const generatedModel = {};
+      const coreElementIds = Object.keys(this.coreElements);
+      coreElementIds.forEach((coreElementId) => {
+        let disabled = false;
+        const intCoreElementId = parseInt(coreElementId, 10);
+        if (intCoreElementId === 1 || intCoreElementId === 11 || intCoreElementId === 12) {
+          disabled = this.uniqueElementExistsAlready(intCoreElementId);
+        }
+        const field = {
+          type: 'checkbox',
+          label: capitalize(this.$t(this.coreElements[coreElementId].name)),
+          model: coreElementId,
+          default: false,
+          disabled,
+        };
+        generatedSchema.fields.push(field);
+        generatedModel[coreElementId] = false;
+      });
+      this.model = generatedModel;
+      this.schema = generatedSchema;
+    }
   },
   computed: {
     ...mapGetters([
       'db',
-      'selectedTemplateId',
+      'selectedTemplate',
       'coreElements',
-      'elementSet',
       'elementById',
     ]),
     selectedElements() {
@@ -112,7 +119,7 @@ export default {
           id: `${new Date().toJSON()}${coreElementId}`,
           coreElementId,
           name: coreElement.name,
-          templateId: this.selectedTemplateId,
+          templateId: this.selectedTemplate.id,
           createTime: new Date().toJSON(),
           model: coreElement.model,
         };

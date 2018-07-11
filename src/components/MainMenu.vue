@@ -20,37 +20,37 @@
     <div class="navbar-menu"
       :class="{ 'is-active': openDropdown.burger }">
       <div class="navbar-start">
-        <!-- Collections -->
+        <!-- Projects -->
         <div class="navbar-item has-dropdown"
-          :class="{ 'is-active': openDropdown.collection }"
-          @click="toggleDropdown('collection')">
+          :class="{ 'is-active': openDropdown.project }"
+          @click="toggleDropdown('project')">
           <a class="navbar-link no-select">
             <span class="icon">
               <i class="fas fa-folder" aria-hidden="true"></i>
             </span>
-            <span data-qa="collections-menu">{{ $t('collections') | capitalize }}</span>
+            <span data-qa="projects-menu">{{ $t('projects') | capitalize }}</span>
           </a>
           <div class="navbar-dropdown">
-            <router-link to="/collections"
+            <router-link to="/projects"
               class="navbar-item"
-              data-qa="open-collections">
-              {{ $t('openCollections') | capitalize }}
+              data-qa="open-projects">
+              {{ $t('openProjects') | capitalize }}
             </router-link>
             <hr class="navbar-divider">
-            <router-link :to="{ name: 'createCollection' }"
+            <router-link :to="{ name: 'ProjectCreate' }"
               class="navbar-item"
-              data-qa="create-collection">
-              {{ $t('addCollection') | capitalize }}
+              data-qa="create-project">
+              {{ $t('addProject') | capitalize }}
             </router-link>
-            <router-link v-if="selectedCollection" :to="{ name: 'editCollection', params:
-              { collection: this.selectedCollection }}"
-              class="navbar-item" data-qa="update-collection">
-              {{ $t('editCollection') | capitalize }}
+            <router-link v-if="projectIsSelected" :to="{ name: 'ProjectEdit', params:
+              { project: this.selectedProject }}"
+              class="navbar-item" data-qa="update-project">
+              {{ $t('editProject') | capitalize }}
             </router-link>
           </div>
         </div>
         <!-- Templates -->
-        <div v-if="collectionSet.length > 0" class="navbar-item has-dropdown"
+        <div v-if="projectSet.length > 0" class="navbar-item has-dropdown"
           :class="{ 'is-active': openDropdown.template }"
           @click="toggleDropdown('template')">
           <a class="navbar-link no-select">
@@ -66,18 +66,18 @@
               {{ $t('openTemplates') | capitalize }}
             </router-link>
             <hr class="navbar-divider">
-            <router-link :to="{ name: 'createTemplate' }"
+            <router-link :to="{ name: 'TemplateCreate' }"
               class="navbar-item" data-qa="create-template">
               {{ $t('addTemplate') | capitalize }}
             </router-link>
-            <router-link v-if="selectedTemplate" :to="{ name: 'editTemplate', params:
+            <router-link v-if="templateIsSelected" :to="{ name: 'TemplateEdit', params:
               { template: this.selectedTemplate }}"
               class="navbar-item" data-qa="update-template">
               {{ $t('editTemplate') | capitalize }}
             </router-link>
             <hr v-if="elementsExist"
               class="navbar-divider">
-            <router-link v-if="elementsExist" :to="{ name: 'downloadTemplate', params:
+            <router-link v-if="elementsExist" :to="{ name: 'TemplateDownload', params:
               { template: this.selectedTemplate }}"
               class="navbar-item" data-qa="download-template">
               {{ $t('downloadTemplate') | capitalize }}
@@ -85,7 +85,7 @@
           </div>
         </div>
         <!-- Elements -->
-        <div v-if="selectedTemplate" class="navbar-item has-dropdown"
+        <div v-if="templateIsSelected" class="navbar-item has-dropdown"
           :class="{ 'is-active': openDropdown.element }"
           @click="toggleDropdown('element')">
           <a class="navbar-link no-select">
@@ -95,12 +95,7 @@
             <span data-qa="elements-menu">{{ $t('elements') | capitalize }}</span>
           </a>
           <div class="navbar-dropdown">
-            <!-- <router-link :to="{ name: 'elements' }"
-              class="navbar-item">
-              {{ $t('openElements') | capitalize }}
-            </router-link>
-            <hr class="navbar-divider"> -->
-            <router-link :to="{ name: 'addElements' }"
+            <router-link :to="{ name: 'ElementsAdd' }"
               class="navbar-item"
               data-qa="add-elements">
               {{ $t('addElements') | capitalize }}
@@ -110,7 +105,7 @@
       </div>
       <div class="navbar-end">
         <!-- User -->
-        <div class="navbar-item has-dropdown"
+        <!--<div class="navbar-item has-dropdown"
           :class="{ 'is-active': openDropdown.user }"
           @click="toggleDropdown('user')">
           <a v-if="!selectedUser" class="navbar-link no-select">
@@ -145,7 +140,7 @@
               {{ $t('logout') | capitalize }}
             </a>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </nav>
@@ -153,7 +148,6 @@
 
 <script>
 import { mapGetters, mapMutations } from 'vuex';
-import { isEmpty } from 'lodash';
 
 export default {
   name: 'MainMenu',
@@ -161,7 +155,7 @@ export default {
     return {
       openDropdown: {
         user: false,
-        collection: false,
+        project: false,
         template: false,
         element: false,
         burger: false,
@@ -172,13 +166,19 @@ export default {
     ...mapGetters([
       'selectedUser',
       'users',
-      'selectedCollection',
-      'collectionSet',
+      'selectedProject',
+      'projectSet',
       'selectedTemplate',
       'elementsExist',
     ]),
     usersExist() {
-      return !isEmpty(this.users);
+      return !this.$lodash.isEmpty(this.users);
+    },
+    projectIsSelected() {
+      return !this.$lodash.isEmpty(this.selectedProject);
+    },
+    templateIsSelected() {
+      return !this.$lodash.isEmpty(this.selectedTemplate);
     },
   },
   watch: {
@@ -200,7 +200,7 @@ export default {
     },
     logout() {
       this.clearSelectedUser();
-      this.$router.push({ name: 'collections' });
+      this.$router.push({ name: 'projects' });
     },
     toggleDropdown(target) {
       const keys = Object.keys(this.openDropdown);

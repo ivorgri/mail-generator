@@ -15,7 +15,7 @@ const TemplateSchema = {
     description: {
       type: 'string',
     },
-    collectionId: {
+    projectId: {
       type: 'string',
       index: true,
     },

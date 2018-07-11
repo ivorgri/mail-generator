@@ -5,7 +5,7 @@ import * as RxDB from 'rxdb';
 
 import StateSchema from './StateSchema';
 import UserSchema from './UserSchema';
-import CollectionSchema from './CollectionSchema';
+import ProjectSchema from './ProjectSchema';
 import TemplateSchema from './TemplateSchema';
 import ElementSchema from './ElementSchema';
 
@@ -18,8 +18,8 @@ const collections = [{
   name: 'users',
   schema: UserSchema,
 }, {
-  name: 'templatecollections',
-  schema: CollectionSchema,
+  name: 'projects',
+  schema: ProjectSchema,
 }, {
   name: 'templates',
   schema: TemplateSchema,
@@ -42,8 +42,8 @@ export default async function (store) {
 
   store.commit('setDB', db);
 
-  // Create collections
-  console.log('DatabaseService: Creating collections...');
+  // Create projects
+  console.log('DatabaseService: Creating projects...');
   await Promise.all(collections.map(colData => db.collection(colData)));
 
   // Set initial state

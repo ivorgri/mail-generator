@@ -4,7 +4,7 @@ import { isEmpty } from 'lodash';
 
 const state = {
   templates: {},
-  selectedTemplateId: '',
+  selectedTemplate: {},
 };
 
 const getters = {
@@ -16,26 +16,24 @@ const getters = {
     const templateIds = Object.keys(state.templates);
     const templateSet = [];
     templateIds.forEach((templateId) => {
-      if (state.templates[templateId].collectionId === getters.selectedCollectionId) {
+      if (state.templates[templateId].projectId === getters.selectedProject.id) {
         templateSet.push(state.templates[templateId]);
       }
     });
     return templateSet;
   },
-  selectedTemplateId: state => state.selectedTemplateId,
-  selectedTemplate: state => (state.selectedTemplateId === '' ? false :
-    state.templates[state.selectedTemplateId]),
+  selectedTemplate: state => state.selectedTemplate,
 };
 
 const mutations = {
   setTemplates(state, templates) {
     state.templates = templates;
   },
-  selectTemplate(state, selectedTemplateId) {
-    state.selectedTemplateId = selectedTemplateId;
+  selectTemplate(state, selectedTemplate) {
+    state.selectedTemplate = selectedTemplate;
   },
   clearSelectedTemplate(state) {
-    state.selectedTemplateId = '';
+    state.selectedTemplateId = {};
   },
 };
 
@@ -47,19 +45,19 @@ const actions = {
     });
     commit('setTemplates', templates);
   },
-  async selectTemplate({ getters, commit }, selectedTemplateId) {
-    if (!isEmpty(selectedTemplateId)) {
-      commit('selectTemplate', selectedTemplateId);
-      if (getters.selectedCollection !== false) {
-        getters.selectedCollection.selectedTemplateId = selectedTemplateId;
+  async selectTemplate({ getters, commit }, selectedTemplate) {
+    if (!isEmpty(selectedTemplate)) {
+      commit('selectTemplate', selectedTemplate);
+      if (!isEmpty(getters.selectedProject)) {
+        getters.selectedProject.selectedTemplateId = selectedTemplate.id;
         try {
-          await getters.selectedCollection.save();
+          await getters.selectedProject.save();
         } catch (error) {
           console.log(error);
         }
       }
     } else {
-      commit('selectTemplate', '');
+      commit('selectTemplate', {});
     }
   },
 };

@@ -1,0 +1,51 @@
+<template>
+  <base-layout>
+    <template slot="aside">
+      <template-menu/>
+    </template>
+    <elements v-if="elementsExist"/>
+    <template slot="element">
+      <element-form
+        action="edit"
+        :element="element"/>
+    </template>
+  </base-layout>
+</template>
+
+<script>
+import { mapGetters } from 'vuex';
+
+const BaseLayout = () => import(/* webpackChunkName: "base" */ '@/components/BaseLayout.vue');
+const TemplateMenu = () => import(/* webpackChunkName: "template" */ '@/components/TemplateMenu.vue');
+const Elements = () => import(/* webpackChunkName: "elements" */ '@/views/Elements.vue');
+const ElementForm = () => import(/* webpackChunkName: "elements" */ '@/views/Element.vue');
+
+export default {
+  name: 'ElementsEdit',
+  props: {
+    element: {
+      type: Object,
+    },
+  },
+  components: {
+    BaseLayout,
+    TemplateMenu,
+    Elements,
+    ElementForm,
+  },
+  computed: {
+    ...mapGetters([
+      'elementsExist',
+    ]),
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+@import '../styles/settings.scss';
+
+.section {
+  grid-template-columns: 200px 1fr 300px;
+  grid-template-areas: "templatemenu elements elementeditor";
+}
+</style>

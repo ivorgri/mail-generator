@@ -1,67 +1,133 @@
 <template>
-  <div width="100%" style="margin: 0; mso-line-height-rule: exactly;"
-    :style="{ 'background-color': getValueByName('backgroundColor') || '#222222' }">
-    <center style="width: 100%; text-align: left;"
+  <div id="email-content">
+    <div v-if="renderInView" width="100%" style="margin: 0; mso-line-height-rule: exactly;"
       :style="{ 'background-color': getValueByName('backgroundColor') || '#222222' }">
-      <!--[if mso | IE]>
-      <table role="presentation"
-        border="0"
-        cellpadding="0"
-        cellspacing="0"
-        width="100%"
+      <center style="width: 100%; text-align: left;"
         :style="{ 'background-color': getValueByName('backgroundColor') || '#222222' }">
-      <tr>
-      <td>
-      <![endif]-->
+        <!--[if mso | IE]>
+        <table role="presentation"
+          border="0"
+          cellpadding="0"
+          cellspacing="0"
+          width="100%"
+          :style="{ 'background-color': getValueByName('backgroundColor') || '#222222' }">
+        <tr>
+        <td>
+        <![endif]-->
 
-      <!-- Visually Hidden Preheader Text : BEGIN -->
-      <div style="display: none;
-        font-size: 1px;
-        line-height: 1px;
-        max-height: 0px;
-        max-width: 0px;
-        opacity: 0;
-        overflow: hidden;
-        mso-hide: all;
-        font-family: sans-serif;">
-          (Optional) This text will appear in the inbox preview,
-          but not the email body. It can be used to supplement the email
-            subject line or even summarize the email's contents. Extended
-            text preheaders (~490 characters) seems like a better UX for
-            anyone using a screenreader or voice-command apps like Siri
-            to dictate the contents of an email. If this text is not included,
-            email clients will automatically populate it using the text
-            (including image alt text) at the start of the email's body.
-      </div>
-      <!-- Visually Hidden Preheader Text : END -->
-
-      <!-- Email Body : BEGIN -->
-      <table align="center"
-        role="presentation"
-        cellspacing="0"
-        cellpadding="0"
-        border="0"
-        width="600"
-        style="margin: 0 auto;"
-        class="email-container">
-
-        <email-header v-if="elementExists(1)" :element="elementById(1)"/>
-
-        <div v-for="element in elementSet" :key="element.id"
-          data-qa="email-element">
-          <hero-image v-if="element.coreElementId === 2" :element="element"/>
-          <one-column-text-button v-if="element.coreElementId === 3" :element="element"/>
-          <background-image-text v-if="element.coreElementId === 4" :element="element"/>
+        <!-- Visually Hidden Preheader Text : BEGIN -->
+        <div style="display: none;
+          font-size: 1px;
+          line-height: 1px;
+          max-height: 0px;
+          max-width: 0px;
+          opacity: 0;
+          overflow: hidden;
+          mso-hide: all;
+          font-family: sans-serif;">
+            (Optional) This text will appear in the inbox preview,
+            but not the email body. It can be used to supplement the email
+              subject line or even summarize the email's contents. Extended
+              text preheaders (~490 characters) seems like a better UX for
+              anyone using a screenreader or voice-command apps like Siri
+              to dictate the contents of an email. If this text is not included,
+              email clients will automatically populate it using the text
+              (including image alt text) at the start of the email's body.
         </div>
+        <!-- Visually Hidden Preheader Text : END -->
 
-      </table>
-      <!-- Email Body : END -->
+        <!-- Email Body : BEGIN -->
+        <table align="center"
+          role="presentation"
+          cellspacing="0"
+          cellpadding="0"
+          border="0"
+          width="600"
+          style="margin: 0 auto;"
+          class="email-container">
 
-      <email-footer v-if="elementExists(11)" :element="elementById(11)"/>
+          <email-header v-if="elementExists(1)" :element="elementById(1)"/>
 
-      <email-bleed-background v-if="elementExists(12)" :element="elementById(12)"/>
+          <div v-for="element in elementSet" :key="element.id"
+            data-qa="email-element">
+            <hero-image v-if="element.coreElementId === 2" :element="element"/>
+            <one-column-text-button v-if="element.coreElementId === 3" :element="element"/>
+            <background-image-text v-if="element.coreElementId === 4" :element="element"/>
+          </div>
 
-    </center>
+        </table>
+        <!-- Email Body : END -->
+
+        <email-footer v-if="elementExists(11)" :element="elementById(11)"/>
+
+        <email-bleed-background v-if="elementExists(12)" :element="elementById(12)"/>
+
+      </center>
+    </div>
+    <body v-if="!renderInView" width="100%" style="margin: 0; mso-line-height-rule: exactly;"
+      :style="{ 'background-color': getValueByName('backgroundColor') || '#222222' }">
+      <center style="width: 100%; text-align: left;"
+        :style="{ 'background-color': getValueByName('backgroundColor') || '#222222' }">
+        <!--[if mso | IE]>
+        <table role="presentation"
+          border="0"
+          cellpadding="0"
+          cellspacing="0"
+          width="100%"
+          :style="{ 'background-color': getValueByName('backgroundColor') || '#222222' }">
+        <tr>
+        <td>
+        <![endif]-->
+
+        <!-- Visually Hidden Preheader Text : BEGIN -->
+        <div style="display: none;
+          font-size: 1px;
+          line-height: 1px;
+          max-height: 0px;
+          max-width: 0px;
+          opacity: 0;
+          overflow: hidden;
+          mso-hide: all;
+          font-family: sans-serif;">
+            (Optional) This text will appear in the inbox preview,
+            but not the email body. It can be used to supplement the email
+              subject line or even summarize the email's contents. Extended
+              text preheaders (~490 characters) seems like a better UX for
+              anyone using a screenreader or voice-command apps like Siri
+              to dictate the contents of an email. If this text is not included,
+              email clients will automatically populate it using the text
+              (including image alt text) at the start of the email's body.
+        </div>
+        <!-- Visually Hidden Preheader Text : END -->
+
+        <!-- Email Body : BEGIN -->
+        <table align="center"
+          role="presentation"
+          cellspacing="0"
+          cellpadding="0"
+          border="0"
+          width="600"
+          style="margin: 0 auto;"
+          class="email-container">
+
+          <email-header v-if="elementExists(1)" :element="elementById(1)"/>
+
+          <div v-for="element in elementSet" :key="element.id"
+            data-qa="email-element">
+            <hero-image v-if="element.coreElementId === 2" :element="element"/>
+            <one-column-text-button v-if="element.coreElementId === 3" :element="element"/>
+            <background-image-text v-if="element.coreElementId === 4" :element="element"/>
+          </div>
+
+        </table>
+        <!-- Email Body : END -->
+
+        <email-footer v-if="elementExists(11)" :element="elementById(11)"/>
+
+        <email-bleed-background v-if="elementExists(12)" :element="elementById(12)"/>
+
+      </center>
+    </body>
   </div>
 </template>
 
@@ -78,6 +144,12 @@ const BackgroundImageText = () => import(/* webpackChunkName: "emailElements" */
 
 export default {
   name: 'Elements',
+  props: {
+    renderInView: {
+      type: Boolean,
+      default: true,
+    },
+  },
   components: {
     EmailHeader,
     HeroImage,

@@ -1,7 +1,7 @@
 <template>
   <base-main>
     <h5 class="title is-5">
-      {{ $t(`${interfaceAction}Template`) | capitalize }}
+      {{ $t(`${action}Template`) | capitalize }}
     </h5>
     <form>
       <vue-form-generator
@@ -17,6 +17,8 @@
       :cancelling="cancelling"
       :submitting="submitting"
       :disabled="!entriesAreValid"
+      :action="action"
+      element="template"
       v-on:cancel-action="cancel"
       v-on:perform-action="performAction"/>
   </base-main>
@@ -25,7 +27,6 @@
 <script>
 import VueFormGenerator from 'vue-form-generator';
 import { mapGetters, mapActions } from 'vuex';
-import { capitalize, isEmpty, cloneDeep } from 'lodash';
 import baseButtonState from '@/mixins/baseButtonState';
 
 const BaseMain = () => import(/* webpackChunkName: "base" */ '@/components/BaseMain.vue');
@@ -40,6 +41,15 @@ export default {
   props: {
     template: {
       type: Object,
+      default: () => ({
+        name: '',
+        description: '',
+        backgroundColor: '#222222',
+      }),
+    },
+    action: {
+      type: String,
+      default: '',
     },
   },
   data() {
@@ -49,26 +59,26 @@ export default {
         fields: [{
           type: 'input',
           inputType: 'text',
-          label: capitalize(this.$t('name')),
+          label: this.$lodash.capitalize(this.$t('name')),
           model: 'name',
           id: 'name',
-          placeholder: capitalize(this.$t('templateName')),
+          placeholder: this.$lodash.capitalize(this.$t('templateName')),
           min: 3,
           validator: VueFormGenerator.validators.string,
           required: true,
         }, {
           type: 'textArea',
-          label: capitalize(this.$t('description')),
+          label: this.$lodash.capitalize(this.$t('description')),
           model: 'description',
           id: 'description',
-          placeholder: capitalize(this.$t('templateDescription')),
+          placeholder: this.$lodash.capitalize(this.$t('templateDescription')),
         }, {
           type: 'input',
           inputType: 'text',
-          label: capitalize(this.$t('color')),
+          label: this.$lodash.capitalize(this.$t('color')),
           model: 'backgroundColor',
           id: 'backgroundColor',
-          placeholder: capitalize(this.$t('templateColor')),
+          placeholder: this.$lodash.capitalize(this.$t('templateColor')),
         }],
       },
 
@@ -82,24 +92,15 @@ export default {
     };
   },
   mounted() {
-    VueFormGenerator.validators.resources.fieldIsRequired = capitalize(this.$t('fieldIsRequired'));
-    VueFormGenerator.validators.resources.textTooSmall = capitalize(this.$t('textTooSmall'));
+    VueFormGenerator.validators.resources.fieldIsRequired = this.$lodash.capitalize(this.$t('fieldIsRequired'));
+    VueFormGenerator.validators.resources.textTooSmall = this.$lodash.capitalize(this.$t('textTooSmall'));
   },
   computed: {
     ...mapGetters([
       'db',
-      'selectedCollectionId',
-      'selectedCollection',
-      'interfaceAction',
+      'selectedProject',
     ]),
     model() {
-      if (isEmpty(this.template)) {
-        return {
-          name: '',
-          description: '',
-          backgroundColor: '#222222',
-        };
-      }
       return this.template;
     },
   },
@@ -112,7 +113,7 @@ export default {
     },
     cancel() {
       this.cancelling = true;
-      if (!isEmpty(this.template)) {
+      if (!this.$lodash.isEmpty(this.template)) {
         this.template.resync();
       }
       this.cancelling = false;
@@ -121,23 +122,24 @@ export default {
     },
     performAction() {
       this.submitting = true;
-      if (this.interfaceAction === 'create') {
+      if (this.action === 'create') {
         this.createAndSelectTemplate();
-      } else if (this.interfaceAction === 'edit') {
+      } else if (this.action === 'edit') {
         this.updateTemplate();
       }
     },
     async createAndSelectTemplate() {
-      const template = cloneDeep(this.model);
+      const template = this.$lodash.cloneDeep(this.model);
       template.id = `${new Date().toJSON()}${this.model.name}`;
       template.createTime = new Date().toJSON();
-      template.collectionId = this.selectedCollectionId;
+      template.projectId = this.selectedProject.id;
+      let templateDoc = {};
       try {
-        await this.db.templates.upsert(template);
+        templateDoc = await this.db.templates.upsert(template);
       } catch (error) {
         console.log(error);
       }
-      this.selectTemplate(template.id);
+      this.selectTemplate(templateDoc);
       this.submitting = false;
       this.$router.push({ name: 'templates' });
     },

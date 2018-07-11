@@ -2,17 +2,23 @@
   <div class="element-action-buttons" data-qa="element-action-buttons">
     <div class="field has-addons">
       <p class="control">
-        <a class="button"
+        <router-link :to="{ name: 'ElementsEdit', params:
+            { element }}"
+            class="button" data-qa="edit-element">
+            <span class="icon is-small">
+            <i class="fas fa-cog"></i>
+          </span>
+        </router-link>
+        <!--<a class="button"
           @click="updateElement"
           data-qa="edit-element">
           <span class="icon is-small">
             <i class="fas fa-cog"></i>
           </span>
-        </a>
+        </a>-->
       </p>
       <p class="control">
         <a class="button"
-          @click="removeElement"
           data-qa="remove-element">
           <span class="icon is-small">
             <i class="fas fa-times-circle"></i>
@@ -24,8 +30,8 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex';
-import { isEmpty } from 'lodash';
+// import { mapGetters, mapMutations } from 'vuex';
+// import { isEmpty } from 'lodash';
 
 export default {
   name: 'ElementActionButtons',
@@ -34,18 +40,14 @@ export default {
       type: Object,
     },
   },
-  computed: {
+  /* computed: {
     ...mapGetters([
       'selectedElement',
     ]),
   },
   methods: {
     ...mapMutations([
-      'toggleEditElement',
-      'toggleRemoveElement',
       'setSelectedElement',
-      'setAction',
-      'setElement',
     ]),
     updateElement() {
       if (!isEmpty(this.selectedElement)) {
@@ -56,8 +58,6 @@ export default {
         }
       }
       this.setSelectedElement(this.element);
-      this.setAction('edit');
-      this.setElement('element');
     },
     removeElement() {
       /* if (!isEmpty(this.selectedElement)) {
@@ -68,10 +68,10 @@ export default {
         }
       }
       this.setSelectedElement(this.element);
-      this.toggleRemoveElement(true); */
+      this.toggleRemoveElement(true);
       console.log('Removing element');
       console.log(this.element);
     },
-  },
+  }, */
 };
 </script>

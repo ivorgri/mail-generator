@@ -1,6 +1,6 @@
-const CollectionSchema = {
-  title: 'collection schema',
-  description: 'stores the collection data',
+const ProjectSchema = {
+  title: 'project schema',
+  description: 'stores the project data',
   version: 0,
   type: 'object',
   properties: {
@@ -30,4 +30,4 @@ const CollectionSchema = {
   required: ['name'],
 };
 
-export default CollectionSchema;
+export default ProjectSchema;

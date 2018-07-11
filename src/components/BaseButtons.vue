@@ -3,21 +3,20 @@
     <button class="button"
       :disabled="submitting"
       @click="$emit('cancel-action')"
-      :data-qa="`cancel-${interfaceElement}`">
+      :data-qa="`cancel-${element}`">
       {{ $t('cancel') | capitalize }}
     </button>
     <button class="button is-success"
       :class="{ 'is-loading': submitting }"
       :disabled="disabled || cancelling"
       @click="$emit('perform-action')"
-      :data-qa="`${interfaceAction}-${interfaceElement}-button`">
-        {{ $t(`${interfaceAction}${capElement}`) | capitalize }}
+      :data-qa="`${action}-${element}-button`">
+        {{ $t(`${action}${capitalizedElement}`) | capitalize }}
     </button>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 import { capitalize } from 'lodash';
 
 export default {
@@ -35,14 +34,16 @@ export default {
       type: Boolean,
       default: false,
     },
+    action: {
+      type: String,
+    },
+    element: {
+      type: String,
+    },
   },
   computed: {
-    ...mapGetters([
-      'interfaceAction',
-      'interfaceElement',
-    ]),
-    capElement() {
-      return capitalize(this.interfaceElement);
+    capitalizedElement() {
+      return capitalize(this.element);
     },
   },
 };

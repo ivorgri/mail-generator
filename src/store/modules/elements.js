@@ -249,8 +249,6 @@ const state = {
   },
   elements: {},
   selectedElement: {},
-  editElement: false,
-  removeElement: false,
 };
 
 const getters = {
@@ -263,7 +261,7 @@ const getters = {
     const elementIds = Object.keys(state.elements);
     const elementSet = [];
     elementIds.forEach((elementId) => {
-      if (state.elements[elementId].templateId === getters.selectedTemplateId) {
+      if (state.elements[elementId].templateId === getters.selectedTemplate.id) {
         const { coreElementId } = state.elements[elementId];
         if (coreElementId !== 1 && coreElementId !== 11 && coreElementId !== 12) {
           elementSet.push(state.elements[elementId]);
@@ -276,7 +274,7 @@ const getters = {
     let element = {};
     const elementIds = Object.keys(state.elements);
     elementIds.forEach((elementId) => {
-      if (state.elements[elementId].templateId === getters.selectedTemplateId) {
+      if (state.elements[elementId].templateId === getters.selectedTemplate.id) {
         if (state.elements[elementId].coreElementId === coreElementId) {
           element = state.elements[elementId];
         }
@@ -289,27 +287,11 @@ const getters = {
       !isEmpty(getters.elementById(11)) ||
       !isEmpty(getters.elementById(12)),
   selectedElement: state => state.selectedElement,
-  editElement: state => state.editElement,
-  removeElement: state => state.removeElement,
 };
 
 const mutations = {
   setElements(state, elements) {
     state.elements = elements;
-  },
-  toggleEditElement(state, show) {
-    state.removeElement = false;
-    if (show === undefined) {
-      state.editElement = !state.editElement;
-    }
-    state.editElement = show;
-  },
-  toggleRemoveElement(state, show) {
-    state.editElement = false;
-    if (show === undefined) {
-      state.removeElement = !state.removeElement;
-    }
-    state.removeElement = show;
   },
   setSelectedElement(state, element) {
     state.selectedElement = element;

@@ -9,7 +9,7 @@
 <script>
 import * as Database from '@/database/database';
 import 'vue-form-generator/dist/vfg.css';
-import { mapGetters, mapMutations, mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 const LoadingDatabase = () => import(/* webpackChunkName: "loadingDatabase" */ '@/components/LoadingDatabase.vue');
 const MainMenu = () => import(/* webpackChunkName: "mainMenu" */ '@/components/MainMenu.vue');
@@ -31,8 +31,8 @@ export default {
     this.subs.push(this.db.users.find().$.subscribe((results) => {
       this.updateUsers(results);
     }));
-    this.subs.push(this.db.templatecollections.find().$.subscribe((results) => {
-      this.updateCollections(results);
+    this.subs.push(this.db.projects.find().$.subscribe((results) => {
+      this.updateProjects(results);
     }));
     this.subs.push(this.db.templates.find().$.subscribe((results) => {
       this.updateTemplates(results);
@@ -41,25 +41,15 @@ export default {
       this.updateElements(results);
     }));
   },
-  watch: {
-    $route(to) {
-      this.setAction(to.meta.action === undefined ? '' : to.meta.action);
-      this.setElement(to.meta.element === undefined ? '' : to.meta.element);
-    },
-  },
   computed: {
     ...mapGetters([
       'db',
     ]),
   },
   methods: {
-    ...mapMutations([
-      'setAction',
-      'setElement',
-    ]),
     ...mapActions([
       'updateUsers',
-      'updateCollections',
+      'updateProjects',
       'updateTemplates',
       'updateElements',
     ]),
@@ -97,8 +87,17 @@ export default {
       overflow-y: auto;
       overflow-x: hidden;
     }
+  }
 
+  .menu-list {
+    a {
+      display: flex;
+      align-items: center;
 
+      .icon {
+        margin: 0px 5px;
+      }
+    }
   }
 
   /* .menu {

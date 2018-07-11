@@ -11,6 +11,33 @@ const generateHtmlBody = {
     ...mapGetters([
       'elementById',
     ]),
+    emailHeader() {
+      if (this.elementExists(1)) {
+        const emailHeader = this.elementById(1);
+        let emailHeaderTemplate = `
+          <!-- Email Header : BEGIN -->
+            <tr>
+              <td style="padding: 20px 0; text-align: center">
+                <img
+                  src="${emailHeader.model.imageLink}"
+                  width="200"
+                  height="50"
+                  alt="${emailHeader.model.imageAltText}"
+                  border="0"
+                  style="height: auto;
+                  background: #dddddd;
+                  font-family: sans-serif;
+                  font-size: 15px;
+                  line-height: 15px;
+                  color: #555555;">
+              </td>
+            </tr>
+          <!-- Email Header : END -->
+        `;
+        return emailHeaderTemplate;
+      }
+      return '';
+    },
     htmlBody() {
       let htmlBody = `
         <!DOCTYPE html>
@@ -265,34 +292,8 @@ const generateHtmlBody = {
               <!-- Email Body : BEGIN -->
               <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" style="margin: 0 auto;" class="email-container">`;
 
-        // Email Header
-        if (this.elementExists(1)) {
-          const emailHeader = this.elementById(1);
-          htmlBody += `
-            <!-- Email Header : BEGIN -->
-              <tr>
-                <td style="padding: 20px 0; text-align: center">
-                  <img
-                    src="${emailHeader.model.imageLink}"
-                    width="200"
-                    height="50"
-                    alt="${emailHeader.model.imageAltText}"
-                    border="0"
-                    style="height: auto;
-                    background: #dddddd;
-                    font-family: sans-serif;
-                    font-size: 15px;
-                    line-height: 15px;
-                    color: #555555;">
-                </td>
-                <!-- Element actions: BEGIN -->
-                <element-action-buttons :element="element"/>
-                <!-- Element actions: END -->
-              </tr>
-            <!-- Email Header : END -->
-          `;
-        }
-        // Email Body : END
+        htmlBody += this.emailHeader;
+
         htmlBody += `
               </table>
               <!-- Email Body : END -->
