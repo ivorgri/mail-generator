@@ -2,7 +2,7 @@
   <div id="app" data-qa="app">
     <loading-database v-if="!databaseCreated"/>
     <main-menu v-if="databaseCreated"/>
-    <router-view v-if="databaseCreated"/>
+    <router-view v-if="databaseCreated" :key="$route.fullPath"/>
   </div>
 </template>
 
