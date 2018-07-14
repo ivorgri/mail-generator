@@ -64,7 +64,19 @@ export default {
     VueFormGenerator.validators.resources.numberTooSmall = this.$lodash.capitalize(this.$t('numberTooSmall'));
 
     if (this.action === 'edit') {
-      this.schema = this.coreElements[this.element.coreElementId].schema;
+      const currentSchemaFields = this.coreElements[this.element.coreElementId].schema.fields;
+      const generatedSchema = {
+        fields: [],
+      };
+      currentSchemaFields.forEach((field, index) => {
+        console.log(field);
+        const newField = field;
+        newField.label = this.$t(field.label);
+        generatedSchema.fields[index] = newField;
+        console.log(newField);
+      });
+      console.log(generatedSchema);
+      this.schema = generatedSchema;
       this.model = this.element.model;
     } else {
       const generatedSchema = {
