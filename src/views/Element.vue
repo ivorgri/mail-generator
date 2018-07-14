@@ -69,13 +69,11 @@ export default {
         fields: [],
       };
       currentSchemaFields.forEach((field, index) => {
-        console.log(field);
         const newField = field;
-        newField.label = this.$t(field.label);
+        newField.label = this.$lodash.capitalize(this.$t(field.label));
+        newField.placeholder = this.$lodash.capitalize(this.$t(field.placeholder));
         generatedSchema.fields[index] = newField;
-        console.log(newField);
       });
-      console.log(generatedSchema);
       this.schema = generatedSchema;
       this.model = this.element.model;
     } else {
