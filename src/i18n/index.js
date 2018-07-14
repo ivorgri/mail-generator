@@ -77,6 +77,10 @@ const messages = {
     'oneColumnText': '1 column text',
     'emailFooter': 'e-mail footer',
     'emailBleedBackground': 'e-mail full bleed background section',
+    'customElement': 'custom @:element',
+    'image': 'image',
+    'imageLink': 'link to @:image',
+    'imageAltText': '@:image alternative text',
   },
   nl: {
     /* General */
@@ -150,6 +154,10 @@ const messages = {
     'oneColumnText': '1 kolom tekst',
     'emailFooter': 'e-mail footer',
     'emailBleedBackground': 'e-mail volledige breedte sectie',
+    'customElement': 'Maatwerk @:element',
+    'image': 'afbeelding',
+    'imageLink': 'Link naar @:image',
+    'imageAltText': 'Alternatieve tekst van @:image',
   },
   /* eslint-enable */
 };
