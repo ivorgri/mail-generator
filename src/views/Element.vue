@@ -129,6 +129,9 @@ export default {
     },
     cancel() {
       this.cancelling = true;
+      if (!this.$lodash.isEmpty(this.element)) {
+        this.element.resync();
+      }
       this.cancelling = false;
       // Go back to last page
       this.$router.go(-1);
