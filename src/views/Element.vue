@@ -147,9 +147,14 @@ export default {
     },
     async addSelectedElements() {
       this.submitting = true;
-      const newElementIndex = this.elementSet.length;
-      this.selectedElements.forEach(async (coreElementId, index) => {
+      let newElementIndex = this.elementSet.length;
+      this.selectedElements.forEach(async (coreElementId) => {
         const coreElement = this.coreElements[coreElementId];
+        let newOrder;
+        if (coreElementId !== 1 && coreElementId !== 11 && coreElementId !== 12) {
+          newElementIndex += 1;
+          newOrder = newElementIndex;
+        }
         const element = {
           id: `${new Date().toJSON()}${coreElementId}`,
           coreElementId,
@@ -157,7 +162,7 @@ export default {
           templateId: this.selectedTemplate.id,
           createTime: new Date().toJSON(),
           model: coreElement.model,
-          order: newElementIndex + index + 1,
+          order: newOrder,
         };
         try {
           await this.db.elements.upsert(element);
