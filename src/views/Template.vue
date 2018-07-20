@@ -45,6 +45,7 @@ export default {
         name: '',
         description: '',
         backgroundColor: '#222222',
+        inboxPreview: '',
       }),
     },
     action: {
@@ -79,6 +80,12 @@ export default {
           model: 'backgroundColor',
           id: 'backgroundColor',
           placeholder: this.$lodash.capitalize(this.$t('templateColor')),
+        }, {
+          type: 'textArea',
+          label: this.$lodash.capitalize(this.$t('inboxPreview')),
+          model: 'inboxPreview',
+          id: 'inboxPreview',
+          placeholder: this.$t('inboxPreviewPlaceholder'),
         }],
       },
 

@@ -26,6 +26,9 @@ const TemplateSchema = {
     backgroundColor: {
       type: 'string',
     },
+    inboxPreview: {
+      type: 'string',
+    },
   },
   required: ['name'],
 };
