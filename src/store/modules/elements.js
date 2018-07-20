@@ -574,6 +574,7 @@ const getters = {
         }
       }
     });
+    elementSet.sort((previous, next) => previous.order - next.order);
     return elementSet;
   },
   elementById: (state, getters) => (coreElementId) => {

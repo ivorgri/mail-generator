@@ -108,6 +108,7 @@ export default {
       'selectedTemplate',
       'coreElements',
       'elementById',
+      'elementSet',
     ]),
     selectedElements() {
       const modelKeys = Object.keys(this.model);
@@ -146,7 +147,8 @@ export default {
     },
     async addSelectedElements() {
       this.submitting = true;
-      this.selectedElements.forEach(async (coreElementId) => {
+      const newElementIndex = this.elementSet.length;
+      this.selectedElements.forEach(async (coreElementId, index) => {
         const coreElement = this.coreElements[coreElementId];
         const element = {
           id: `${new Date().toJSON()}${coreElementId}`,
@@ -155,6 +157,7 @@ export default {
           templateId: this.selectedTemplate.id,
           createTime: new Date().toJSON(),
           model: coreElement.model,
+          order: newElementIndex + index + 1,
         };
         try {
           await this.db.elements.upsert(element);

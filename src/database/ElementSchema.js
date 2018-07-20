@@ -23,6 +23,9 @@ const ElementSchema = {
       type: 'string',
       format: 'date-time',
     },
+    order: {
+      type: 'integer',
+    },
     model: {
       type: 'object',
       properties: {
@@ -85,7 +88,7 @@ const ElementSchema = {
         },
         htmlContent: {
           type: 'string',
-        }
+        },
       },
     },
   },
