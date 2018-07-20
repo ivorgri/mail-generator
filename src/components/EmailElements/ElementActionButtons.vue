@@ -1,6 +1,24 @@
 <template>
   <div class="element-action-buttons" data-qa="element-action-buttons">
     <div class="field has-addons">
+      <p v-if="!(element.order === undefined || element.order === 1)" class="control">
+        <a class="button"
+          @click="moveElementUp"
+          data-qa="move-element-up">
+          <span class="icon is-small">
+            <i class="fa fa-angle-up"></i>
+          </span>
+        </a>
+      </p>
+      <p v-if="!(element.order === undefined || lastElement)" class="control">
+        <a class="button"
+          @click="moveElementDown"
+          data-qa="move-element-down">
+          <span class="icon is-small">
+            <i class="fa fa-angle-down"></i>
+          </span>
+        </a>
+      </p>
       <p class="control">
         <router-link :to="{ name: 'ElementsEdit', params:
             { elementId: element.id, element }}"
@@ -9,13 +27,6 @@
             <i class="fas fa-cog"></i>
           </span>
         </router-link>
-        <!--<a class="button"
-          @click="updateElement"
-          data-qa="edit-element">
-          <span class="icon is-small">
-            <i class="fas fa-cog"></i>
-          </span>
-        </a>-->
       </p>
       <p class="control">
         <a class="button"
@@ -30,8 +41,7 @@
 </template>
 
 <script>
-// import { mapGetters, mapMutations } from 'vuex';
-// import { isEmpty } from 'lodash';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'ElementActionButtons',
@@ -40,38 +50,48 @@ export default {
       type: Object,
     },
   },
-  /* computed: {
+  computed: {
     ...mapGetters([
-      'selectedElement',
+      'db',
+      'elementSet',
     ]),
+    lastElement() {
+      return this.element.order === this.elementSet.length;
+    },
   },
   methods: {
-    ...mapMutations([
-      'setSelectedElement',
-    ]),
-    updateElement() {
-      if (!isEmpty(this.selectedElement)) {
-        try {
-          this.selectedElement.resync();
-        } catch (error) {
-          console.log(error);
-        }
+    async moveElementUp() {
+      const movedElement = this.element;
+      const needToMoveElement = this.elementSet[movedElement.order - 2];
+      movedElement.order -= 1;
+      needToMoveElement.order += 1;
+      try {
+        await movedElement.save();
+      } catch (error) {
+        console.log(error);
       }
-      this.setSelectedElement(this.element);
-    },
-    removeElement() {
-      /* if (!isEmpty(this.selectedElement)) {
-        try {
-          this.selectedElement.resync();
-        } catch (error) {
-          console.log(error);
-        }
+      try {
+        await needToMoveElement.save();
+      } catch (error) {
+        console.log(error);
       }
-      this.setSelectedElement(this.element);
-      this.toggleRemoveElement(true);
-      console.log('Removing element');
-      console.log(this.element);
     },
-  }, */
+    async moveElementDown() {
+      const movedElement = this.element;
+      const needToMoveElement = this.elementSet[movedElement.order];
+      movedElement.order += 1;
+      needToMoveElement.order -= 1;
+      try {
+        await movedElement.save();
+      } catch (error) {
+        console.log(error);
+      }
+      try {
+        await needToMoveElement.save();
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
 };
 </script>
