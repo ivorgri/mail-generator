@@ -28,7 +28,7 @@
       <li
         v-for="template in templateSet"
         :key="template.id"
-        @click="selectTemplate(template.id)"
+        @click="selectTemplate(template)"
         data-qa="template-items">
         <a class="no-select" :class="{ 'is-active' : (template.id === selectedTemplate.id) }">
           {{ template.name }}
