@@ -76,7 +76,7 @@ export default {
       });
       this.schema = generatedSchema;
       this.model = this.element.model;
-    } else {
+    } else if (this.action === 'add') {
       const generatedSchema = {
         fields: [],
       };

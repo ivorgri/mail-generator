@@ -45,12 +45,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-@import '../styles/settings.scss';
-
-.section {
-  grid-template-columns: 200px 1fr 300px;
-  grid-template-areas: "templatemenu elements elementeditor";
-}
-</style>

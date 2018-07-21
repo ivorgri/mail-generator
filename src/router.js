@@ -3,12 +3,15 @@ import Router from 'vue-router';
 import Projects from '@/views/Projects.vue';
 import ProjectCreate from '@/views/ProjectCreate.vue';
 import ProjectEdit from '@/views/ProjectEdit.vue';
+import ProjectArchive from '@/views/ProjectArchive.vue';
 import Templates from '@/views/Templates.vue';
 import TemplateCreate from '@/views/TemplateCreate.vue';
 import TemplateEdit from '@/views/TemplateEdit.vue';
+import TemplateArchive from '@/views/TemplateArchive.vue';
 import TemplateDownload from '@/views/TemplateDownload.vue';
 import ElementsAdd from '@/views/ElementsAdd.vue';
 import ElementsEdit from '@/views/ElementsEdit.vue';
+import ElementsArchive from '@/views/ElementsArchive.vue';
 // import User from '@/views/User.vue';
 // import SelectUser from '@/views/SelectUser.vue';
 // import EditUser from '@/views/EditUser.vue';
@@ -30,6 +33,11 @@ export default new Router({
     props: true,
     component: ProjectEdit,
   }, {
+    path: '/project/archive',
+    name: 'ProjectArchive',
+    props: true,
+    component: ProjectArchive,
+  }, {
     path: '/templates',
     name: 'templates',
     component: Templates,
@@ -42,6 +50,11 @@ export default new Router({
     name: 'TemplateEdit',
     props: true,
     component: TemplateEdit,
+  }, {
+    path: '/template/archive',
+    name: 'TemplateArchive',
+    props: true,
+    component: TemplateArchive,
   }, {
     path: '/template/download',
     name: 'TemplateDownload',
@@ -56,6 +69,11 @@ export default new Router({
     name: 'ElementsEdit',
     props: true,
     component: ElementsEdit,
+  }, {
+    path: '/elements/edit/:elementId',
+    name: 'ElementsArchive',
+    props: true,
+    component: ElementsArchive,
   }],
   /* children: [{
       path: 'create',

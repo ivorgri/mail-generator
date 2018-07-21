@@ -26,6 +26,10 @@ const ProjectSchema = {
     selectedTemplateId: {
       type: 'string',
     },
+    archived: {
+      type: 'boolean',
+      default: false,
+    },
   },
   required: ['name'],
 };

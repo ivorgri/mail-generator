@@ -16,9 +16,9 @@ const getters = {
     const projectIds = Object.keys(state.projects);
     const projectSet = [];
     projectIds.forEach((projectId) => {
-      // if (state.projects[projectId].authorId === getters.selectedUserId) {
+      if (!state.projects[projectId].archived) {
         projectSet.push(state.projects[projectId]);
-      // }
+      }
     });
     return projectSet;
   },
@@ -48,7 +48,7 @@ const actions = {
   async selectProject({ getters, commit, dispatch }, selectedProject) {
     commit('selectProject', selectedProject);
     try {
-      dispatch('selectTemplate', getters.selectedProject.selectedTemplateId);
+      dispatch('selectTemplate', getters.templates[getters.selectedProject.selectedTemplateId]);
     } catch (error) {
       console.log(error);
     }

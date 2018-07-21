@@ -26,6 +26,10 @@ const ElementSchema = {
     order: {
       type: 'integer',
     },
+    archived: {
+      type: 'boolean',
+      default: false,
+    },
     model: {
       type: 'object',
       properties: {

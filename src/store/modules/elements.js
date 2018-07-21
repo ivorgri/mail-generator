@@ -567,7 +567,8 @@ const getters = {
     const elementIds = Object.keys(state.elements);
     const elementSet = [];
     elementIds.forEach((elementId) => {
-      if (state.elements[elementId].templateId === getters.selectedTemplate.id) {
+      if (state.elements[elementId].templateId === getters.selectedTemplate.id &&
+        !state.elements[elementId].archived) {
         const { coreElementId } = state.elements[elementId];
         if (coreElementId !== 1 && coreElementId !== 11 && coreElementId !== 12) {
           elementSet.push(state.elements[elementId]);
@@ -581,7 +582,8 @@ const getters = {
     let element = {};
     const elementIds = Object.keys(state.elements);
     elementIds.forEach((elementId) => {
-      if (state.elements[elementId].templateId === getters.selectedTemplate.id) {
+      if (state.elements[elementId].templateId === getters.selectedTemplate.id &&
+        !state.elements[elementId].archived) {
         if (state.elements[elementId].coreElementId === coreElementId) {
           element = state.elements[elementId];
         }

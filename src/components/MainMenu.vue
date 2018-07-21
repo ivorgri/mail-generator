@@ -47,6 +47,11 @@
               class="navbar-item" data-qa="update-project">
               {{ $t('editProject') | capitalize }}
             </router-link>
+            <router-link v-if="projectIsSelected" :to="{ name: 'ProjectArchive', params:
+              { project: this.selectedProject }}"
+              class="navbar-item" data-qa="archive-project">
+              {{ $t('archiveProject') | capitalize }}
+            </router-link>
           </div>
         </div>
         <!-- Templates -->
@@ -74,6 +79,11 @@
               { template: this.selectedTemplate }}"
               class="navbar-item" data-qa="update-template">
               {{ $t('editTemplate') | capitalize }}
+            </router-link>
+            <router-link v-if="templateIsSelected" :to="{ name: 'TemplateArchive', params:
+              { template: this.selectedTemplate }}"
+              class="navbar-item" data-qa="archive-template">
+              {{ $t('archiveTemplate') | capitalize }}
             </router-link>
             <hr v-if="elementsExist"
               class="navbar-divider">

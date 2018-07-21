@@ -6,8 +6,10 @@
       :data-qa="`cancel-${element}`">
       {{ $t('cancel') | capitalize }}
     </button>
-    <button class="button is-success"
-      :class="{ 'is-loading': submitting }"
+    <button class="button"
+      :class="{ 'is-loading': submitting,
+        'is-success': !dangerousAction,
+        'is-danger': dangerousAction }"
       :disabled="disabled || cancelling"
       @click="$emit('perform-action')"
       :data-qa="`${action}-${element}-button`">
@@ -24,7 +26,7 @@ export default {
   props: {
     disabled: {
       type: Boolean,
-      required: true,
+      default: false,
     },
     cancelling: {
       type: Boolean,
@@ -39,6 +41,10 @@ export default {
     },
     element: {
       type: String,
+    },
+    dangerousAction: {
+      type: Boolean,
+      default: false,
     },
   },
   computed: {

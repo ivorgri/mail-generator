@@ -32,6 +32,10 @@ const TemplateSchema = {
     inboxPreview: {
       type: 'string',
     },
+    archived: {
+      type: 'boolean',
+      default: false,
+    },
   },
   required: ['name'],
 };

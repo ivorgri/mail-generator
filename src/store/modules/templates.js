@@ -16,7 +16,8 @@ const getters = {
     const templateIds = Object.keys(state.templates);
     const templateSet = [];
     templateIds.forEach((templateId) => {
-      if (state.templates[templateId].projectId === getters.selectedProject.id) {
+      if (state.templates[templateId].projectId === getters.selectedProject.id &&
+        !state.templates[templateId].archived) {
         templateSet.push(state.templates[templateId]);
       }
     });
@@ -33,7 +34,7 @@ const mutations = {
     state.selectedTemplate = selectedTemplate;
   },
   clearSelectedTemplate(state) {
-    state.selectedTemplateId = {};
+    state.selectedTemplate = {};
   },
 };
 
@@ -58,6 +59,17 @@ const actions = {
       }
     } else {
       commit('selectTemplate', {});
+    }
+  },
+  async clearSelectedTemplate({ getters, commit }) {
+    commit('clearSelectedTemplate');
+    if (!isEmpty(getters.selectedProject)) {
+      getters.selectedProject.selectedTemplateId = '';
+      try {
+        await getters.selectedProject.save();
+      } catch (error) {
+        console.log(error);
+      }
     }
   },
 };

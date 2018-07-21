@@ -23,18 +23,19 @@
         <router-link :to="{ name: 'ElementsEdit', params:
             { elementId: element.id, element }}"
             class="button" data-qa="edit-element">
-            <span class="icon is-small">
+          <span class="icon is-small">
             <i class="fas fa-cog"></i>
           </span>
         </router-link>
       </p>
       <p class="control">
-        <a class="button"
-          data-qa="remove-element">
-          <span class="icon is-small">
+        <router-link :to="{ name: 'ElementsArchive', params:
+            { elementId: element.id, element }}"
+            class="button" data-qa="archive-element">
+            <span class="icon is-small">
             <i class="fas fa-times-circle"></i>
           </span>
-        </a>
+        </router-link>
       </p>
     </div>
   </div>
