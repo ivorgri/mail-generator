@@ -15,7 +15,7 @@
           font-size: 15px;
           line-height: 15px;
           margin: auto;"
-        :style="{ color: getValueByName('color') }"
+        :style="{ color: getValueByName('textColor') }"
         class="g-img"
         :src="getValueByName('imageLink')"
         :alt="getValueByName('imageAltText')">

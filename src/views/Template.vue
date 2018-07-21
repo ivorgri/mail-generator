@@ -76,6 +76,13 @@ export default {
         }, {
           type: 'input',
           inputType: 'text',
+          label: this.$lodash.capitalize(this.$t('emailTitle')),
+          model: 'emailTitle',
+          id: 'emailTitle',
+          placeholder: this.$lodash.capitalize(this.$t('emailTitlePlaceholder')),
+        }, {
+          type: 'input',
+          inputType: 'text',
           label: this.$lodash.capitalize(this.$t('color')),
           model: 'backgroundColor',
           id: 'backgroundColor',

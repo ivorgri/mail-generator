@@ -15,6 +15,9 @@ const TemplateSchema = {
     description: {
       type: 'string',
     },
+    emailTitle: {
+      type: 'string',
+    },
     projectId: {
       type: 'string',
       index: true,

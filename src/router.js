@@ -6,6 +6,7 @@ import ProjectEdit from '@/views/ProjectEdit.vue';
 import Templates from '@/views/Templates.vue';
 import TemplateCreate from '@/views/TemplateCreate.vue';
 import TemplateEdit from '@/views/TemplateEdit.vue';
+import TemplateDownload from '@/views/TemplateDownload.vue';
 import ElementsAdd from '@/views/ElementsAdd.vue';
 import ElementsEdit from '@/views/ElementsEdit.vue';
 // import User from '@/views/User.vue';
@@ -41,6 +42,11 @@ export default new Router({
     name: 'TemplateEdit',
     props: true,
     component: TemplateEdit,
+  }, {
+    path: '/template/download',
+    name: 'TemplateDownload',
+    props: true,
+    component: TemplateDownload,
   }, {
     path: '/elements/add',
     name: 'ElementsAdd',

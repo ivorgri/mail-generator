@@ -6,11 +6,7 @@
     border="0"
     align="center"
     width="100%"
-    style="max-width: 680px;
-      font-family: sans-serif;
-      font-size: 12px;
-      line-height: 140%;"
-    :style="{ color: getValueByName('textColor') }">
+    style="max-width: 600px;">
     <tr class="element-container" data-qa="email-footer">
       <td style="padding: 40px 10px;
         width: 100%;

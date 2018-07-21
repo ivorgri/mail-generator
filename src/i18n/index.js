@@ -58,6 +58,8 @@ const messages = {
     'templateDescription': 'description of @:template',
     'saveAndOpenTemplate': 'save and open @:template',
     'templateColor': '@:template @:color',
+    'emailTitle': 'e-mail title',
+    'emailTitlePlaceholder': 'add e-mail title here',
     'inboxPreview': 'inbox preview',
     'inboxPreviewPlaceholder': `(Optional) This text will appear in the inbox preview,
       but not the email body. It can be used to supplement the email
@@ -67,6 +69,8 @@ const messages = {
       to dictate the contents of an email. If this text is not included,
       email clients will automatically populate it using the text
       (including image alt text) at the start of the email's body.`,
+    'filename': 'filename',
+    'filenamePlaceholder': 'add @:filename here',
     /* Elements */
     'element': 'element',
     'elements': 'elements',
@@ -184,8 +188,12 @@ const messages = {
     'templateDescription': 'beschrijving van @:template',
     'saveAndOpenTemplate': 'bewaar en open @:template',
     'templateColor': '@:template @:color',
+    'emailTitle': 'e-mail titel',
+    'emailTitlePlaceholder': 'voeg e-mail titel toe',
     'inboxPreview': 'inbox preview',
     'inboxPreviewPlaceholder': '(Optioneel) Deze tekst zal worden weergegeven in de inbox preview, maar niet in de email zelf. Deze kan gebruikt worden als toevoeging op de onderwerp regel van de mail of om een samenvatting te geven van de inhoud van de mail. Als deze tekst niet toegevoegd wordt zullen mail clients de tekst zelf vullen.',
+    'filename': 'bestandsnaam',
+    'filenamePlaceholder': 'voeg @:filename toe',
     /* Elements */
     'element': 'element',
     'elements': 'elementen',
