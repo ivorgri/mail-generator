@@ -1,3 +1,18 @@
+Cypress.Commands.add('vuex', () => {
+  cy.window().its('app.$store');
+});
+
+Cypress.Commands.add('db', () => {
+  cy.window().its('app.$store').its('getters').its('db');
+});
+
+Cypress.Commands.add('emptyDatabase', () => {
+  cy.db().then(($db) => {
+    cy.log($db);
+    // $db.projects.remove();
+  });
+});
+
 Cypress.Commands.add('visitProjects', () => {
   cy.visit('/projects');
 });

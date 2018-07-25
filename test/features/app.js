@@ -17,4 +17,16 @@ describe('App', () => {
   it('... should show database loading on initial setup.', () => {
     cy.get('[data-qa="init-database"]').should('be.visible');
   });
+
+  it('... should have an active vuex store', () => {
+    cy.vuex().should('exist');
+  });
+
+  it('... should have an active database', () => {
+    cy.vuex().its('getters').its('db').should('exist');
+  });
+
+  it('... should show main menu when database is loaded', () => {
+    cy.db().get('[data-qa="main-menu"').should('be.visible');
+  });
 });

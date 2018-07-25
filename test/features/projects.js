@@ -1,45 +1,14 @@
 // test/features/projects.js
 
-import 'babel-polyfill';
-import * as RxDB from 'rxdb';
-import ProjectSchema from '../../src/database/ProjectSchema';
-
-RxDB.plugin(require('pouchdb-adapter-idb'));
-
 describe('Projects', () => {
   beforeEach(() => {
     cy.viewport(1366, 768);
     cy.visitProjects();
-
-    cy.window().then(async (win) => {
-      // cy.log('database', [win.db]);
-      const collections = [{
-        name: 'lala',
-        schema: ProjectSchema,
-      }];
-
-      const db = await RxDB.create({
-        name: 'mailgenerator',
-        adapter: 'idb',
-        password: 'basicPassword',
-      });
-      win.db = db;
-
-      // Create projects
-      console.log('DatabaseService: Creating projects...');
-      await Promise.all(collections.map(colData => db.collection(colData)));
-
-      cy.log('database', [db]);
-    });
+    cy.emptyDatabase();
   });
 
   it('... should have a projects menu item.', () => {
-    // cy.log('database', [cy.window.db]);
     cy.get('[data-qa="projects-menu"]').should('be.visible');
-    // cy.log('database', [cy.window.db]);
-    cy.window().then((win) => {
-      cy.log('database', [win.db]);
-    });
   });
 
   it('... should have an "open project" menu item.', () => {
@@ -55,7 +24,7 @@ describe('Projects', () => {
   it('... should create a project when clicking create project menu item and open templates.', () => {
     cy.openProjectsMenu();
     cy.get('[data-qa="create-project"').click();
-    cy.url().should('eq', 'http://localhost:8080/#/projects/create');
+    cy.url().should('eq', 'http://localhost:8080/#/project/create');
     const projectName = 'Test project';
     cy.get('[data-qa="project-form"]').should('be.visible');
     cy.get('[id="project-name"]').should('be.visible');

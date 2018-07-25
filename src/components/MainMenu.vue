@@ -1,5 +1,6 @@
 <template>
-  <nav id="main-menu" class="navbar" role="navigation" aria-label="main navigation">
+  <nav id="main-menu" class="navbar" role="navigation" aria-label="main navigation"
+    data-qa="main-menu">
     <!-- Hamburger menu -->
     <div class="navbar-brand is-hidden-desktop">
       <a class="navbar-item" href="#">
