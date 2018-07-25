@@ -115,6 +115,27 @@
         </div>
       </div>
       <div class="navbar-end">
+        <!-- Language -->
+        <div class="navbar-item has-dropdown"
+          :class="{ 'is-active': openDropdown.language }"
+          @click="toggleDropdown('language')">
+          <a class="navbar-link no-select">
+            <span class="icon">
+              <i class="fas fa-language" aria-hidden="true"></i>
+            </span>
+            <span>{{ $t('language') | capitalize }}</span>
+          </a>
+          <div class="navbar-dropdown is-right">
+            <a class="navbar-item"
+             @click="switchToLanguage('nl')">
+              Nederlands
+            </a>
+            <a class="navbar-item"
+              @click="switchToLanguage('en')">
+              English
+            </a>
+          </div>
+        </div>
         <!-- User -->
         <!--<div class="navbar-item has-dropdown"
           :class="{ 'is-active': openDropdown.user }"
@@ -170,6 +191,7 @@ export default {
         template: false,
         element: false,
         burger: false,
+        language: false,
       },
     };
   },
@@ -192,11 +214,11 @@ export default {
     },
   },
   watch: {
-    selectedUser(newValue) {
+    /* selectedUser(newValue) {
       if (newValue !== undefined) {
         this.switchToLanguage(newValue.locale);
       }
-    },
+    }, */
     $route() {
       this.toggleDropdown('none');
     },

@@ -72,6 +72,10 @@ export default {
     }
   }
 
+  .icon {
+    margin-right: 5px;
+  }
+
   /* .menu {
     grid-area: aside;
     border: 1px solid blue;
