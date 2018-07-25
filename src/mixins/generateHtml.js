@@ -266,7 +266,7 @@ const generateHtml = {
         <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" style="margin: 0 auto;" class="email-container">`;
     const emailHeader = this.generateElementHtml(this.elementById(1));
     let emailElements = '';
-    this.elementSet.forEach((element) => {
+    this.elementList.forEach((element) => {
       emailElements += this.generateElementHtml(element);
     });
     const emailMiddle = `</table>
@@ -291,7 +291,7 @@ const generateHtml = {
   },
   computed: {
     ...mapGetters([
-      'elementSet',
+      'elementList',
       'elementById',
     ]),
   },

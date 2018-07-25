@@ -1,5 +1,3 @@
-// import PouchDB from 'pouchdb';
-
 import 'babel-polyfill';
 import * as RxDB from 'rxdb';
 
@@ -28,33 +26,47 @@ const collections = [{
   schema: ElementSchema,
 }];
 
-export default async function (store) {
+window.dbs = window.dbs || [];
+const clearPrev = async () => {
+  await Promise.all(window.dbs.map(db => db.destroy()));
+};
+
+let dbPromise = null;
+
+const create = async () => {
   console.log('DatabaseService: Destroying old database..');
-  await RxDB.removeDatabase('mailgenerator', 'idb');
+  await clearPrev();
+  // await RxDB.removeDatabase('mailgenerator', 'idb');
   console.log('DatabaseService: Creating database..');
   const db = await RxDB.create({
     name: 'mailgenerator',
     adapter: 'idb',
     password: 'basicPassword',
   });
-  window.db = db;
+  window.dbs.push(db);
   console.log('DatabaseService: Created database.');
-
-  store.commit('setDB', db);
+  window['db'] = db;
 
   // Create projects
   console.log('DatabaseService: Creating projects...');
   await Promise.all(collections.map(colData => db.collection(colData)));
 
   // Set initial state
-  console.log('DatabaseService: Setting initial state.');
-  const stateCollection = store.getters.db.state;
+  // console.log('DatabaseService: Setting initial state.');
+  /* const stateCollection = store.getters.db.state;
   await stateCollection.upsert({
     state: 'current',
     selectedUserId: '',
     selectedCollectionId: '',
     selectedTemplateId: '',
-  });
+  }); */
 
-  return true;
-}
+  return db;
+};
+
+export default () => {
+  if (!dbPromise) {
+    dbPromise = create();
+  }
+  return dbPromise;
+};

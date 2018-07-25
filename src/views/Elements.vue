@@ -41,7 +41,7 @@
 
           <email-header v-if="elementExists(1)" :element="elementById(1)"/>
 
-          <div v-for="element in elementSet" :key="element.id"
+          <div v-for="element in elementList" :key="element.id"
             data-qa="email-element">
             <hero-image v-if="element.coreElementId === 2" :element="element"/>
             <one-column-text-button v-if="element.coreElementId === 3" :element="element"/>
@@ -104,7 +104,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'elementSet',
+      'elementList',
       'selectedTemplate',
       'elementById',
     ]),

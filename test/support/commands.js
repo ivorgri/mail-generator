@@ -1,16 +1,17 @@
-Cypress.Commands.add('visitCollections', () => {
-  cy.visit('/collections');
+Cypress.Commands.add('visitProjects', () => {
+  cy.visit('/projects');
 });
 
-Cypress.Commands.add('openCollectionsMenu', () => {
-  cy.get('[data-qa="collections-menu"').click();
+Cypress.Commands.add('openProjectsMenu', () => {
+  cy.get('[data-qa="projects-menu"').click();
 });
 
-Cypress.Commands.add('createCollection', () => {
-  cy.get('[data-qa="create-collection"').click();
-  const collectionName = 'Test collection';
-  cy.get('[id="collection-name"]').type(collectionName);
-  cy.get('[data-qa="create-collection-button"]').click();
+Cypress.Commands.add('createProject', () => {
+  cy.log('database', [window.db]);
+  /* cy.get('[data-qa="create-project"').click();
+  const projectName = 'Test project';
+  cy.get('[id="project-name"]').type(projectName);
+  cy.get('[data-qa="create-project-button"]').click(); */
 });
 
 Cypress.Commands.add('openTemplatesMenu', () => {

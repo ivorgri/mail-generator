@@ -55,7 +55,7 @@
           </div>
         </div>
         <!-- Templates -->
-        <div v-if="projectSet.length > 0" class="navbar-item has-dropdown"
+        <div v-if="projectIsSelected" class="navbar-item has-dropdown"
           :class="{ 'is-active': openDropdown.template }"
           @click="toggleDropdown('template')">
           <a class="navbar-link no-select">
@@ -177,7 +177,6 @@ export default {
       'selectedUser',
       'users',
       'selectedProject',
-      'projectSet',
       'selectedTemplate',
       'elementsExist',
     ]),

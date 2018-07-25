@@ -1,15 +1,15 @@
 <template>
   <div id="app" data-qa="app">
-    <loading-database v-if="!databaseCreated"/>
-    <main-menu v-if="databaseCreated"/>
-    <router-view v-if="databaseCreated" :key="$route.fullPath"/>
+    <loading-database v-if="!db"/>
+    <main-menu v-if="db"/>
+    <router-view v-if="db" :key="$route.fullPath"/>
   </div>
 </template>
 
 <script>
-import * as Database from '@/database/database';
 import 'vue-form-generator/dist/vfg.css';
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
+import baseDatabase from '@/mixins/baseDatabase';
 
 const LoadingDatabase = () => import(/* webpackChunkName: "loadingDatabase" */ '@/components/LoadingDatabase.vue');
 const MainMenu = () => import(/* webpackChunkName: "mainMenu" */ '@/components/MainMenu.vue');
@@ -20,38 +20,10 @@ export default {
     LoadingDatabase,
     MainMenu,
   },
-  data() {
-    return {
-      databaseCreated: false,
-      subs: [],
-    };
-  },
-  async mounted() {
-    this.databaseCreated = await Database.default(this.$store);
-    this.subs.push(this.db.users.find().$.subscribe((results) => {
-      this.updateUsers(results);
-    }));
-    this.subs.push(this.db.projects.find().$.subscribe((results) => {
-      this.updateProjects(results);
-    }));
-    this.subs.push(this.db.templates.find().$.subscribe((results) => {
-      this.updateTemplates(results);
-    }));
-    this.subs.push(this.db.elements.find().$.subscribe((results) => {
-      this.updateElements(results);
-    }));
-  },
+  mixins: [baseDatabase],
   computed: {
     ...mapGetters([
       'db',
-    ]),
-  },
-  methods: {
-    ...mapActions([
-      'updateUsers',
-      'updateProjects',
-      'updateTemplates',
-      'updateElements',
     ]),
   },
 };

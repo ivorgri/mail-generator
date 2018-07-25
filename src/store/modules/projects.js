@@ -1,15 +1,13 @@
 /* eslint-disable no-param-reassign, no-shadow */
 
-import { isEmpty } from 'lodash';
-
 const state = {
-  projects: {},
+  projects: [],
   selectedProject: {},
 };
 
 const getters = {
   projects: state => state.projects,
-  projectSet: (state) => {
+  /* projectSet: (state) => {
     if (isEmpty(state.projects)) {
       return [];
     }
@@ -21,7 +19,7 @@ const getters = {
       }
     });
     return projectSet;
-  },
+  }, */
   selectedProject: state => state.selectedProject,
 };
 
@@ -38,29 +36,22 @@ const mutations = {
 };
 
 const actions = {
-  async updateProjects({ commit }, projectDocs) {
+  /* async updateProjects({ commit }, projectDocs) {
     const projects = {};
     projectDocs.forEach((doc) => {
       projects[doc.id] = doc;
     });
     commit('setProjects', projects);
-  },
+  }, */
   async selectProject({ getters, commit, dispatch }, selectedProject) {
     commit('selectProject', selectedProject);
+    const selectedTemplate = getters.templates.filter(template =>
+      template.id === selectedProject.selectedTemplateId)[0];
     try {
-      dispatch('selectTemplate', getters.templates[getters.selectedProject.selectedTemplateId]);
+      dispatch('selectTemplate', selectedTemplate);
     } catch (error) {
       console.log(error);
     }
-
-    /* if (getters.selectedUser !== false) {
-      getters.selectedUser.selectedProjectId = selectedProjectId;
-      try {
-        await getters.selectedUser.save();
-      } catch (error) {
-        console.log(error);
-      }
-    } */
   },
 };
 

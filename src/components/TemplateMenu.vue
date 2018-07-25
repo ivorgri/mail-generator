@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="templateList">
    <p class="menu-label">
       {{ $t('projects') | capitalize }}
     </p>
@@ -19,18 +19,19 @@
     <p class="menu-label no-select">
       {{ $t('templates') | capitalize }}
     </p>
-    <ul v-if="templateSet.length === 0" class="menu-list">
+    <ul v-if="templateList.length === 0" class="menu-list">
       <li class="no-select">
         {{ $t('noTemplates') | capitalize }}
       </li>
     </ul>
     <ul v-else class="menu-list">
       <li
-        v-for="template in templateSet"
+        v-for="template in templateList"
         :key="template.id"
         @click="selectTemplate(template)"
         data-qa="template-items">
-        <a class="no-select" :class="{ 'is-active' : (template.id === selectedTemplate.id) }">
+        <a class="no-select"
+          :class="{ 'is-active' : (template.id === selectedProject.selectedTemplateId) }">
           {{ template.name }}
           <span class="icon is-small">
             <i class="fas fa-angle-right" aria-hidden="true"></i>
@@ -55,10 +56,17 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'templateSet',
+      'templates',
       'selectedProject',
       'selectedTemplate',
     ]),
+    templateList() {
+      if (this.templates) {
+        return this.templates.filter(template => !template.archived &&
+          template.projectId === this.selectedProject.id);
+      }
+      return [];
+    },
     selectedProjectExists() {
       return !this.$lodash.isEmpty(this.selectedProject);
     },

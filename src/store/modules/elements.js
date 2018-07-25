@@ -553,45 +553,36 @@ const state = {
       },
     },
   },
-  elements: {},
+  // elements: {},
+  elements: [],
   selectedElement: {},
 };
 
 const getters = {
   coreElements: state => state.coreElements,
   elements: state => state.elements,
-  elementSet: (state, getters) => {
-    if (isEmpty(state.elements)) {
-      return [];
+  elementList: (state, getters) => {
+    let elementList = [];
+    if (state.elements) {
+      elementList = state.elements.filter(element => !element.archived &&
+        element.templateId === getters.selectedTemplate.id &&
+        (element.coreElementId !== 1 &&
+        element.coreElementId !== 11 &&
+        element.coreElementId !== 12));
     }
-    const elementIds = Object.keys(state.elements);
-    const elementSet = [];
-    elementIds.forEach((elementId) => {
-      if (state.elements[elementId].templateId === getters.selectedTemplate.id &&
-        !state.elements[elementId].archived) {
-        const { coreElementId } = state.elements[elementId];
-        if (coreElementId !== 1 && coreElementId !== 11 && coreElementId !== 12) {
-          elementSet.push(state.elements[elementId]);
-        }
-      }
-    });
-    elementSet.sort((previous, next) => previous.order - next.order);
-    return elementSet;
+    elementList.sort((previous, next) => previous.order - next.order);
+    return elementList;
   },
   elementById: (state, getters) => (coreElementId) => {
     let element = {};
-    const elementIds = Object.keys(state.elements);
-    elementIds.forEach((elementId) => {
-      if (state.elements[elementId].templateId === getters.selectedTemplate.id &&
-        !state.elements[elementId].archived) {
-        if (state.elements[elementId].coreElementId === coreElementId) {
-          element = state.elements[elementId];
-        }
-      }
-    });
+    if (state.elements) {
+      element = state.elements.filter(element => !element.archived &&
+        element.templateId === getters.selectedTemplate.id &&
+        element.coreElementId === coreElementId);
+    }
     return element;
   },
-  elementsExist: (state, getters) => !isEmpty(getters.elementSet) ||
+  elementsExist: (state, getters) => !isEmpty(getters.elementList) ||
       !isEmpty(getters.elementById(1)) ||
       !isEmpty(getters.elementById(11)) ||
       !isEmpty(getters.elementById(12)),

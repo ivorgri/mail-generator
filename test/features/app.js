@@ -3,7 +3,7 @@
 describe('App', () => {
   beforeEach(() => {
     cy.viewport(1366, 768);
-    cy.visitCollections();
+    cy.visitProjects();
   });
 
   it('... should be loaded.', () => {

@@ -3,13 +3,14 @@
 import { isEmpty } from 'lodash';
 
 const state = {
-  templates: {},
+  // templates: {},
+  templates: [],
   selectedTemplate: {},
 };
 
 const getters = {
   templates: state => state.templates,
-  templateSet: (state, getters) => {
+  /* templateSet: (state, getters) => {
     if (isEmpty(state.templates)) {
       return [];
     }
@@ -22,7 +23,7 @@ const getters = {
       }
     });
     return templateSet;
-  },
+  }, */
   selectedTemplate: state => state.selectedTemplate,
 };
 
@@ -39,13 +40,13 @@ const mutations = {
 };
 
 const actions = {
-  async updateTemplates({ commit }, templateDocs) {
+  /* async updateTemplates({ commit }, templateDocs) {
     const templates = {};
     templateDocs.forEach((doc) => {
       templates[doc.id] = doc;
     });
     commit('setTemplates', templates);
-  },
+  }, */
   async selectTemplate({ getters, commit }, selectedTemplate) {
     if (!isEmpty(selectedTemplate)) {
       commit('selectTemplate', selectedTemplate);
