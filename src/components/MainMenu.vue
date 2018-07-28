@@ -61,7 +61,7 @@
           @click="toggleDropdown('template')">
           <a class="navbar-link no-select">
             <span class="icon">
-              <i class="fas fa-folder" aria-hidden="true"></i>
+              <i class="far fa-envelope" aria-hidden="true"></i>
             </span>
             <span data-qa="templates-menu">{{ $t('templates') | capitalize }}</span>
           </a>
@@ -101,7 +101,7 @@
           @click="toggleDropdown('element')">
           <a class="navbar-link no-select">
             <span class="icon">
-              <i class="fas fa-folder" aria-hidden="true"></i>
+              <i class="fas fa-th-list" aria-hidden="true"></i>
             </span>
             <span data-qa="elements-menu">{{ $t('elements') | capitalize }}</span>
           </a>
