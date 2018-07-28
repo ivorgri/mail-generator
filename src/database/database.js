@@ -26,16 +26,10 @@ const collections = [{
   schema: ElementSchema,
 }];
 
-/* window.dbs = window.dbs || [];
-const clearPrev = async () => {
-  await Promise.all(window.dbs.map(db => db.destroy()));
-}; */
-
 let dbPromise = null;
 
 const create = async () => {
   console.log('DatabaseService: Destroying old database..');
-  // await clearPrev();
   await RxDB.removeDatabase('mailgenerator', 'idb');
   console.log('DatabaseService: Creating database..');
   const db = await RxDB.create({
@@ -43,9 +37,7 @@ const create = async () => {
     adapter: 'idb',
     password: 'basicPassword',
   });
-  // window.dbs.push(db);
   console.log('DatabaseService: Created database.');
-  // window['db'] = db;
 
   // Create projects
   console.log('DatabaseService: Creating projects...');
