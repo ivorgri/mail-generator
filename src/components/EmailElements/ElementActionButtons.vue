@@ -54,16 +54,16 @@ export default {
   computed: {
     ...mapGetters([
       'db',
-      'elementSet',
+      'elementList',
     ]),
     lastElement() {
-      return this.element.order === this.elementSet.length;
+      return this.element.order === this.elementList.length;
     },
   },
   methods: {
     async moveElementUp() {
       const movedElement = this.element;
-      const needToMoveElement = this.elementSet[movedElement.order - 2];
+      const needToMoveElement = this.elementList[movedElement.order - 2];
       movedElement.order -= 1;
       needToMoveElement.order += 1;
       try {
@@ -79,7 +79,7 @@ export default {
     },
     async moveElementDown() {
       const movedElement = this.element;
-      const needToMoveElement = this.elementSet[movedElement.order];
+      const needToMoveElement = this.elementList[movedElement.order];
       movedElement.order += 1;
       needToMoveElement.order -= 1;
       try {

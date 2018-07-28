@@ -308,7 +308,7 @@ const generateHtml = {
       if (element) {
         switch (element.coreElementId) {
           // Email Header
-          case 1:
+          case 1: {
             elementHtml = `<!-- Email Header : BEGIN -->
               <tr><td style="padding: 20px 0; text-align: center"><img
                     src="${element.model.imageLink}"
@@ -326,8 +326,9 @@ const generateHtml = {
               </tr>
               <!-- Email Header : END -->`;
             break;
+          }
           // Hero Image
-          case 2:
+          case 2: {
             elementHtml = `<!-- Hero Image, Flush : BEGIN -->
             <tr>
                 <td style="background-color: ${element.model.backgroundColor};">
@@ -350,8 +351,9 @@ const generateHtml = {
             </tr>
             <!-- Hero Image, Flush : END -->`;
             break;
+          }
           // One column text button
-          case 3:
+          case 3: {
             elementHtml = `<!-- 1 Column Text + Button : BEGIN -->
             <tr>
                 <td style="background-color: ${element.model.backgroundColor};">
@@ -392,8 +394,9 @@ const generateHtml = {
             </tr>
             <!-- 1 Column Text + Button : END -->`;
             break;
+          }
           // Background image text
-          case 4:
+          case 4: {
             elementHtml = `<!-- Background Image with Text : BEGIN -->
               <tr>
                   <!-- Bulletproof Background Images c/o https://backgrounds.cm -->
@@ -420,8 +423,9 @@ const generateHtml = {
             </tr>
             <!-- Background Image with Text : END -->`;
             break;
+          }
           // Two even columns
-          case 5:
+          case 5: {
             elementHtml = `<!-- 2 Even Columns : BEGIN -->
             <tr>
                 <td valign="top" style="padding: 10px; background-color: #ffffff;">
@@ -465,8 +469,9 @@ const generateHtml = {
             </tr>
             <!-- 2 Even Columns : END -->`;
             break;
+          }
           // Three even columns
-          case 6:
+          case 6: {
             elementHtml = `<!-- 3 Even Columns : BEGIN -->
             <tr>
                 <td valign="top" style="padding: 10px; background-color: #ffffff;">
@@ -526,8 +531,9 @@ const generateHtml = {
             </tr>
             <!-- 3 Even Columns : END -->`;
             break;
+          }
           // Thumbnail left, text right
-          case 7:
+          case 7: {
             elementHtml = `<!-- Thumbnail Left, Text Right : BEGIN -->
               <tr>
                 <td dir="ltr" valign="top" width="100%" style="padding: 10px; background-color: #ffffff;">
@@ -571,8 +577,9 @@ const generateHtml = {
             </tr>
             <!-- Thumbnail Left, Text Right : END -->`;
             break;
+          }
           // Thumbnail right, text left
-          case 8:
+          case 8: {
             elementHtml = `<!-- Thumbnail Right, Text Left : BEGIN -->
               <tr>
                 <td dir="rtl" valign="top" width="100%" style="padding: 10px; background-color: #ffffff;">
@@ -616,8 +623,9 @@ const generateHtml = {
             </tr>
             <!-- Thumbnail Right, Text Left : END -->`;
             break;
+          }
           // Clear spacer
-          case 9:
+          case 9: {
             elementHtml = `<!-- Clear Spacer : BEGIN -->
               <tr>
                 <td aria-hidden="true" height="${element.model.height}" style="font-size: 0px; line-height: 0px;">
@@ -626,8 +634,9 @@ const generateHtml = {
             </tr>
             <!-- Clear Spacer : END -->`;
             break;
+          }
           // One column text
-          case 10:
+          case 10: {
             elementHtml = `<!-- 1 Column Text : BEGIN -->
               <tr>
                 <td style="background-color: #ffffff;">
@@ -642,8 +651,9 @@ const generateHtml = {
             </tr>
             <!-- 1 Column Text : END -->`;
             break;
+          }
           // Footer
-          case 11:
+          case 11: {
             elementHtml = `<!-- Email Footer : BEGIN -->
               <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="max-width: 600px;">
                 <tr>
@@ -656,8 +666,9 @@ const generateHtml = {
             </table>
             <!-- Email Footer : END -->`;
             break;
+          }
           // Bleed background
-          case 12:
+          case 12: {
             elementHtml = `<!-- Full Bleed Background Section : BEGIN -->
               <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: ${element.model.backgroundColor};">
                 <tr>
@@ -686,8 +697,9 @@ const generateHtml = {
             </table>
             <!-- Full Bleed Background Section : END -->`;
             break;
+          }
           // Custom element
-          case 13:
+          case 13: {
             elementHtml = `<!-- Custom Element : BEGIN -->
               <tr>
                 <td style="background-color: #ffffff;">
@@ -702,8 +714,10 @@ const generateHtml = {
             </tr>
             <!-- Custom Element : END -->`;
             break;
-          default:
+          }
+          default: {
             elementHtml = '';
+          }
         }
       }
       return elementHtml;
