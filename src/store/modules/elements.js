@@ -574,9 +574,9 @@ const getters = {
     return elementList;
   },
   elementById: (state, getters) => (coreElementId) => {
-    let element = {};
+    let element;
     if (state.elements) {
-      element = state.elements.filter(element => !element.archived &&
+      [element] = state.elements.filter(element => !element.archived &&
         element.templateId === getters.selectedTemplate.id &&
         element.coreElementId === coreElementId);
     }

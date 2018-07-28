@@ -108,7 +108,7 @@ export default {
       'selectedTemplate',
       'coreElements',
       'elementById',
-      'elementSet',
+      'elementList',
     ]),
     selectedElements() {
       const modelKeys = Object.keys(this.model);
@@ -147,7 +147,7 @@ export default {
     },
     async addSelectedElements() {
       this.submitting = true;
-      let newElementIndex = this.elementSet.length;
+      let newElementIndex = this.elementList.length;
       this.selectedElements.forEach(async (coreElementId) => {
         const coreElement = this.coreElements[coreElementId];
         let newOrder;
