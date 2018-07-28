@@ -125,6 +125,8 @@ const messages = {
     'buttonTextColor': '@:button text @:color',
     'buttonColor': '@:button @:color',
     'webversionColor': 'webversion link @:color',
+    'webversionText': 'webversion link text',
+    'unsubscribeText': 'unsubscribe text',
     'htmlContent': 'HTML @:content',
     /* Field label placeholder translations */
     'imageLinkPlaceholder': 'add link to @:image here',
@@ -145,6 +147,8 @@ const messages = {
     'buttonTextColorPlaceholder': 'add @:button text @:color',
     'buttonColorPlaceholder': 'add @:button @:color',
     'webversionColorPlaceholder': 'add webversion link @:color',
+    'webversionTextPlaceholder': 'add webversion link text',
+    'unsubscribeTextPlaceholder': 'add unsubscribe text',
     'htmlContentPlaceholder': 'add HTML @:content',
   },
   nl: {
@@ -260,6 +264,8 @@ const messages = {
     'buttonTextColor': '@:button tekst@:color',
     'buttonColor': '@:button @:color',
     'webversionColor': 'webversion link @:color',
+    'webversionText': 'webversion link tekst',
+    'unsubscribeText': 'uitschrijf tekst',
     'htmlContent': 'HTML @:content',
     /* Field label placeholder translations */
     'imageLinkPlaceholder': 'voeg link naar @:image toe',
@@ -280,6 +286,8 @@ const messages = {
     'buttonTextColorPlaceholder': 'voeg @:button tekst@:color toe',
     'buttonColorPlaceholder': 'voeg @:button @:color toe',
     'webversionColorPlaceholder': 'voeg webversion link @:color toe',
+    'webversionTextPlaceholder': 'voeg webversion link tekst toe',
+    'unsubscribeTextPlaceholder': 'voeg uitschrijf tekst toe',
     'htmlContentPlaceholder': 'voeg HTML @:content toe',
   },
   /* eslint-enable */

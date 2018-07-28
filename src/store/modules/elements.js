@@ -104,11 +104,13 @@ const state = {
           label: 'content',
           model: 'content',
           placeholder: 'contentPlaceholder',
+          rows: 5,
         }, {
           type: 'textArea',
           label: 'list',
           model: 'list',
           placeholder: 'listPlaceholder',
+          rows: 5,
         }, {
           type: 'input',
           inputType: 'text',
@@ -162,6 +164,7 @@ const state = {
           label: 'content',
           model: 'content',
           placeholder: 'contentPlaceholder',
+          rows: 5,
         }],
       },
     },
@@ -194,6 +197,7 @@ const state = {
           label: 'content',
           model: 'content',
           placeholder: 'contentPlaceholder',
+          rows: 5,
         }, {
           type: 'input',
           inputType: 'text',
@@ -211,6 +215,7 @@ const state = {
           label: 'content2',
           model: 'content2',
           placeholder: 'content2Placeholder',
+          rows: 5,
         }],
       },
     },
@@ -246,6 +251,7 @@ const state = {
           label: 'content',
           model: 'content',
           placeholder: 'contentPlaceholder',
+          rows: 5,
         }, {
           type: 'input',
           inputType: 'text',
@@ -263,6 +269,7 @@ const state = {
           label: 'content2',
           model: 'content2',
           placeholder: 'content2Placeholder',
+          rows: 5,
         }, {
           type: 'input',
           inputType: 'text',
@@ -280,6 +287,7 @@ const state = {
           label: 'content3',
           model: 'content3',
           placeholder: 'content3Placeholder',
+          rows: 5,
         }],
       },
     },
@@ -334,6 +342,7 @@ const state = {
           label: 'content',
           model: 'content',
           placeholder: 'contentPlaceholder',
+          rows: 5,
         }, {
           type: 'input',
           inputType: 'text',
@@ -412,6 +421,7 @@ const state = {
           label: 'content',
           model: 'content',
           placeholder: 'contentPlaceholder',
+          rows: 5,
         }, {
           type: 'input',
           inputType: 'text',
@@ -475,6 +485,7 @@ const state = {
           label: 'content',
           model: 'content',
           placeholder: 'contentPlaceholder',
+          rows: 5,
         }],
       },
     },
@@ -484,6 +495,11 @@ const state = {
       model: {
         textColor: '#888888',
         webversionColor: '#cccccc',
+        webversionText: 'View as a webpage',
+        content: `<br><br>
+        Company Name<br><span class="unstyle-auto-detected-links">123 Fake Street, SpringField, OR, 97477 US<br>(123) 456-7890</span>
+        <br><br>`,
+        unsubscribeText: 'unsubscribe',
       },
       schema: {
         fields: [{
@@ -498,6 +514,24 @@ const state = {
           label: 'webversionColor',
           model: 'webversionColor',
           placeholder: 'webversionColorPlaceholder',
+        }, {
+          type: 'input',
+          inputType: 'text',
+          label: 'webversionText',
+          model: 'webversionText',
+          placeholder: 'webversionTextPlaceholder',
+        }, {
+          type: 'input',
+          inputType: 'text',
+          label: 'unsubscribeText',
+          model: 'unsubscribeText',
+          placeholder: 'unsubscribeTextPlaceholder',
+        }, {
+          type: 'textArea',
+          label: 'content',
+          model: 'content',
+          placeholder: 'contentPlaceholder',
+          rows: 5,
         }],
       },
     },
@@ -515,6 +549,7 @@ const state = {
           label: 'content',
           model: 'content',
           placeholder: 'contentPlaceholder',
+          rows: 5,
         }, {
           type: 'input',
           inputType: 'text',
@@ -549,6 +584,7 @@ const state = {
           label: 'htmlContent',
           model: 'htmlContent',
           placeholder: 'htmlContentPlaceholder',
+          rows: 10,
         }],
       },
     },

@@ -34,9 +34,9 @@ const clearPrev = async () => {
 let dbPromise = null;
 
 const create = async () => {
-  // console.log('DatabaseService: Destroying old database..');
+  console.log('DatabaseService: Destroying old database..');
   // await clearPrev();
-  // await RxDB.removeDatabase('mailgenerator', 'idb');
+  await RxDB.removeDatabase('mailgenerator', 'idb');
   console.log('DatabaseService: Creating database..');
   const db = await RxDB.create({
     name: 'mailgenerator',

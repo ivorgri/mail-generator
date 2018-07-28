@@ -19,14 +19,12 @@
         <a style="text-decoration: underline;
           font-weight: bold;"
           :style="{ color: getValueByName('webversionColor') }">
-          View as a Web Page
+          {{ getValueByName('webversionText') }}
         </a>
-        <br><br>
-        Company Name<br>123 Fake Street, SpringField, OR, 97477 US<br>(123) 456-7890
-        <br><br>
+        <div v-html="getValueByName('content')"></div>
         <a style="text-decoration: underline;"
           :style="{ color: getValueByName('textColor') }">
-          unsubscribe
+          {{ getValueByName('unsubscribeText') }}
         </a>
       </td>
       <!-- Element actions: BEGIN -->

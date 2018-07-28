@@ -69,6 +69,12 @@ const ElementSchema = {
         webversionColor: {
           type: 'string',
         },
+        webversionText: {
+          type: 'string',
+        },
+        unsubscribeText: {
+          type: 'string',
+        },
         buttonLink: {
           type: 'string',
         },
