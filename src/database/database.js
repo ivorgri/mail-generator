@@ -30,6 +30,10 @@ let dbPromise = null;
 
 const create = async () => {
   console.log('DatabaseService: Destroying old database..');
+  // Only perform when performing E2E test
+  /* if (window.Cypress) {
+    await RxDB.removeDatabase('mailgenerator', 'idb');
+  } */
   await RxDB.removeDatabase('mailgenerator', 'idb');
   console.log('DatabaseService: Creating database..');
   const db = await RxDB.create({
