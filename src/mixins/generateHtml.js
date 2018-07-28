@@ -658,8 +658,8 @@ const generateHtml = {
               <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="max-width: 600px;">
                 <tr>
                     <td style="padding: 20px; font-family: sans-serif; font-size: 12px; line-height: 15px; text-align: center; color: ${element.model.textColor};">
-                        <webversion style="color: ${element.model.webversionColor}; text-decoration: underline; font-weight: bold;">${element.model.webversionTe}</webversion>
-                        ${element.model.content}xt
+                        <webversion style="color: ${element.model.webversionColor}; text-decoration: underline; font-weight: bold;">${element.model.webversionText}</webversion>
+                        ${element.model.content}
                         <unsubscribe style="color: ${element.model.textColor}; text-decoration: underline;">${element.model.unsubscribeText}</unsubscribe>
                     </td>
                 </tr>
