@@ -46,6 +46,7 @@ export default {
         description: '',
         backgroundColor: '#222222',
         inboxPreview: '',
+        emailTitle: '',
       }),
     },
     action: {
