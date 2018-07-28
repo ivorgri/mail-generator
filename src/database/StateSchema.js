@@ -9,15 +9,11 @@ const StateSchema = {
       primary: true,
       default: 'current',
     },
-    selectedUserId: {
+    locale: {
       type: 'string',
-      default: '',
+      default: 'en',
     },
-    selectedCollectionId: {
-      type: 'string',
-      default: '',
-    },
-    selectedTemplateId: {
+    selectedProjectId: {
       type: 'string',
       default: '',
     },

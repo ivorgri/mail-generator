@@ -18,6 +18,11 @@ const messages = {
     'button': 'button',
     'image': 'image',
     'height': 'height',
+    'initializingDatabase': 'initializing database',
+    'loadingProjects': 'loading @:projects from database',
+    'loadingTemplates': 'loading @:templates from database',
+    'loadingElements': 'loading @:elements from database',
+    'loadingState': 'loading interface state from database',
     /* UserView */
     'anonymous': 'anonymous',
     'user': 'user',
@@ -155,6 +160,11 @@ const messages = {
     'button': 'knop',
     'image': 'afbeelding',
     'height': 'hoogte',
+    'initializingDatabase': 'database initialiseren',
+    'loadingProjects': '@:projects uit de database aan het ophalen',
+    'loadingTemplates': '@:templates uit de database aan het ophalen',
+    'loadingElements': '@:elements uit de database aan het ophalen',
+    'loadingState': 'interface staat uit de database aan het ophalen',
     /* UserView */
     'anonymous': 'anoniem',
     'user': 'gebruiker',
@@ -275,8 +285,10 @@ const messages = {
   /* eslint-enable */
 };
 
+const userLocale = navigator.language || navigator.userLanguage;
+
 export default new VueI18n({
-  locale: 'nl',
+  locale: userLocale,
   messages,
   fallbackLocale: 'en',
   silentTranslationWarn: true,

@@ -32,7 +32,7 @@
         <router-link :to="{ name: 'ElementsArchive', params:
             { elementId: element.id, element }}"
             class="button" data-qa="archive-element">
-            <span class="icon is-small">
+          <span class="icon is-small">
             <i class="fas fa-times-circle"></i>
           </span>
         </router-link>

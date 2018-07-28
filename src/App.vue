@@ -1,8 +1,12 @@
 <template>
   <div id="app" data-qa="app">
-    <loading-database v-if="!db"/>
-    <main-menu v-if="db"/>
-    <router-view v-if="db" :key="$route.fullPath"/>
+    <loading-database v-if="databaseIsLoading"
+      :loadingProjects="loadingProjects"
+      :loadingTemplates="loadingTemplates"
+      :loadingElements="loadingElements"
+      :loadingState="loadingState"/>
+    <main-menu v-if="!databaseIsLoading"/>
+    <router-view v-if="!databaseIsLoading" :key="$route.fullPath"/>
   </div>
 </template>
 

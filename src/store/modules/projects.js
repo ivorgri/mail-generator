@@ -1,5 +1,7 @@
 /* eslint-disable no-param-reassign, no-shadow */
 
+import { isEmpty } from 'lodash';
+
 const state = {
   projects: [],
   selectedProject: {},
@@ -7,20 +9,15 @@ const state = {
 
 const getters = {
   projects: state => state.projects,
-  /* projectSet: (state) => {
-    if (isEmpty(state.projects)) {
-      return [];
-    }
-    const projectIds = Object.keys(state.projects);
-    const projectSet = [];
-    projectIds.forEach((projectId) => {
-      if (!state.projects[projectId].archived) {
-        projectSet.push(state.projects[projectId]);
-      }
-    });
-    return projectSet;
-  }, */
   selectedProject: state => state.selectedProject,
+  projectById: state => (projectId) => {
+    let project;
+    if (state.projects.length > 0) {
+      [project] = state.projects.filter(project => !project.archived &&
+        project.id === projectId);
+    }
+    return project;
+  },
 };
 
 const mutations = {
@@ -36,21 +33,25 @@ const mutations = {
 };
 
 const actions = {
-  /* async updateProjects({ commit }, projectDocs) {
-    const projects = {};
-    projectDocs.forEach((doc) => {
-      projects[doc.id] = doc;
-    });
-    commit('setProjects', projects);
-  }, */
   async selectProject({ getters, commit, dispatch }, selectedProject) {
-    commit('selectProject', selectedProject);
-    const selectedTemplate = getters.templates.filter(template =>
-      template.id === selectedProject.selectedTemplateId)[0];
-    try {
-      dispatch('selectTemplate', selectedTemplate);
-    } catch (error) {
-      console.log(error);
+    if (!isEmpty(selectedProject)) {
+      commit('selectProject', selectedProject);
+      if (selectedProject.selectedTemplateId !== '') {
+        const selectedTemplate = getters.templates.filter(template =>
+          template.id === selectedProject.selectedTemplateId)[0];
+        try {
+          await dispatch('selectTemplate', selectedTemplate);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
+      getters.interfaceState.selectedProjectId = selectedProject.id;
+      try {
+        await dispatch('updateInterfaceState');
+      } catch (error) {
+        console.log(error);
+      }
     }
   },
 };

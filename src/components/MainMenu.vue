@@ -179,7 +179,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex';
+import { mapGetters, mapMutations, mapActions } from 'vuex';
 
 export default {
   name: 'MainMenu',
@@ -202,6 +202,7 @@ export default {
       'selectedProject',
       'selectedTemplate',
       'elementsExist',
+      'interfaceState',
     ]),
     usersExist() {
       return !this.$lodash.isEmpty(this.users);
@@ -227,8 +228,13 @@ export default {
     ...mapMutations([
       'clearSelectedUser',
     ]),
-    switchToLanguage(locale) {
+    ...mapActions([
+      'updateInterfaceState',
+    ]),
+    async switchToLanguage(locale) {
       this.$i18n.locale = locale;
+      this.interfaceState.locale = locale;
+      this.updateInterfaceState();
     },
     logout() {
       this.clearSelectedUser();

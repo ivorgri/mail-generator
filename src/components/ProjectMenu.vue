@@ -28,11 +28,9 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import baseDatabase from '@/mixins/baseDatabase';
 
 export default {
   name: 'ProjectMenu',
-  mixins: [baseDatabase],
   computed: {
     ...mapGetters([
       'selectedProject',

@@ -26,16 +26,16 @@ const collections = [{
   schema: ElementSchema,
 }];
 
-window.dbs = window.dbs || [];
+/* window.dbs = window.dbs || [];
 const clearPrev = async () => {
   await Promise.all(window.dbs.map(db => db.destroy()));
-};
+}; */
 
 let dbPromise = null;
 
 const create = async () => {
-  console.log('DatabaseService: Destroying old database..');
-  await clearPrev();
+  // console.log('DatabaseService: Destroying old database..');
+  // await clearPrev();
   // await RxDB.removeDatabase('mailgenerator', 'idb');
   console.log('DatabaseService: Creating database..');
   const db = await RxDB.create({
@@ -43,23 +43,17 @@ const create = async () => {
     adapter: 'idb',
     password: 'basicPassword',
   });
-  window.dbs.push(db);
+  // window.dbs.push(db);
   console.log('DatabaseService: Created database.');
-  window['db'] = db;
+  // window['db'] = db;
 
   // Create projects
   console.log('DatabaseService: Creating projects...');
-  await Promise.all(collections.map(colData => db.collection(colData)));
-
-  // Set initial state
-  // console.log('DatabaseService: Setting initial state.');
-  /* const stateCollection = store.getters.db.state;
-  await stateCollection.upsert({
-    state: 'current',
-    selectedUserId: '',
-    selectedCollectionId: '',
-    selectedTemplateId: '',
-  }); */
+  try {
+    await Promise.all(collections.map(colData => db.collection(colData)));
+  } catch (error) {
+    console.log(error);
+  }
 
   return db;
 };
