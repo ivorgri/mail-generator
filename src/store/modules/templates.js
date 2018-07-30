@@ -55,7 +55,7 @@ const actions = {
         try {
           await getters.selectedProject.save();
         } catch (error) {
-          console.log(error);
+          getters.addError({ message: error, class: 'is-danger' });
         }
       }
     } else {
@@ -69,7 +69,7 @@ const actions = {
       try {
         await getters.selectedProject.save();
       } catch (error) {
-        console.log(error);
+        getters.addError({ message: error, class: 'is-danger' });
       }
     }
   },

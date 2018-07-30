@@ -14,7 +14,7 @@ describe('App', () => {
     cy.get('[data-qa="app"]').should('be.visible');
   });
 
-  it('... should show database loading on initial setup.', () => {
+  it('... should show database loading on setup.', () => {
     cy.get('[data-qa="init-database"]').should('be.visible');
   });
 

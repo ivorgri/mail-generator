@@ -42,7 +42,7 @@ const actions = {
         try {
           await dispatch('selectTemplate', selectedTemplate);
         } catch (error) {
-          console.log(error);
+          getters.addError({ message: error, class: 'is-danger' });
         }
       }
 
@@ -50,7 +50,7 @@ const actions = {
       try {
         await dispatch('updateInterfaceState');
       } catch (error) {
-        console.log(error);
+        getters.addError({ message: error, class: 'is-danger' });
       }
     }
   },

@@ -1,12 +1,36 @@
+import * as Database from '@/database/database';
+
 Cypress.Commands.add('vuex', () => {
   cy.window().its('app.$store');
 });
 
-Cypress.Commands.add('db', () => {
-  cy.window().its('app.$store').its('getters').its('db');
+Cypress.Commands.add('createDatabase', () => {
+  // cy.window().its('app.$store').its('getters').its('db');
+  function createDatabase(){
+    return new Cypress.promise((resolve, reject) => {
+      resolve(Database.default());
+  }
+  cy.vuex().then(store => {
+    const db = new Cypress.promise(Database.default();
+    } catch (error) {
+      console.log(error);
+    }
+    store.commit('setDB',db);
+    const project = {
+      name: 'Test',
+      description: 'Test',
+      id = `${new Date().toJSON()}test`,
+      createTime = new Date().toJSON(),
+    };
+    try {
+      await this.db.projects.upsert(project);
+    } catch (error) {
+      console.log(error);
+    }
+  });
 });
 
-Cypress.Commands.add('emptyDatabase', () => {
+Cypress.Commands.add('clearDatabase', () => {
   cy.db().then(($db) => {
     cy.log($db);
     // $db.projects.remove();

@@ -3,8 +3,9 @@
 describe('Projects', () => {
   beforeEach(() => {
     cy.viewport(1366, 768);
+    cy.createDatabase();
     cy.visitProjects();
-    cy.emptyDatabase();
+    // cy.emptyDatabase();
   });
 
   it('... should have a projects menu item.', () => {
@@ -21,7 +22,7 @@ describe('Projects', () => {
     cy.get('[data-qa="create-project"]').should('be.visible');
   });
 
-  it('... should create a project when clicking create project menu item and open templates.', () => {
+  /*it('... should create a project when clicking create project menu item and open templates.', () => {
     cy.openProjectsMenu();
     cy.get('[data-qa="create-project"').click();
     cy.url().should('eq', 'http://localhost:8080/#/project/create');
@@ -36,12 +37,12 @@ describe('Projects', () => {
       const text = $li.text().trim();
       expect(text).to.equal(projectName);
     });
-  });
+  }); */
 
   it('... should have a "update project" menu item when a project exists.', () => {
     cy.openProjectsMenu();
-    cy.createProject();
-    cy.openProjectsMenu();
+    // cy.createProject();
+    // cy.openProjectsMenu();
     cy.get('[data-qa="update-project"]').should('be.visible');
   });
 

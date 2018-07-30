@@ -28,12 +28,13 @@
 import VueFormGenerator from 'vue-form-generator';
 import { mapGetters, mapActions } from 'vuex';
 import baseButtonState from '@/mixins/baseButtonState';
+import errorHandling from '@/mixins/errorHandling';
 
 const BaseMain = () => import(/* webpackChunkName: "base" */ '@/components/BaseMain.vue');
 
 export default {
   name: 'Template',
-  mixins: [baseButtonState],
+  mixins: [baseButtonState, errorHandling],
   components: {
     'vue-form-generator': VueFormGenerator.component,
     BaseMain,
@@ -152,17 +153,19 @@ export default {
       try {
         templateDoc = await this.db.templates.upsert(template);
       } catch (error) {
-        console.log(error);
+        this.addError({ message: error, class: 'is-danger' });
       }
-      this.selectTemplate(templateDoc);
       this.submitting = false;
-      this.$router.push({ name: 'templates' });
+      if (!this.$lodash.isEmpty(templateDoc)) {
+        this.selectTemplate(templateDoc);
+        this.$router.push({ name: 'templates' });
+      }
     },
     async updateTemplate() {
       try {
         await this.template.save();
       } catch (error) {
-        console.log(error);
+        this.addError({ message: error, class: 'is-danger' });
       }
       this.submitting = false;
       this.$router.push({ name: 'templates' });

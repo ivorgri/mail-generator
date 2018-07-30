@@ -23,6 +23,7 @@
 <script>
 import { mapMutations } from 'vuex';
 import baseButtonState from '@/mixins/baseButtonState';
+import errorHandling from '@/mixins/errorHandling';
 
 const BaseLayout = () => import(/* webpackChunkName: "base" */ '@/components/BaseLayout.vue');
 const BaseMain = () => import(/* webpackChunkName: "base" */ '@/components/BaseMain.vue');
@@ -40,7 +41,7 @@ export default {
     BaseMain,
     ProjectMenu,
   },
-  mixins: [baseButtonState],
+  mixins: [baseButtonState, errorHandling],
   methods: {
     ...mapMutations([
       'clearSelectedProject',
@@ -64,7 +65,7 @@ export default {
       try {
         await this.project.save();
       } catch (error) {
-        console.log(error);
+        this.addError({ message: error, class: 'is-danger' });
       }
       this.clearSelectedProject();
       this.clearSelectedTemplate();

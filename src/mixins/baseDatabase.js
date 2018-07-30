@@ -1,7 +1,9 @@
 import * as Database from '@/database/database';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
+import errorHandling from '@/mixins/errorHandling';
 
 const baseDatabase = {
+  mixins: [errorHandling],
   data() {
     return {
       loadingProjects: true,
@@ -16,7 +18,7 @@ const baseDatabase = {
     try {
       db = await Database.default();
     } catch (error) {
-      console.log(error);
+      this.addError({ message: error, class: 'is-danger' });
     }
     this.setDB(db);
     this.subs.push(this.db.projects.find().$.subscribe((results) => {
@@ -67,7 +69,7 @@ const baseDatabase = {
       try {
         interfaceState = await this.db.state.findOne('current').exec().then(doc => doc);
       } catch (error) {
-        console.log(error);
+        this.addError({ message: error, class: 'is-danger' });
       }
       if (interfaceState) {
         this.$i18n.locale = interfaceState.locale;
@@ -77,7 +79,7 @@ const baseDatabase = {
           try {
             await this.selectProject(project);
           } catch (error) {
-            console.log(error);
+            this.addError({ message: error, class: 'is-danger' });
           }
         }
       } else {

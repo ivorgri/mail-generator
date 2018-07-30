@@ -2,15 +2,23 @@
 
 const state = {
   interfaceState: {},
+  errors: [],
 };
 
 const getters = {
   interfaceState: state => state.interfaceState,
+  errors: state => state.errors,
 };
 
 const mutations = {
   setInterfaceState(state, interfaceState) {
     state.interfaceState = interfaceState;
+  },
+  addError(state, error) {
+    state.errors.push(error);
+  },
+  removeError(state, errorIndex) {
+    state.errors.splice(errorIndex, 1);
   },
 };
 
@@ -25,7 +33,7 @@ const actions = {
     try {
       interfaceStateDoc = await getters.db.state.upsert(currentState);
     } catch (error) {
-      console.log(error);
+      getters.addError({ message: error, class: 'is-danger' });
     }
     commit('setInterfaceState', interfaceStateDoc);
   },
@@ -33,7 +41,7 @@ const actions = {
     try {
       await getters.interfaceState.save();
     } catch (error) {
-      console.log(error);
+      getters.addError({ message: error, class: 'is-danger' });
     }
   },
 };

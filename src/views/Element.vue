@@ -29,10 +29,11 @@ import VueFormGenerator from 'vue-form-generator';
 import { mapGetters } from 'vuex';
 import { capitalize, isEmpty } from 'lodash';
 import baseButtonState from '@/mixins/baseButtonState';
+import errorHandling from '@/mixins/errorHandling';
 
 export default {
   name: 'Element',
-  mixins: [baseButtonState],
+  mixins: [baseButtonState, errorHandling],
   components: {
     'vue-form-generator': VueFormGenerator.component,
   },
@@ -167,7 +168,7 @@ export default {
         try {
           await this.db.elements.upsert(element);
         } catch (error) {
-          console.log(error);
+          this.addError({ message: error, class: 'is-danger' });
         }
       });
       this.submitting = false;
@@ -178,7 +179,7 @@ export default {
       try {
         await this.element.save();
       } catch (error) {
-        console.log(error);
+        this.addError({ message: error, class: 'is-danger' });
       }
       this.submitting = false;
       this.$router.push({ name: 'templates' });

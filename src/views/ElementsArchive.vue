@@ -30,6 +30,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import baseButtonState from '@/mixins/baseButtonState';
+import errorHandling from '@/mixins/errorHandling';
 
 const BaseLayout = () => import(/* webpackChunkName: "base" */ '@/components/BaseLayout.vue');
 const TemplateMenu = () => import(/* webpackChunkName: "template" */ '@/components/TemplateMenu.vue');
@@ -37,7 +38,7 @@ const Elements = () => import(/* webpackChunkName: "elements" */ '@/views/Elemen
 
 export default {
   name: 'ElementsArchive',
-  mixins: [baseButtonState],
+  mixins: [baseButtonState, errorHandling],
   props: {
     element: {
       type: Object,
@@ -72,7 +73,7 @@ export default {
       try {
         await this.element.save();
       } catch (error) {
-        console.log(error);
+        this.addError({ message: error, class: 'is-danger' });
       }
       this.submitting = false;
       this.$router.push({ name: 'templates' });

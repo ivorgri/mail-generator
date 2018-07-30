@@ -43,6 +43,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import errorHandling from '@/mixins/errorHandling';
 
 export default {
   name: 'ElementActionButtons',
@@ -51,6 +52,7 @@ export default {
       type: Object,
     },
   },
+  mixins: [errorHandling],
   computed: {
     ...mapGetters([
       'db',
@@ -69,12 +71,12 @@ export default {
       try {
         await movedElement.save();
       } catch (error) {
-        console.log(error);
+        this.addError({ message: error, class: 'is-danger' });
       }
       try {
         await needToMoveElement.save();
       } catch (error) {
-        console.log(error);
+        this.addError({ message: error, class: 'is-danger' });
       }
     },
     async moveElementDown() {
@@ -85,12 +87,12 @@ export default {
       try {
         await movedElement.save();
       } catch (error) {
-        console.log(error);
+        this.addError({ message: error, class: 'is-danger' });
       }
       try {
         await needToMoveElement.save();
       } catch (error) {
-        console.log(error);
+        this.addError({ message: error, class: 'is-danger' });
       }
     },
   },
